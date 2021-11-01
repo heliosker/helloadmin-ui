@@ -1,22 +1,28 @@
 <template>
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
-      <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger"/>
+      <!-- <div class="user-layout-lang">
+        <select-lang class="select-lang-trigger" />
+      </div> -->
+      <div class="user-layout-right">
+        <img src="~@/assets/logo.png" alt="" />
+        <div class="desc">{{ $t('user.login.system') }}</div>
+        <div class="more">了解更多</div>
+        <div class="footer">Copyright &copy;&nbsp;2021 HelloAdmin 技术团队出品</div>
       </div>
       <div class="user-layout-content">
         <div class="top">
           <div class="header">
             <a href="/">
-              <img src="~@/assets/icons/logo.svg" class="logo" alt="logo" />
-              <span class="title">Ant Design</span>
+              <!-- <img src="~@/assets/icons/logo.svg" class="logo" alt="logo" /> -->
+              <span class="title">HelloAdmin</span>
             </a>
           </div>
-          <div class="desc">{{ $t('layouts.userLayout.title') }}</div>
+          <div class="desc"></div>
         </div>
 
         <router-view />
-
+        <!--
         <div class="footer">
           <div class="links">
             <a href="_self">帮助</a>
@@ -24,52 +30,46 @@
             <a href="_self">条款</a>
           </div>
           <div class="copyright">Copyright &copy;&nbsp;2021 Ones</div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import SelectLang from '@/components/SelectLang';
-import { isMobile } from '@/utils/device';
-import { onMounted, onBeforeUnmount, defineComponent } from 'vue';
+import SelectLang from '@/components/SelectLang'
+import { isMobile } from '@/utils/device'
+import { onMounted, onBeforeUnmount, defineComponent } from 'vue'
 
 export default defineComponent({
   components: {
-    SelectLang,
+    SelectLang
   },
   setup() {
     onMounted(() => {
-      document.body.classList.add('userLayout');
-    });
+      document.body.classList.add('userLayout')
+    })
     onBeforeUnmount(() => {
-      document.body.classList.remove('userLayout');
-    });
+      document.body.classList.remove('userLayout')
+    })
 
     return {
-      isMobile,
-    };
-  },
-});
+      isMobile
+    }
+  }
+})
 </script>
 
 <style lang="less" scoped>
+@import '@/style/index.less';
 #userLayout.user-layout-wrapper {
   height: 100%;
-
-  &.mobile {
-    .container {
-      .main {
-        max-width: 368px;
-        width: 98% !important;
-      }
-    }
-  }
+  padding-top: 15%;
 
   .container {
-    width: 100%;
-    min-height: 100%;
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
     background: #f0f2f5 url(../assets/background.svg) no-repeat 50%;
     background-size: 100%;
     //padding: 50px 0 84px;
@@ -92,13 +92,63 @@ export default defineComponent({
         vertical-align: middle;
       }
     }
-
+    .user-layout-right {
+      width: calc(100% - 500px);
+      display: inline-block;
+      height: 100%;
+      padding: 20px 20px 20px 100px;
+      background: url(../assets/right_background.png) no-repeat;
+      background-size: 100% 100%;
+      position: relative;
+      z-index: 2;
+      img {
+        width: 80px;
+      }
+      .desc {
+        padding-top: 160px;
+        color: #fff;
+      }
+      .footer {
+        position: absolute;
+        bottom: 18px;
+        text-align: center;
+        color: #fff;
+      }
+      .more {
+        background: #fff;
+        color: #3a62d7;
+        width: 145px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 20px;
+        margin-top: 80px;
+        cursor: pointer;
+        &:hover {
+          color: @primary-color;
+        }
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -3;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(58, 98, 215, 0.5);
+      }
+    }
     .user-layout-content {
       padding: 32px 0 24px;
-
+      display: inline-block;
+      vertical-align: top;
+      background: #fff;
+      box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
+      width: 500px;
+      height: 100%;
       .top {
         text-align: center;
-
         .header {
           height: 44px;
           line-height: 44px;
@@ -127,6 +177,7 @@ export default defineComponent({
             font-weight: 600;
             position: relative;
             top: 2px;
+            font-family: unset;
           }
         }
         .desc {
@@ -145,32 +196,49 @@ export default defineComponent({
 
       .footer {
         // position: absolute;
-        width: 100%;
-        bottom: 0;
-        padding: 0 16px;
-        margin: 48px 0 24px;
+        // width: 100%;
+        // bottom: 0;
+        // padding: 0 16px;
+        // margin: 48px 0 24px;
         text-align: center;
-
-        .links {
-          margin-bottom: 8px;
-          font-size: 14px;
-          a {
-            color: rgba(0, 0, 0, 0.45);
-            transition: all 0.3s;
-            &:not(:last-child) {
-              margin-right: 40px;
-            }
-          }
-        }
-        .copyright {
-          color: rgba(0, 0, 0, 0.45);
-          font-size: 14px;
-        }
+        color: #fff;
+        // .links {
+        //   margin-bottom: 8px;
+        //   font-size: 14px;
+        //   a {
+        //     color: rgba(0, 0, 0, 0.45);
+        //     transition: all 0.3s;
+        //     &:not(:last-child) {
+        //       margin-right: 40px;
+        //     }
+        //   }
+        // }
+        // .copyright {
+        //   color: rgba(0, 0, 0, 0.45);
+        //   font-size: 14px;
+        // }
       }
     }
 
     a {
       text-decoration: none;
+    }
+  }
+  &.mobile {
+    padding: 0px;
+    .container {
+      width: 100%;
+      height: 100%;
+      .main {
+        max-width: 368px;
+        width: 98% !important;
+      }
+      .user-layout-right {
+        display: none;
+      }
+      .user-layout-content {
+        box-shadow: none;
+      }
     }
   }
 }

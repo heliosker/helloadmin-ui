@@ -23,7 +23,7 @@
               v-model:value="formRef.username"
             >
               <template #prefix>
-                <UserOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
+                <UserOutlined class="login-icon" />
               </template>
             </a-input>
           </a-form-item>
@@ -35,13 +35,13 @@
               v-model:value="formRef.password"
             >
               <template #prefix>
-                <LockOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
+                <LockOutlined class="login-icon" />
               </template>
             </a-input-password>
           </a-form-item>
         </a-tab-pane>
         <!-- 手机号登录 -->
-        <a-tab-pane key="tab2" :tab="$t('user.login.tab-login-mobile')">
+        <!-- <a-tab-pane key="tab2" :tab="$t('user.login.tab-login-mobile')">
           <a-form-item v-bind="validateInfos.mobile">
             <a-input
               size="large"
@@ -80,20 +80,19 @@
               </a-button>
             </a-col>
           </a-row>
-        </a-tab-pane>
+        </a-tab-pane> -->
       </a-tabs>
 
       <a-form-item v-bind="validateInfos.rememberMe">
-        <a-checkbox v-model:checked="formRef.rememberMe" style="float:left">
-          {{
-          $t("user.login.remember-me")
-          }}
+        <a-checkbox v-model:checked="formRef.rememberMe" style="float: left">
+          {{ $t('user.login.remember-me') }}
         </a-checkbox>
         <router-link
           :to="{ name: 'recover', params: { user: 'aaa' } }"
           class="forge-password"
           style="float: right"
-        >{{ $t("user.login.forgot-password") }}</router-link>
+          >{{ $t('user.login.forgot-password') }}</router-link
+        >
       </a-form-item>
 
       <a-form-item style="margin-top: 24px">
@@ -104,11 +103,12 @@
           class="login-button"
           :loading="state.loginBtn"
           :disabled="state.loginBtn"
-        >{{ $t("user.login.login") }}</a-button>
+          >{{ $t('user.login.login') }}</a-button
+        >
       </a-form-item>
 
-      <div class="user-login-other">
-        <span>{{ $t("user.login.sign-in-with") }}</span>
+      <!-- <div class="user-login-other">
+        <span>{{ $t('user.login.sign-in-with') }}</span>
         <a>
           <AlipayCircleOutlined />
         </a>
@@ -119,11 +119,9 @@
           <WeiboCircleOutlined />
         </a>
         <router-link class="register" :to="{ name: 'register' }">
-          {{
-          $t("user.login.signup")
-          }}
+          {{ $t('user.login.signup') }}
         </router-link>
-      </div>
+      </div> -->
     </a-form>
 
     <!-- <two-step-captcha
@@ -349,7 +347,9 @@ export default defineComponent({
     height: 40px;
     width: 100%;
   }
-
+  .login-icon {
+    color: @primary-color;
+  }
   .user-login-other {
     text-align: left;
     margin-top: 24px;
