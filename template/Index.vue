@@ -74,8 +74,8 @@
                 @click.stop.prevent="getCaptcha"
               >
                 {{
-                (!state.smsSendBtn && $t("user.register.get-verification-code")) ||
-                state.time + " s"
+                  (!state.smsSendBtn && $t('user.register.get-verification-code')) ||
+                  state.time + ' s'
                 }}
               </a-button>
             </a-col>
@@ -84,16 +84,15 @@
       </a-tabs>
 
       <a-form-item v-bind="validateInfos.rememberMe">
-        <a-checkbox v-model:checked="formRef.rememberMe" style="float:left">
-          {{
-          $t("user.login.remember-me")
-          }}
+        <a-checkbox v-model:checked="formRef.rememberMe" style="float: left">
+          {{ $t('user.login.remember-me') }}
         </a-checkbox>
         <router-link
           :to="{ name: 'recover', params: { user: 'aaa' } }"
           class="forge-password"
           style="float: right"
-        >{{ $t("user.login.forgot-password") }}</router-link>
+          >{{ $t('user.login.forgot-password') }}</router-link
+        >
       </a-form-item>
 
       <a-form-item style="margin-top: 24px">
@@ -104,11 +103,12 @@
           class="login-button"
           :loading="state.loginBtn"
           :disabled="state.loginBtn"
-        >{{ $t("user.login.login") }}</a-button>
+          >{{ $t('user.login.login') }}</a-button
+        >
       </a-form-item>
 
       <div class="user-login-other">
-        <span>{{ $t("user.login.sign-in-with") }}</span>
+        <span>{{ $t('user.login.sign-in-with') }}</span>
         <a>
           <AlipayCircleOutlined />
         </a>
@@ -119,9 +119,7 @@
           <WeiboCircleOutlined />
         </a>
         <router-link class="register" :to="{ name: 'register' }">
-          {{
-          $t("user.login.signup")
-          }}
+          {{ $t('user.login.signup') }}
         </router-link>
       </div>
     </a-form>

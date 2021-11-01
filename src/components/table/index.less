@@ -1,0 +1,69 @@
+@import "ant-design-vue/es/style/themes/default";
+.pro-table {
+  .ant-pro-table-list-toolbar {
+    overflow-x: auto;
+    overflow-y: hidden;
+    .ant-pro-table-list-toolbar-container {
+      display: flex;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 24px;
+      line-height: 64px;
+      .ant-pro-table-list-toolbar-left {
+        display: flex;
+        justify-content: flex-start;
+        .ant-pro-table-list-toolbar-title {
+          font-size: 16px;
+          font-family: PingFangSC-Medium;
+        }
+      }
+      .ant-pro-table-list-toolbar-right {
+        display: flex;
+        justify-content: flex-end;
+        .ant-pro-table-list-toolbar-setting-item {
+          margin-left: 16px;
+          font-size: 16px;
+          cursor: pointer;
+          box-sizing: border-box;
+          .anticon {
+            padding: 0px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+.ant-pro-table-column-setting-overlay {
+  .ant-popover-title {
+    padding-left: 22px;
+  }
+  .ant-pro-table-column-setting-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 32px;
+    margin-left: 4px;
+  }
+  .ant-popover-inner-content {
+      padding: 8px 0;
+  }
+  .ant-pro-table-column-setting-list-item {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 4px 16px 4px 0;
+      .ant-checkbox-input {
+        margin-right: 2px;
+      }
+      .ant-checkbox-inner {
+        width: 16px;
+        height: 16px;
+      }
+      .anticon {
+        cursor: move;
+        padding-right: 6px;
+        padding-left: 6px;
+      }
+  }
+}

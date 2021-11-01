@@ -3,12 +3,15 @@
     <div v-if="visible" class="header-animat">
       <a-layout-header
         v-if="visible"
-        :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed', ]"
+        :class="[
+          fixedHeader && 'ant-header-fixedHeader',
+          sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed'
+        ]"
         :style="{ padding: '0' }"
       >
         <div v-if="mode === 'sidemenu'" class="header">
           <span @click="toggle">
-            <template v-if="device==='mobile'">
+            <template v-if="device === 'mobile'">
               <MenuFoldOutlined v-if="collapsed" class="trigger" />
               <MenuUnfoldOutlined v-else class="trigger" />
             </template>
@@ -17,7 +20,6 @@
               <MenuFoldOutlined v-else class="trigger" />
             </template>
           </span>
-          <ReloadOutlined  class="trigger" style="" @click="refreshPage"/>
           <user-menu :theme="theme"></user-menu>
         </div>
         <div v-else :class="['top-nav-header-index', theme]">
@@ -26,8 +28,8 @@
               <logo class="top-nav-header" :show-title="device !== 'mobile'" />
               <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" />
               <span v-else @click="toggle">
-                <MenuFoldOutlined v-if="collapsed==='menu-fold'" class="trigger" />
-                <MenuUnfoldOutlined v-if="collapsed==='menu-unfold'" class="trigger" />
+                <MenuFoldOutlined v-if="collapsed === 'menu-fold'" class="trigger" />
+                <MenuUnfoldOutlined v-if="collapsed === 'menu-unfold'" class="trigger" />
               </span>
             </div>
             <user-menu class="header-index-right" :theme="theme"></user-menu>
@@ -43,7 +45,7 @@ import UserMenu from '../tools/UserMenu/index.vue'
 import SMenu from '../Menu/Menu.vue'
 import Logo from '../tools/Logo.vue'
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
-import { MenuFoldOutlined, MenuUnfoldOutlined,ReloadOutlined } from '@ant-design/icons-vue'
+import { MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined } from '@ant-design/icons-vue'
 import { sidebarOpened, device, fixedHeader, autoHideHeader } from '@/store/useSiteSettings'
 
 export default defineComponent({
@@ -121,17 +123,17 @@ export default defineComponent({
       document.body.removeEventListener('scroll', handleScroll, true)
     })
 
-    const refreshPage = () => {
-      emit('refresh')
-    }
+    // const refreshPage = () => {
+    //   emit('refresh')
+    // }
 
     return {
       visible,
       fixedHeader,
       sidebarOpened,
       toggle,
-      device,
-      refreshPage
+      device
+      //   refreshPage
     }
   }
 })
