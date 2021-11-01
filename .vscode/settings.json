@@ -151,11 +151,6 @@
   "vetur.format.defaultFormatter.js": "prettier",
   "vetur.languageFeatures.codeActions": false,
   "vetur.format.defaultFormatterOptions": {
-    // "js-beautify-html": {
-    //   // [auto|force|force-aligned|force-expand-multiline]
-    //   "wrap_attributes":"force-expand-multiline",
-    //   "wrap_line_length": 200,
-    // },
     "prettier": {
       "eslintIntegration": true,
       "arrowParens": "always",
