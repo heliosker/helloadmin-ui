@@ -27,8 +27,8 @@ jobs:
       - uses: actions/setup-node@v2 #nodejs 环境
         with:
           node-version: "14"
-      - run: npm install
-      - run: npm build
+      - run: yarn install
+      - run: vite build
 
       - name: Tar dist file
         run: |
