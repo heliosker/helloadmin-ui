@@ -2,9 +2,13 @@ import baseService from '@/utils/http/axios'
 import { baseURL } from '@/utils/util'
 import { API } from './types'
 
-export const login: API._Login = data => {
-    const api = baseURL + `/v1/auth/login`
-    return baseService.post(api, data)
+export const getUserList: API._UserList = params => {
+    const api = baseURL + `/v1/administrators`
+    return baseService.get(api, { params })
+}
+export const getRoleList: API._RoleList = params => {
+    const api = baseURL + `/v1/roles`
+    return baseService.get(api, { params })
 }
 
 export const getSmsCaptcha: API._GetSmsCaptcha = data => {

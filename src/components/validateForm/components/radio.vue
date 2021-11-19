@@ -1,7 +1,7 @@
 <template>
   <a-radio-group v-model:value="modelValue" v-bind="formItem.props" v-on="formItem.eventObject">
     <a-radio v-for="(item, index) in formItem.options" :key="index" :value="item.key">{{
-      item.label
+      item.value
     }}</a-radio>
   </a-radio-group>
 </template>

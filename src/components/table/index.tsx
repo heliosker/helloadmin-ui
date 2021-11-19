@@ -8,8 +8,8 @@ import { useRoute } from "vue-router";
 import { ColumnProps, TableProps } from 'ant-design-vue/lib/table/interface'
 import { useRouter } from 'vue-router';
 import { defineComponent, reactive, PropType, watch, UnwrapRef, ref, computed, onMounted, onUpdated } from 'vue'
-import { Table, Popover, Checkbox, Dropdown, Menu } from 'ant-design-vue';
-import { SettingOutlined, ColumnHeightOutlined, ReloadOutlined, DragOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
+import { Table, Popover, Checkbox, Dropdown, Menu, Button } from 'ant-design-vue';
+import { SettingOutlined, ColumnHeightOutlined, ReloadOutlined, DragOutlined, FullscreenExitOutlined, FullscreenOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import { Container, Draggable } from "vue3-smooth-dnd";
 // import { Icon } from '@/utils/icon'
 
@@ -66,7 +66,7 @@ export default defineComponent({
         Popover,
         Checkbox
     },
-    emits: ['expand'],
+    emits: ['expand', 'add'],
     props: Object.assign({}, T.props, {
         rowKey: {
             type: [String, Function],
@@ -201,9 +201,9 @@ export default defineComponent({
         const loadData = async (pagination?: Pagination, filters?: object, sorter?: Sorter) => {
             state.localLoading = true
             const parameter = Object.assign({
-                pageNo: (pagination && pagination.current) ||
+                page: (pagination && pagination.current) ||
                     props.showPagination && state.localPagination.current || props.pageNum,
-                pageSize: (pagination && pagination.pageSize) ||
+                size: (pagination && pagination.pageSize) ||
                     props.showPagination && state.localPagination.pageSize || props.pageSize
             },
                 (sorter && sorter.field && {
@@ -216,11 +216,12 @@ export default defineComponent({
             }
             )
             const result = await props.data(parameter)
+            const meta = result.meta;
             // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
             // eslint-disable-next-line
             state.localPagination = props.showPagination && Object.assign({}, state.localPagination, {
-                current: result.pageNo, // 返回结果中的当前分页数
-                total: result.totalCount, // 返回结果中的总记录数
+                current: meta.page, // 返回结果中的当前分页数
+                total: meta.count, // 返回结果中的总记录数
                 showSizeChanger: props.showSizeChanger,
                 pageSize: (pagination && pagination.pageSize) ||
                     state.localPagination.pageSize
@@ -235,7 +236,7 @@ export default defineComponent({
             // 这里用于判断接口是否有返回 r.totalCount 且 this.showPagination = true 且 pageNo 和 pageSize 存在 且 totalCount 小于等于 pageNo * pageSize 的大小
             // 当情况满足时，表示数据不满足分页大小，关闭 table 分页功能
             try {
-                if ((['auto', true].includes(props.showPagination) && result.totalCount <= (result.pageNo * state.localPagination.pageSize))) {
+                if ((['auto', true].includes(props.showPagination) && meta.count <= (meta.page * state.localPagination.pageSize))) {
                     state.localPagination.hideOnSinglePage = true
                 }
             } catch (e) {
@@ -408,6 +409,9 @@ export default defineComponent({
             topState.currentColumns = props.columns;
             topState.checkList = newColumns;
         }
+        const add = () => {
+            emit('add', true)
+        }
         loadData()
         watch(
             () => state.localPagination.current,
@@ -455,10 +459,10 @@ export default defineComponent({
         );
         return {
             state,
-            slots,
             topState,
             columns,
             emit,
+            add,
             renderAlert,
             updateSelect,
             loadData,
@@ -475,10 +479,9 @@ export default defineComponent({
         }
     },
     render() {
-        const props: any = {}
+        let props: any = {}
         const localKeys = Object.keys(this.state)
         const newColumn = [...this.topState.currentColumns];
-        debugger
         const menuData = [{ key: 'default', title: '默认' }, { key: 'middle', title: '中等' }, { key: 'small', title: '紧凑' }]
         const showAlert = (typeof this.alert === 'object' && this.alert !== null && this.alert.show) && typeof this.rowSelection.selectedRowKeys !== 'undefined' || this.alert
         Object.keys(T.props).forEach(k => {
@@ -510,9 +513,12 @@ export default defineComponent({
             return props[k]
         })
         props.columns = newColumn.filter(v => this.topState.checkList.includes(v.dataIndex))
+        props = {
+            ...this.$attrs,
+            ...props,
+        };
         const table = (
             <Table {...props} onChange={this.loadData} size={this.topState.selectedSize} onExpand={(expanded, record) => this.expand(expanded, record)}>
-                {/* {Object.keys(this.$slots).map(name => (<template v-slot:[name]>{this.slots[name]}</template>))} */}
                 {/* {this.slots.default?.()} */}
                 {/* <template v-for="(value, key) in $slots" #[key]="slotProps">
                 <slot :name="key" v-bind="slotProps"></slot>
@@ -538,6 +544,11 @@ export default defineComponent({
                             <div class="ant-pro-table-list-toolbar-title">查询表格</div>
                         </div>
                         <div class="ant-pro-table-list-toolbar-right">
+                            <div class="ant-pro-table-list-toolbar-setting-item">
+                                <Button type="primary" onClick={this.add} v-slots={{
+                                    icon: () => <PlusOutlined />
+                                }}>添加</Button>
+                            </div>
                             <div class="ant-pro-table-list-toolbar-setting-item">
                                 <ReloadOutlined onClick={() => this.refresh(true)} />
                             </div>

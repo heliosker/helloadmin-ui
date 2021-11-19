@@ -1,10 +1,10 @@
-import { UserConfig, ConfigEnv } from 'vite';
+import { ConfigEnv, loadEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path';
 import legacy from '@vitejs/plugin-legacy'
-import { vite2Ext } from "apite";
+// import { vite2Ext } from "apite";
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import { viteThemePlugin } from 'vite-plugin-theme';
 import { getThemeColors } from './src/utils/themeUtil'
@@ -12,11 +12,19 @@ import { getThemeColors } from './src/utils/themeUtil'
 const pathResolve = (pathStr: string) => {
     return path.resolve(__dirname, pathStr);
 };
-
-export default ({ command, mode }: ConfigEnv): UserConfig => {
+export default ({ mode }: ConfigEnv): UserConfig => {
     return {
         server: {
-            host: '0.0.0.0'
+            host: '0.0.0.0',
+            port: 8080,
+            cors: true,
+            proxy: {
+                '/api': {
+                    target: 'http://47.103.204.136:9010',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/api/, '')
+                }
+            }
         },
         plugins: [
             vue(),
@@ -26,9 +34,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
                     AntDesignVueResolver(),
                 ]
             }),
-            vite2Ext({
-                dir: 'mock'
-            }) as any,
             legacy({
                 targets: ['defaults', 'not IE 11']
             }),
@@ -64,4 +69,5 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             },
         },
     }
+
 };

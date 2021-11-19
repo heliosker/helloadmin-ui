@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, PropType } from 'vue'
 import { Modal } from 'ant-design-vue'
-import ValidateForm from '@/components/com-common/validateForm/validateForm.vue'
+import ValidateForm from '@/components/validateForm/validateForm.vue'
 import { FormSchema } from '@/types/schema'
 
 export default defineComponent({

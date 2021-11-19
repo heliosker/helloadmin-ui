@@ -3,7 +3,7 @@ export default {
     'login.passnord.title': '密码',
     'login.username.placeholder': '请输入账户',
     'login.password.placeholder': '请输入密码',
-    'login.message-invalid-credentials': '账户或密码错误（admin/ant.design）',
+    'login.message-invalid-credentials': '账户或密码错误',
     'login.message-invalid-verification-code': '验证码错误',
     'login.tab-login-credentials': '欢迎登陆',
     'login.tab-login-mobile': '手机号登录',

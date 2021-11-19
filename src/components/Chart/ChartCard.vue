@@ -66,7 +66,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .card {
   border-radius: 5px;
-  ::v-deep(.ant-card-body) {
+  &:deep(.ant-card-body) {
     display: flex;
     align-items: center;
   }

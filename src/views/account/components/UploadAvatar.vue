@@ -1,10 +1,7 @@
 <template>
   <section>
-    <div
-      class="ant-upload-preview"
-      @click="edit(1)"
-    >
-      <CloudUploadOutlined class="upload-icon"/>
+    <div class="ant-upload-preview" @click="edit(1)">
+      <CloudUploadOutlined class="upload-icon" />
       <div class="mask">
         <PlusOutlined />
       </div>
@@ -20,13 +17,9 @@
       @cancel="cancelHandel"
     >
       <a-row>
-        <a-col
-          :xs="24"
-          :md="12"
-          :style="{height: '350px'}"
-        >
-        <span>用作demo,没装vue-cropper插件</span>
-          <!-- <vue-cropper
+        <a-col :xs="24" :md="12" :style="{ height: '350px' }">
+          <!-- <span>用作demo,没装vue-cropper插件</span> -->
+          <vue-cropper
             ref="cropper"
             :img="options.img"
             :info="true"
@@ -36,94 +29,51 @@
             :fixedBox="options.fixedBox"
             @realTime="realTime"
           >
-          </vue-cropper> -->
+          </vue-cropper>
         </a-col>
-        <a-col
-          :xs="24"
-          :md="12"
-          :style="{height: '350px'}"
-        >
+        <a-col :xs="24" :md="12" :style="{ height: '350px' }">
           <div class="avatar-upload-preview">
-            <img
-              :src="previews.url"
-              :style="previews.img"
-            />
+            <img :src="previews.url" :style="previews.img" />
           </div>
         </a-col>
       </a-row>
-      <br>
+      <br />
       <a-row>
-        <a-col
-          :lg="2"
-          :md="2"
-        >
-          <a-upload
-            name="file"
-            :beforeUpload="beforeUpload"
-            :showUploadList="false"
-          >
+        <a-col :lg="2" :md="2">
+          <a-upload name="file" :beforeUpload="beforeUpload" :showUploadList="false">
             <a-button icon="upload">选择图片</a-button>
           </a-upload>
         </a-col>
-        <a-col
-          :lg="{span: 1, offset: 2}"
-          :md="2"
-        >
-          <a-button
-            icon="plus"
-            @click="changeScale(1)"
-          />
+        <a-col :lg="{ span: 1, offset: 2 }" :md="2">
+          <a-button icon="plus" @click="changeScale(1)" />
         </a-col>
-        <a-col
-          :lg="{span: 1, offset: 1}"
-          :md="2"
-        >
-          <a-button
-            icon="minus"
-            @click="changeScale(-1)"
-          />
+        <a-col :lg="{ span: 1, offset: 1 }" :md="2">
+          <a-button icon="minus" @click="changeScale(-1)" />
         </a-col>
-        <a-col
-          :lg="{span: 1, offset: 1}"
-          :md="2"
-        >
-          <a-button
-            icon="undo"
-            @click="rotateLeft"
-          />
+        <a-col :lg="{ span: 1, offset: 1 }" :md="2">
+          <a-button icon="undo" @click="rotateLeft" />
         </a-col>
-        <a-col
-          :lg="{span: 1, offset: 1}"
-          :md="2"
-        >
-          <a-button
-            icon="redo"
-            @click="rotateRight"
-          />
+        <a-col :lg="{ span: 1, offset: 1 }" :md="2">
+          <a-button icon="redo" @click="rotateRight" />
         </a-col>
-        <a-col
-          :lg="{span: 2, offset: 6}"
-          :md="2"
-        >
-          <a-button
-            type="primary"
-            @click="finish('blob')"
-          >保存</a-button>
+        <a-col :lg="{ span: 2, offset: 6 }" :md="2">
+          <a-button type="primary" @click="finish('blob')">保存</a-button>
         </a-col>
       </a-row>
     </a-modal>
   </section>
-
 </template>
 <script>
 import { baseURL } from '@/utils/util'
 import baseService from '@/utils/http/axios'
-import { CloudUploadOutlined,PlusOutlined } from '@ant-design/icons-vue'
+import VueCropper from 'vue-cropper'
+import { CloudUploadOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
 export default {
   props: ['defaultAvatar'],
-  components:{
+  components: {
     CloudUploadOutlined,
+    VueCropper,
     PlusOutlined
   },
   data() {
@@ -147,9 +97,9 @@ export default {
         fixedBox: true,
         // 开启宽度和高度比例
         fixed: true,
-        fixedNumber: [1, 1],
+        fixedNumber: [1, 1]
       },
-      previews: {},
+      previews: {}
     }
   },
   methods: {
@@ -237,8 +187,8 @@ export default {
 
     realTime(data) {
       this.previews = data
-    },
-  },
+    }
+  }
 }
 </script>
 

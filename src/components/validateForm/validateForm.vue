@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-form ref="validateFormRef" v-bind="formItemLayout">
+    <a-form ref="validateFormRef" :model="modelRef" v-bind="formItemLayout">
       <template
         v-for="formItem in formSchema.formItem.filter((item) => !item.hidden)"
         :key="formItem.field"
@@ -10,6 +10,7 @@
             :help="formItem.help"
             :extra="formItem.extra"
             :label="formItem.label"
+            :class="formItem.class"
             v-bind="{ ...formItem.props, ...validateInfos[formItem.field] }"
           >
             <component
@@ -45,7 +46,6 @@ import {
   createVNode
 } from 'vue'
 import { Form, Spin } from 'ant-design-vue'
-import { useForm } from '@ant-design-vue/use'
 import { isFunction, isAsyncFunction } from '@/utils/is'
 import components from './components'
 import { FormItem } from '@/types/schema'
@@ -72,6 +72,7 @@ export default defineComponent({
   },
   setup(props) {
     // a-form
+    const useForm = Form.useForm
     const schemaFormRef = ref<any>(null)
     // 表单实例
     const formInstance = getCurrentInstance()
@@ -178,6 +179,12 @@ export default defineComponent({
 .ant-form {
   .ant-input-group {
     display: flex;
+  }
+  .f_avater {
+    &:deep(.ant-col-18) {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 }
 </style>

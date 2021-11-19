@@ -6,8 +6,8 @@
       allowClear
       v-on="formItem.eventObject"
     >
-      <a-select-option v-for="item in formItem.options" :value="item.id" :key="item.id">{{
-        item.name
+      <a-select-option v-for="item in formItem.options" :value="item.key" :key="item.key">{{
+        item.value
       }}</a-select-option>
     </a-select>
   </div>
