@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "14"
       - run: yarn install
-      - run: vite build
+      - run: yarn build
 
       - name: Tar dist file
         run: |
