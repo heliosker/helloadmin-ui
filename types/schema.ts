@@ -4,8 +4,13 @@ import { FormItemProps } from 'ant-design-vue/lib/form/FormItem'
 import { FormProps, ValidationRule } from 'ant-design-vue/lib/form/Form'
 
 declare interface OptionItem {
+<<<<<<< HEAD
     id: string | number;
     name: string;
+=======
+    key: string | number;
+    value: string;
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 }
 
 type Rule = ValidationRule & {
@@ -19,6 +24,10 @@ export declare interface FormItem extends Partial<typeof FormItemProps> {
     value: any; // 表单默认值
     props?: Partial<HTMLAttributes | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | any>; // 表单属性
     rules?: Rule[]; // 表单验证规则
+<<<<<<< HEAD
+=======
+    class?: string; // 自定义类名
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     options?: OptionItem[]; // 可选项
     eventObject?: object; // 事件对象，例如：{ mousedown: doThis, mouseup: doThat } 将会动态绑定为：v-on="{ mousedown: doThis, mouseup: doThat }"
     loading?: boolean; // 异步数据是否加载

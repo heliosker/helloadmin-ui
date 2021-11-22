@@ -38,5 +38,11 @@ export default {
     'account.logout': 'Logout',
     'auth.title': 'Auth Management',
     'auth.user-title': 'User Management',
+<<<<<<< HEAD
     'auth.user-list-title': 'User List',
+=======
+    'auth.role-title': 'Role Management',
+    'auth.user-list-title': 'User List',
+    'auth.role-list-title': 'Role List',
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 }

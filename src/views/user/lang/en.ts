@@ -4,7 +4,11 @@ export default {
     'login.username.placeholder': 'Account: admin',
     'login.password.placeholder': 'password: admin or ant.design',
     'login.message-invalid-credentials':
+<<<<<<< HEAD
         'Invalid username or password（admin/ant.design）',
+=======
+        'Invalid username or password',
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     'login.message-invalid-verification-code': 'Invalid verification code',
     'login.tab-login-credentials': 'Credentials',
     'login.tab-login-mobile': 'Mobile number',

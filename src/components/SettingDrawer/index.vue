@@ -34,7 +34,12 @@
               <a
                 href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/src/config/defaultSettings.ts"
                 target="_blank"
+<<<<<<< HEAD
               >src/config/defaultSettings.ts</a>
+=======
+                >src/config/defaultSettings.ts</a
+              >
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
             </span>
           </template>
         </a-alert>
@@ -122,7 +127,11 @@ export default defineComponent({
 <style lang="less" scoped>
 @import '../../style/index.less';
 .setting-drawer-index-content {
+<<<<<<< HEAD
   ::v-deep(.setting-drawer-index-blockChecbox) {
+=======
+  &:deep(.setting-drawer-index-blockChecbox) {
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     display: flex;
 
     .setting-drawer-index-item {

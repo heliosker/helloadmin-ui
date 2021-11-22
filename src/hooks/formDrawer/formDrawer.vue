@@ -1,5 +1,9 @@
 <template>
   <a-drawer
+<<<<<<< HEAD
+=======
+    width="370"
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     v-bind="$attrs"
     v-model:visible="visible"
     :confirm-loading="confirmLoading"
@@ -28,11 +32,19 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, PropType } from 'vue'
 import { Drawer } from 'ant-design-vue'
+<<<<<<< HEAD
 import ValidateForm from '@/components/com-common/validateForm/validateForm.vue'
 import { FormSchema } from '@/types/schema'
 
 export default defineComponent({
   name: 'form-modal',
+=======
+import ValidateForm from '@/components/validateForm/validateForm.vue'
+import { FormSchema } from '@/types/schema'
+
+export default defineComponent({
+  name: 'form-drawer',
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
   components: { [Drawer.name]: Drawer, ValidateForm },
   props: {
     close: {

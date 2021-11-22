@@ -250,7 +250,11 @@ export default defineComponent({
       validate(validateFieldsKey)
         .then(async () => {
           formRef.password = encryptByMd5(formRef.password)
+<<<<<<< HEAD
           const res = await api.userLogin(formRef)
+=======
+          const res = await api.login(formRef)
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
           if (res) {
             // mock用,可删
             if (res.code === 403) {

@@ -1,7 +1,11 @@
 <template>
   <a-radio-group v-model:value="modelValue" v-bind="formItem.props" v-on="formItem.eventObject">
     <a-radio v-for="(item, index) in formItem.options" :key="index" :value="item.key">{{
+<<<<<<< HEAD
       item.label
+=======
+      item.value
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     }}</a-radio>
   </a-radio-group>
 </template>

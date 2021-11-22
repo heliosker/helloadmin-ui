@@ -3,33 +3,17 @@
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
-          <a-col :md="8" :sm="24">
+          <a-col :md="12" :sm="24">
             <a-form-item label="角色ID">
               <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>
-          <a-col :md="8" :sm="24">
-            <a-form-item label="状态">
-              <a-select placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-col>
-          <a-col :md="(!state.advanced && 8) || 24" :sm="24">
-            <span
-              class="table-page-search-submitButtons"
-              :style="(state.advanced && { float: 'right', overflow: 'hidden' }) || {}"
-            >
+          <a-col :md="12" :sm="24">
+            <span class="table-page-search-submitButtons">
               <a-button type="primary" @click="Ref.table.refresh(true)">查询</a-button>
               <a-button style="margin-left: 8px" @click="() => (state.queryParam = {})"
                 >重置</a-button
               >
-              <a @click="toggleAdvanced" style="margin-left: 8px">
-                {{ state.advanced ? '收起' : '展开' }}
-                <Icon :icon="state.advanced ? 'UpOutlined' : 'DownOutlined'" />
-              </a>
             </span>
           </a-col>
         </a-row>
@@ -43,10 +27,7 @@
       :data="loadData"
       :expandedRowKeys="state.expandedRowKeys"
       @expand="handleExpand"
-<<<<<<< HEAD
-=======
       @add="add"
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     >
       <!-- <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
         <a-row :gutter="24" :style="{ marginBottom: '12px' }">
@@ -67,9 +48,9 @@
             <a-col :span="20" v-else>-</a-col>
           </a-col>
         </a-row>
-      </div>
-      <a-tag color="blue" slot="status" slot-scope="text">{{ text | statusFilter }}</a-tag>
-      <span slot="createTime" slot-scope="text">{{ text | moment }}</span>
+      </div> -->
+      <!-- <a-tag color="blue" slot="status" slot-scope="text">{{ text | statusFilter }}</a-tag> -->
+      <!-- <span slot="createTime" slot-scope="text">{{ text | moment }}</span> -->
       <span slot="action" slot-scope="text, record">
         <a @click="handleEdit(record)">编辑</a>
         <a-divider type="vertical" />
@@ -87,73 +68,8 @@
             </a-menu-item>
           </a-menu>
         </a-dropdown>
-      </span> -->
+      </span>
     </s-table>
-    <!-- <a-modal title="操作" style="top: 20px" :width="800" v-model="state.visible" @ok="handleOk">
-      <a-form class="permission-form">
-        <a-form-item
-          :labelCol="state.labelCol"
-          :wrapperCol="state.wrapperCol"
-          v-bind="validateInfos.id"
-          label="唯一识别码"
-          hasFeedback
-          validateStatus="success"
-        >
-          <a-input placeholder="唯一识别码" disabled="disabled" />
-        </a-form-item>
-
-        <a-form-item
-          :labelCol="state.labelCol"
-          :wrapperCol="state.wrapperCol"
-          label="角色名称"
-          hasFeedback
-          v-bind="validateInfos.name"
-          validateStatus="success"
-        >
-          <a-input placeholder="起一个名字" />
-        </a-form-item>
-
-        <a-form-item
-          :labelCol="statelabelCol"
-          :wrapperCol="state.wrapperCol"
-          label="状态"
-          hasFeedback
-          v-bind="validateInfos.status"
-          validateStatus="warning"
-        >
-          <a-select>
-            <a-select-option :value="1">正常</a-select-option>
-            <a-select-option :value="2">禁用</a-select-option>
-          </a-select>
-        </a-form-item>
-
-        <a-form-item
-          :labelCol="state.labelCol"
-          :wrapperCol="wrapperCol"
-          label="描述"
-          v-bind="validateInfos.describe"
-          hasFeedback
-        >
-          <a-textarea :rows="5" placeholder="..." id="describe" />
-        </a-form-item>
-
-        <a-divider>拥有权限</a-divider>
-        <template v-for="permission in state.permissions">
-          <a-form-item
-            class="permission-group"
-            v-if="permission.actionsOptions && permission.actionsOptions.length > 0"
-            :labelCol="state.labelCol"
-            :wrapperCol="state.wrapperCol"
-            :key="permission.permissionId"
-            :label="permission.permissionName"
-            v-bind="[`validateInfos.permissions${permission.permissionId}`]"
-          >
-            <a-checkbox>全选</a-checkbox>
-            <a-checkbox-group :options="permission.actionsOptions" />
-          </a-form-item>
-        </template>
-      </a-form>
-    </a-modal> -->
   </a-card>
 </template>
 
@@ -164,19 +80,13 @@ import { Form } from 'ant-design-vue'
 // import { PERMISSION_ENUM } from '@/core/permission/permission'
 import { defineComponent, reactive, ref } from 'vue'
 import { Icon } from '@/utils/icon.ts'
-<<<<<<< HEAD
-import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
-=======
-import { formDrawer } from '@/hooks/formDrawer'
+import { useFormModal } from '@/hooks/formModal'
 import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { getFormSchema } from './form-schema'
-import * as api from '../service'
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 const STATUS = {
   1: '启用',
   2: '禁用'
 }
-<<<<<<< HEAD
 const getRoleList = async () => {
   return new Promise((resolve, reject) => {
     resolve({
@@ -188,68 +98,34 @@ const getRoleList = async () => {
     })
   })
 }
-=======
-// const getRoleList = async () => {
-//   return new Promise((resolve, reject) => {
-//     resolve({
-//       result: {
-//         data: [{ id: 0, name: 'test', status: 1, createTime: '2021-01-09' }],
-//         pageNo: 1,
-//         totalCount: 10
-//       }
-//     })
-//   })
-// }
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
-const columns = [
+const columns: any = [
   {
     title: '唯一识别码',
     dataIndex: 'id'
   },
   {
-<<<<<<< HEAD
     title: '角色名称',
     dataIndex: 'name'
-=======
-    title: '用户名称',
-    dataIndex: 'username'
-  },
-  {
-    title: '头像',
-    dataIndex: 'avatar'
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
   },
   {
     title: '状态',
     dataIndex: 'status',
-<<<<<<< HEAD
-    scopedSlots: { customRender: 'status' }
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    scopedSlots: { customRender: 'createTime' },
-=======
-    customRender: () => {
+    customRender: (text, record) => {
+      // const h = this.$createElement;
       return '123'
     }
   },
   {
     title: '创建时间',
-    dataIndex: 'created_at',
-    slots: { customRender: 'created_at' },
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
+    dataIndex: 'createTime',
+    slots: { customRender: 'createTime' },
     sorter: true
   },
   {
     title: '操作',
     width: '150px',
     dataIndex: 'action',
-<<<<<<< HEAD
-    scopedSlots: { customRender: 'action' }
-=======
     slots: { customRender: 'action' }
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
   }
 ]
 const useForm = Form.useForm
@@ -364,20 +240,11 @@ export default defineComponent({
       //   )
     }
     const loadData = (parameter) => {
-<<<<<<< HEAD
       return getRoleList().then((res) => {
         console.log('getRoleList', res)
         // 展开全部行
         state.expandedRowKeys = res.result.data.map((item) => item.id)
         return res.result
-=======
-      const param = Object.assign(parameter, state.queryParam)
-      return api.getUserList().then((res) => {
-        console.log('getRoleList', res)
-        // 展开全部行
-        state.expandedRowKeys = res.data.map((item) => item.id)
-        return res
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
       })
     }
     // const onChange = (selectedRowKeys, selectedRows) => {
@@ -392,11 +259,9 @@ export default defineComponent({
       //     state.expandedRowKeys = state.expandedRowKeys.filter((item) => record.id !== item)
       //   }
     }
-<<<<<<< HEAD
-=======
     const add = () => {
-      formDrawer({
-        title: '创建用户',
+      useFormModal({
+        title: '创建角色',
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
           const { name, team_id, contact } = modelRef
@@ -413,7 +278,6 @@ export default defineComponent({
         }
       })
     }
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     const toggleAdvanced = () => {
       state.advanced = !state.advanced
     }
@@ -424,10 +288,7 @@ export default defineComponent({
       handleExpand,
       toggleAdvanced,
       handleEdit,
-<<<<<<< HEAD
-=======
       add,
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
       loadData
     }
   }
@@ -436,11 +297,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .permission-form {
-<<<<<<< HEAD
-  /deep/ .permission-group {
-=======
   &:deep(.permission-group) {
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     margin-top: 0;
     margin-bottom: 0;
   }

@@ -1,6 +1,10 @@
 <template>
   <div>
+<<<<<<< HEAD
     <a-form ref="validateFormRef" v-bind="formItemLayout">
+=======
+    <a-form ref="validateFormRef" :model="modelRef" v-bind="formItemLayout">
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
       <template
         v-for="formItem in formSchema.formItem.filter((item) => !item.hidden)"
         :key="formItem.field"
@@ -10,6 +14,10 @@
             :help="formItem.help"
             :extra="formItem.extra"
             :label="formItem.label"
+<<<<<<< HEAD
+=======
+            :class="formItem.class"
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
             v-bind="{ ...formItem.props, ...validateInfos[formItem.field] }"
           >
             <component
@@ -45,7 +53,10 @@ import {
   createVNode
 } from 'vue'
 import { Form, Spin } from 'ant-design-vue'
+<<<<<<< HEAD
 import { useForm } from '@ant-design-vue/use'
+=======
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 import { isFunction, isAsyncFunction } from '@/utils/is'
 import components from './components'
 import { FormItem } from '@/types/schema'
@@ -72,6 +83,10 @@ export default defineComponent({
   },
   setup(props) {
     // a-form
+<<<<<<< HEAD
+=======
+    const useForm = Form.useForm
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     const schemaFormRef = ref<any>(null)
     // 表单实例
     const formInstance = getCurrentInstance()
@@ -179,5 +194,14 @@ export default defineComponent({
   .ant-input-group {
     display: flex;
   }
+<<<<<<< HEAD
+=======
+  .f_avater {
+    &:deep(.ant-col-18) {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 }
 </style>

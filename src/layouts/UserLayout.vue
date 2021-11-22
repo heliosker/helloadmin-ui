@@ -81,7 +81,11 @@ export default defineComponent({
       line-height: 44px;
       text-align: right;
 
+<<<<<<< HEAD
       ::v-deep(.select-lang-trigger) {
+=======
+      &:deep(.select-lang-trigger) {
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
         cursor: pointer;
         padding: 12px;
         margin-right: 16px;

@@ -38,5 +38,11 @@ export default {
     'account.logout': '退出登录',
     'auth.title': '权限管理',
     'auth.user-title': '用户管理',
+<<<<<<< HEAD
     'auth.user-list-title': '用户列表',
+=======
+    'auth.role-title': '角色管理',
+    'auth.user-list-title': '用户列表',
+    'auth.role-list-title': '角色列表',
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 }

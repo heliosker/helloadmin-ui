@@ -2,6 +2,7 @@ import baseService from '@/utils/http/axios'
 import { baseURL } from '@/utils/util'
 import { API } from './types'
 
+<<<<<<< HEAD
 export const userLogin: API._Login = data => {
   const api = baseURL + `auth/login`
   return baseService.post(api, data)
@@ -28,4 +29,32 @@ export interface States {
   password: string;
   mobile: string;
   captcha: string;
+=======
+export const login: API._Login = data => {
+    const api = baseURL + `/v1/auth/login`
+    return baseService.post(api, data)
+}
+
+export const getSmsCaptcha: API._GetSmsCaptcha = data => {
+    const api = baseURL + `account/sms`
+    return baseService.post(api, data)
+}
+
+export const get2step: API._Get2Step = () => {
+    const api = baseURL + `auth/2step-code`
+    return baseService.get(api)
+}
+
+export const logout: API._Logout = () => {
+    const api = baseURL + `auth/logout`
+    return baseService.get(api)
+}
+
+export interface States {
+    rememberMe: boolean;
+    username: string;
+    password: string;
+    mobile: string;
+    captcha: string;
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 }

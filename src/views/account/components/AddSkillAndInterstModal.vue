@@ -9,12 +9,18 @@
     :keyboard="false"
     width="700px"
   >
+<<<<<<< HEAD
     <a-button
       slot="footer"
       @click="onOk"
       type="primary"
       :disabled="disabledBtn"
     >{{$t('account.saveAndClose')}}</a-button>
+=======
+    <a-button slot="footer" @click="onOk" type="primary" :disabled="disabledBtn">{{
+      $t('account.saveAndClose')
+    }}</a-button>
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     <a-spin :spinning="loading"></a-spin>
     <SelectSkillAndInterst
       @change="onSelectTag"
@@ -36,7 +42,11 @@ import { useMessage } from '@/hooks/useMessage'
 import { getPersonDetail } from '../hooks'
 import { UpdateUserLabel, UserInfo } from '../types'
 import { PERMISSION } from '@/store/mutation-types'
+<<<<<<< HEAD
 import Vue from 'vue'
+=======
+// import Vue from 'vue'
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
 
 export default {
   components: {
@@ -51,6 +61,7 @@ export default {
 
     onMounted(() => {
       // TODO:在login页面(未登录)时,不获取personDetail,需要优化方案,不使用setTimeout
+<<<<<<< HEAD
       setTimeout(async () => {
         if (location.pathname.indexOf('user/login') < 0) {
           const v: any = Vue
@@ -66,6 +77,23 @@ export default {
           loading.value = false
         }
       }, 500)
+=======
+      //   setTimeout(async () => {
+      //     if (location.pathname.indexOf('user/login') < 0) {
+      //       const v: any = Vue
+      //       const permisson = v.ls.get(PERMISSION)
+      //       loading.value = true
+      //       const res = await getPersonDetail()
+      //       if (!res.userInfo.skills.length) {
+      //         allSkills.value = res.allSkills
+      //         allInterest.value = res.allInterest
+      //         userInfo = res.userInfo
+      //         visible.value = true
+      //       }
+      //       loading.value = false
+      //     }
+      //   }, 500)
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     })
 
     const savedData: Partial<UpdateUserLabel> = {}
@@ -119,5 +147,9 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
 <style>
 </style>
+=======
+<style></style>
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7

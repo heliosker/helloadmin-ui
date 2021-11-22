@@ -138,7 +138,25 @@ export const example: Router = {
                             meta: { title: 'menu.auth.user-list-title', keepAlive: false, permission: ['admin'], hidden: false },
                         }
                     ]
+<<<<<<< HEAD
                 }
+=======
+                },
+                {
+                    path: '/role',
+                    name: 'Role',
+                    component: RouteView,
+                    meta: { title: 'menu.auth.role-title', keepAlive: false, permission: ['admin'], hidden: false },
+                    children: [
+                        {
+                            path: '/resolveDirective -list',
+                            name: 'RoleList',
+                            component: () => import('@/views/auth/role/index.vue'),
+                            meta: { title: 'menu.auth.role-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                        }
+                    ]
+                },
+>>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
             ]
         },
         // forms
