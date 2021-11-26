@@ -18,8 +18,8 @@
     >
       <a-row>
         <a-col :xs="24" :md="12" :style="{ height: '350px' }">
-          <!-- <span>用作demo,没装vue-cropper插件</span> -->
-          <vue-cropper
+          <span>用作demo,没装vue-cropper插件</span>
+          <!-- <vue-cropper
             ref="cropper"
             :img="options.img"
             :info="true"
@@ -29,7 +29,7 @@
             :fixedBox="options.fixedBox"
             @realTime="realTime"
           >
-          </vue-cropper>
+          </vue-cropper> -->
         </a-col>
         <a-col :xs="24" :md="12" :style="{ height: '350px' }">
           <div class="avatar-upload-preview">
@@ -66,14 +66,12 @@
 <script>
 import { baseURL } from '@/utils/util'
 import baseService from '@/utils/http/axios'
-import VueCropper from 'vue-cropper'
 import { CloudUploadOutlined, PlusOutlined } from '@ant-design/icons-vue'
 
 export default {
   props: ['defaultAvatar'],
   components: {
     CloudUploadOutlined,
-    VueCropper,
     PlusOutlined
   },
   data() {

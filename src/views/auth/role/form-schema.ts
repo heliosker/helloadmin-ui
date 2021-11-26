@@ -1,4 +1,4 @@
-import { FormSchema } from "@/types/schema";
+import { FormSchema } from "@/../types/schema";
 
 export const getFormSchema = (): FormSchema => ({
     style: {

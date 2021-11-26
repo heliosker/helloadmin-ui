@@ -1,4 +1,4 @@
-import { FormSchema } from "@/types/schema";
+import { FormSchema } from "@/../types/schema";
 // import team from '@/server/team';
 import { createVNode } from 'vue'
 import * as api from '../service'

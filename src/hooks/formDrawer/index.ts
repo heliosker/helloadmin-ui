@@ -1,7 +1,7 @@
 // create-api.ts
 import { createVNode, render } from 'vue'
 import FormDrawer from './formDrawer.vue'
-import { FormSchema } from "@/types/schema";
+import { FormSchema } from "@/../types/schema";
 
 interface ModalInstance {
     remove(): void

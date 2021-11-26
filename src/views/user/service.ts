@@ -21,6 +21,13 @@ export const logout: API._Logout = () => {
     const api = baseURL + `auth/logout`
     return baseService.get(api)
 }
+export interface States {
+    rememberMe: boolean;
+    username: string;
+    password: string;
+    mobile: string;
+    captcha: string;
+}
 
 export interface States {
     rememberMe: boolean;

@@ -37,7 +37,6 @@ export default {
     'account.trigger': 'Trigger Error',
     'account.logout': 'Logout',
     'auth.title': 'Auth Management',
-    'auth.user-title': 'User Management',
     'auth.role-title': 'Role Management',
     'auth.user-list-title': 'User List',
     'auth.role-list-title': 'Role List',

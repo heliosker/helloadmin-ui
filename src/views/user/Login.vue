@@ -637,7 +637,6 @@ export default defineComponent({
               ]
               generateAsyncRoutes(router, menu)
             }
-            debugger
             loginSuccess(res.data, router)
             isLoginError.value = false
           } else {

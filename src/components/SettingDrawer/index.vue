@@ -123,7 +123,7 @@ export default defineComponent({
 <style lang="less" scoped>
 @import '../../style/index.less';
 .setting-drawer-index-content {
-  &:deep(.setting-drawer-index-blockChecbox) {
+  ::v-deep(.setting-drawer-index-blockChecbox) {
     display: flex;
 
     .setting-drawer-index-item {

@@ -23,11 +23,11 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref, PropType } from 'vue'
 import { Drawer } from 'ant-design-vue'
-import ValidateForm from '@/components/validateForm/validateForm.vue'
+import ValidateForm from '@/components/com-common/validateForm/validateForm.vue'
 import { FormSchema } from '@/types/schema'
 
 export default defineComponent({
-  name: 'form-drawer',
+  name: 'form-modal',
   components: { [Drawer.name]: Drawer, ValidateForm },
   props: {
     close: {

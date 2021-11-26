@@ -1,7 +1,5 @@
 import { FormSchema } from "@/../types/schema";
 // import team from '@/server/team';
-import { createVNode } from 'vue'
-import * as api from '../service'
 // import Avater from './avater.vue'
 
 export const getFormSchema = (): FormSchema => ({

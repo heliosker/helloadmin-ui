@@ -69,5 +69,4 @@ export default ({ mode }: ConfigEnv): UserConfig => {
             },
         },
     }
-
 };
