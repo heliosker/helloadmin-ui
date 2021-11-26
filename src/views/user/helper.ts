@@ -14,8 +14,8 @@ export const loginSuccess = (res, router: Router) => {
             description: `${timeFix()}，欢迎回来`,
         });
     });
-    if (res.token) {
-        ls.set(ACCESS_TOKEN, res.token, 7 * 24 * 60 * 60 * 1000);
+    if (res.access_token) {
+        ls.set(ACCESS_TOKEN, res.access_token, 7 * 24 * 60 * 60 * 1000);
         ls.set(PERMISSION, res.permission ? Array.isArray(res.permission) ? res.permission : res.permission.split(',') : ['admin']);
         ls.set(USER_INFO, res);
     }

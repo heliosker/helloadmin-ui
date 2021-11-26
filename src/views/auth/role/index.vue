@@ -19,16 +19,7 @@
         </a-row>
       </a-form>
     </div>
-    <s-table
-      row-key="id"
-      ref="Ref"
-      size="default"
-      :columns="state.columns"
-      :data="loadData"
-      :expandedRowKeys="state.expandedRowKeys"
-      @expand="handleExpand"
-      @add="add"
-    >
+    <s-table row-key="id" ref="Ref" size="default" :columns="columns" :data="loadData" @add="add">
       <!-- <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
         <a-row :gutter="24" :style="{ marginBottom: '12px' }">
           <a-col
@@ -77,73 +68,29 @@
 import pick from 'lodash.pick'
 import STable from '@/components/table/index.tsx'
 import { Form } from 'ant-design-vue'
-// import { PERMISSION_ENUM } from '@/core/permission/permission'
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, h, createVNode } from 'vue'
 import { Icon } from '@/utils/icon.ts'
 import { useFormModal } from '@/hooks/formModal'
-import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import { DownOutlined, SettingOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { getFormSchema } from './form-schema'
-const STATUS = {
-  1: '启用',
-  2: '禁用'
-}
-const getRoleList = async () => {
-  return new Promise((resolve, reject) => {
-    resolve({
-      result: {
-        data: [{ id: 0, name: 'test', status: 1, createTime: '2021-01-09' }],
-        pageNo: 1,
-        totalCount: 10
-      }
-    })
-  })
-}
-const columns: any = [
-  {
-    title: '唯一识别码',
-    dataIndex: 'id'
-  },
-  {
-    title: '角色名称',
-    dataIndex: 'name'
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    customRender: (text, record) => {
-      // const h = this.$createElement;
-      return '123'
-    }
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    slots: { customRender: 'createTime' },
-    sorter: true
-  },
-  {
-    title: '操作',
-    width: '150px',
-    dataIndex: 'action',
-    slots: { customRender: 'action' }
-  }
-]
+import { Divider, Menu, Dropdown, message, Modal } from 'ant-design-vue'
+import { ColumnProps } from 'ant-design-vue/es/table/interface'
+import * as api from '../service'
+
 const useForm = Form.useForm
 
 export default defineComponent({
-  name: 'TableList',
+  name: 'RoleList',
   components: {
     STable,
     DownOutlined,
-    // UpOutlined,
     SettingOutlined,
+    ExclamationCircleOutlined,
     Icon
   },
   setup(props) {
     const Ref = ref(null)
     const state = reactive({
-      description:
-        '列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。',
       visible: false,
       labelCol: {
         xs: { span: 24 },
@@ -160,20 +107,44 @@ export default defineComponent({
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
-      queryParam: {},
-      // 表头
-      columns,
+      queryParam: {}
       // 加载数据方法 必须为 Promise 对象
-      expandedRowKeys: [],
-      selectedRowKeys: [],
-      selectedRows: []
     })
-    const modelRef = reactive({
-      id: '',
-      status: '',
-      describe: '',
-      name: ''
-    })
+    // 表头
+    const columns: ColumnProps[] = [
+      {
+        title: '唯一识别码',
+        dataIndex: 'id'
+      },
+      {
+        title: '角色名称',
+        dataIndex: 'name'
+      },
+      {
+        title: '备注',
+        dataIndex: 'describe'
+      },
+      {
+        title: '创建时间',
+        dataIndex: 'created_at'
+      },
+      {
+        title: '操作',
+        width: '150px',
+        dataIndex: 'action',
+        customRender: (row) => {
+          return h(
+            'span',
+            {},
+            h('a', { onClick: () => setAuth(row.record) }, '设置权限'),
+            h('a', { onClick: () => handleEdit(row.record) }, '编辑'),
+            h(Divider, { type: 'vertical' }),
+            h('a', { onClick: () => handleDelete(row.record) }, '删除')
+          )
+        }
+      }
+    ]
+
     const rulesRef = reactive({
       name: [
         {
@@ -198,55 +169,57 @@ export default defineComponent({
     // getServiceList().then((res) => {
     //   console.log('getServiceList.call()', res)
     // })
-
-    // getRoleList().then((res) => {
-    //   console.log('getRoleList.call()', res)
-    // })
-    const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef)
-    const handleEdit = (record) => {
-      state.visible = true
-      //   console.log('record', record)
-
-      const checkboxGroup = {}
-      //   state.permissions = record.permissions.map((permission) => {
-      //     const groupKey = `permissions.${permission.permissionId}`
-      //     checkboxGroup[groupKey] = permission.actionList
-      //     const actionsOptions = permission.actionEntitySet.map((action) => {
-      //       return {
-      //         label: action.describe,
-      //         value: action.action,
-      //         defaultCheck: action.defaultCheck
-      //       }
-      //     })
-      //     return {
-      //       ...permission,
-      //       actionsOptions
-      //     }
-      //   })
-
-      //   this.$nextTick(() => {
-      //     console.log('permissions', state.permissions)
-      //     console.log('checkboxGroup', checkboxGroup)
-
-      //     // this.form.setFieldsValue(pick(record, ['id', 'status', 'describe', 'name']))
-      //     // this.form.setFieldsValue(checkboxGroup)
-      //   })
-    }
-    const handleOk = (e) => {
-      e.preventDefault()
-      //   validate().then(() => {
-      //     consol.log('da')
-      //   }
-      //   )
-    }
+    // 获取角色列表
     const loadData = (parameter) => {
-      return getRoleList().then((res) => {
-        console.log('getRoleList', res)
-        // 展开全部行
-        state.expandedRowKeys = res.result.data.map((item) => item.id)
-        return res.result
+      const param = Object.assign(parameter, state.queryParam)
+      return api.getRoleList().then((res) => {
+        return res
       })
     }
+    // 编辑
+    const handleEdit = (record) => {
+      const fields = record
+      useFormModal({
+        title: '编辑角色',
+        fields,
+        formSchema: getFormSchema(),
+        handleOk: async (modelRef) => {
+          const { name, describe } = modelRef
+          const params = {
+            name,
+            describe
+          }
+          const { code } = await api.editRole(fields.id, params)
+          if (code === 200200) {
+            message.success('编辑成功！')
+            Ref.value.refresh()
+          }
+        }
+      })
+    }
+    // 删除
+    const handleDelete = (row) => {
+      Modal.confirm({
+        title: () => '提示',
+        content: () => '确认执行删除此操作？',
+        icon: () => createVNode(ExclamationCircleOutlined),
+        okText: () => '确认',
+        closable: true,
+        cancelText: () => '取消',
+        onOk: async () => {
+          const { code } = await api.deleteRole(row.id)
+          if (code === 200200) {
+            message.success('删除成功！')
+            Ref.value.refresh()
+          }
+          Modal.destroyAll()
+        },
+        onCancel: () => {
+          Modal.destroyAll()
+        }
+      })
+    }
+    const setAuth = () => {}
     // const onChange = (selectedRowKeys, selectedRows) => {
     //   state.selectedRowKeys = selectedRowKeys
     //   state.selectedRows = selectedRows
@@ -264,15 +237,14 @@ export default defineComponent({
         title: '创建角色',
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
-          const { name, team_id, contact } = modelRef
+          const { name, describe } = modelRef
           const params = {
             name,
-            team_id,
-            contact
+            describe
           }
-          const { data } = await server.staff.addStaff(params)
-          if (data.code === 200) {
-            table.value.initTableData()
+          const { code } = await api.addRole(params)
+          if (code === 200200) {
+            Ref.value.refresh()
             message.success('创建成功！')
           }
         }
@@ -284,11 +256,11 @@ export default defineComponent({
     return {
       state,
       Ref,
-      handleOk,
       handleExpand,
       toggleAdvanced,
       handleEdit,
       add,
+      columns,
       loadData
     }
   }

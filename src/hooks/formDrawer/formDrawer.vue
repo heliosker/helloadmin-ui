@@ -1,11 +1,5 @@
 <template>
-  <a-drawer
-    width="370"
-    v-bind="$attrs"
-    v-model:visible="visible"
-    :confirm-loading="confirmLoading"
-    @close="close"
-  >
+  <a-drawer width="370" v-bind="$attrs" v-model:visible="visible" @close="close">
     <validate-form ref="formRef" :fields="fields" :form-schema="validateForm" />
     <div
       :style="{
@@ -21,7 +15,7 @@
       }"
     >
       <a-button style="margin-right: 8px" @click="close">取消</a-button>
-      <a-button type="primary" @click="certain">确认</a-button>
+      <a-button type="primary" :loading="confirmLoading" @click="certain">确认</a-button>
     </div>
   </a-drawer>
 </template>
@@ -85,7 +79,7 @@ export default defineComponent({
         })
         .catch((err) => {
           console.log('error', err)
-          state.confirmLoading = false
+          state.confirmLoading = true
         })
     }
 

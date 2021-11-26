@@ -20,7 +20,8 @@ export const getFormSchema = (): FormSchema => ({
         {
             type: createVNode(Avater),
             field: 'avater',
-            class: 'f_avater'
+            class: 'f_avater',
+            value: 'https://image.shenjumiaosuan.com/article/1635218188362.png'
         },
         {
             type: 'input',
@@ -60,7 +61,7 @@ export const getFormSchema = (): FormSchema => ({
             options: [],
             asyncOptions: async () => {
                 const data = await api.getRoleList({ options: 'true' })
-                if (data.code === 0) {
+                if (data.code === 200200) {
                     return data.data
                 }
             },

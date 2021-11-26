@@ -45,6 +45,9 @@
       @expand="handleExpand"
       @add="add"
     >
+      <!-- <template #action="{ record }">
+        <a>{{ record }}</a>
+      </template> -->
       <!-- <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
         <a-row :gutter="24" :style="{ marginBottom: '12px' }">
           <a-col
@@ -159,73 +162,76 @@ import pick from 'lodash.pick'
 import STable from '@/components/table/index.tsx'
 import { Form } from 'ant-design-vue'
 // import { PERMISSION_ENUM } from '@/core/permission/permission'
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, h } from 'vue'
 import { Icon } from '@/utils/icon.ts'
 import { formDrawer } from '@/hooks/formDrawer'
 import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
+import { ColumnProps } from 'ant-design-vue/es/table/interface'
 import { getFormSchema } from './form-schema'
+import { Divider, Menu, Dropdown, message, Modal } from 'ant-design-vue'
 import * as api from '../service'
-const STATUS = {
-  1: '启用',
-  2: '禁用'
-}
-// const getRoleList = async () => {
-//   return new Promise((resolve, reject) => {
-//     resolve({
-//       result: {
-//         data: [{ id: 0, name: 'test', status: 1, createTime: '2021-01-09' }],
-//         pageNo: 1,
-//         totalCount: 10
-//       }
-//     })
-//   })
-// }
-const columns = [
-  {
-    title: '唯一识别码',
-    dataIndex: 'id'
-  },
-  {
-    title: '用户名称',
-    dataIndex: 'username'
-  },
-  {
-    title: '头像',
-    dataIndex: 'avatar'
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    customRender: () => {
-      return '123'
-    }
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'created_at',
-    slots: { customRender: 'created_at' },
-    sorter: true
-  },
-  {
-    title: '操作',
-    width: '150px',
-    dataIndex: 'action',
-    slots: { customRender: 'action' }
-  }
+const MenuItem = Menu.Item
+const status = [
+  { key: 0, value: '正常' },
+  { key: 1, value: '锁定' }
 ]
 const useForm = Form.useForm
 
 export default defineComponent({
-  name: 'TableList',
+  name: 'UserList',
   components: {
     STable,
     DownOutlined,
+    Divider,
+    Menu,
+    Dropdown,
     // UpOutlined,
     SettingOutlined,
     Icon
   },
   setup(props) {
     const Ref = ref(null)
+    const columns: ColumnProps[] = [
+      {
+        title: '唯一识别码',
+        dataIndex: 'id'
+      },
+      {
+        title: '用户名称',
+        dataIndex: 'username'
+      },
+      {
+        title: '头像',
+        dataIndex: 'avatar'
+      },
+      {
+        title: '状态',
+        dataIndex: 'status',
+        customRender: ({ text }) => {
+          return status.filter((v) => v.key === text)[0].value
+        }
+      },
+      {
+        title: '创建时间',
+        dataIndex: 'created_at',
+        slots: { customRender: 'created_at' },
+        sorter: true
+      },
+      {
+        title: '操作',
+        width: '150px',
+        dataIndex: 'action',
+        customRender: (row) => {
+          return h(
+            'span',
+            {},
+            h('a', { onClick: () => handleEdit(row.record) }, '编辑'),
+            h(Divider, { type: 'vertical' }),
+            h('a', { onClick: () => handleDelete(row.record) }, '删除')
+          )
+        }
+      }
+    ]
     const state = reactive({
       description:
         '列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。',
@@ -239,19 +245,11 @@ export default defineComponent({
         sm: { span: 16 }
       },
       data: [{ id: 0, name: 'test', status: 1, createTime: '2021-01-09' }],
-      //   form: this.$form.createForm(this),
       permissions: [],
-
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
-      queryParam: {},
-      // 表头
-      columns,
-      // 加载数据方法 必须为 Promise 对象
-      expandedRowKeys: [],
-      selectedRowKeys: [],
-      selectedRows: []
+      queryParam: {}
     })
     const modelRef = reactive({
       id: '',
@@ -288,34 +286,45 @@ export default defineComponent({
     //   console.log('getRoleList.call()', res)
     // })
     const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef)
+    // 编辑
     const handleEdit = (record) => {
-      state.visible = true
-      //   console.log('record', record)
-
-      const checkboxGroup = {}
-      //   state.permissions = record.permissions.map((permission) => {
-      //     const groupKey = `permissions.${permission.permissionId}`
-      //     checkboxGroup[groupKey] = permission.actionList
-      //     const actionsOptions = permission.actionEntitySet.map((action) => {
-      //       return {
-      //         label: action.describe,
-      //         value: action.action,
-      //         defaultCheck: action.defaultCheck
-      //       }
-      //     })
-      //     return {
-      //       ...permission,
-      //       actionsOptions
-      //     }
-      //   })
-
-      //   this.$nextTick(() => {
-      //     console.log('permissions', state.permissions)
-      //     console.log('checkboxGroup', checkboxGroup)
-
-      //     // this.form.setFieldsValue(pick(record, ['id', 'status', 'describe', 'name']))
-      //     // this.form.setFieldsValue(checkboxGroup)
-      //   })
+      const fields = record
+      formDrawer({
+        title: '编辑用户',
+        fields,
+        formSchema: getFormSchema(),
+        handleOk: async (modelRef) => {
+          const { avater, username, email, role_id, status } = modelRef
+          const params = {
+            avater,
+            username,
+            email,
+            role_id,
+            status
+          }
+          const { code } = await api.editUser(fields.id, params)
+          if (code === 200200) {
+            message.success('编辑成功！')
+            Ref.value.refresh()
+          }
+        }
+      })
+    }
+    // 删除
+    const handleDelete = (row) => {
+      Modal.warning({
+        title: () => '提示',
+        content: () => '确认执行删除此操作？',
+        okText: '确认',
+        onOk: async () => {
+          const { code } = await api.deleteUser(row.id)
+          if (code === 200200) {
+            message.success('删除成功！')
+            Ref.value.refresh()
+          }
+          Modal.destroyAll()
+        }
+      })
     }
     const handleOk = (e) => {
       e.preventDefault()
@@ -327,9 +336,8 @@ export default defineComponent({
     const loadData = (parameter) => {
       const param = Object.assign(parameter, state.queryParam)
       return api.getUserList().then((res) => {
-        console.log('getRoleList', res)
         // 展开全部行
-        state.expandedRowKeys = res.data.map((item) => item.id)
+        if (res.data) state.expandedRowKeys = res.data.map((item) => item.id)
         return res
       })
     }
@@ -350,15 +358,17 @@ export default defineComponent({
         title: '创建用户',
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
-          const { name, team_id, contact } = modelRef
+          const { avater, username, email, role_id, status } = modelRef
           const params = {
-            name,
-            team_id,
-            contact
+            avater,
+            username,
+            email,
+            role_id,
+            status
           }
-          const { data } = await server.staff.addStaff(params)
-          if (data.code === 200) {
-            table.value.initTableData()
+          const data = await api.addUser(params)
+          if (data.code === 200200) {
+            Ref.value.refresh()
             message.success('创建成功！')
           }
         }
@@ -374,6 +384,8 @@ export default defineComponent({
       handleExpand,
       toggleAdvanced,
       handleEdit,
+      handleDelete,
+      columns,
       add,
       loadData
     }

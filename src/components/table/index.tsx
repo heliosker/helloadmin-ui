@@ -215,38 +215,43 @@ export default defineComponent({
                 ...filters
             }
             )
-            const result = await props.data(parameter)
-            const meta = result.meta;
-            // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
-            // eslint-disable-next-line
-            state.localPagination = props.showPagination && Object.assign({}, state.localPagination, {
-                current: meta.page, // 返回结果中的当前分页数
-                total: meta.count, // 返回结果中的总记录数
-                showSizeChanger: props.showSizeChanger,
-                pageSize: (pagination && pagination.pageSize) ||
-                    state.localPagination.pageSize
-            }) || false
-            // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
-            if (result.data.length === 0 && props.showPagination && props.localPagination.current > 1) {
-                state.localPagination.current--
-                loadData()
-                return
-            }
-
-            // 这里用于判断接口是否有返回 r.totalCount 且 this.showPagination = true 且 pageNo 和 pageSize 存在 且 totalCount 小于等于 pageNo * pageSize 的大小
-            // 当情况满足时，表示数据不满足分页大小，关闭 table 分页功能
             try {
-                if ((['auto', true].includes(props.showPagination) && meta.count <= (meta.page * state.localPagination.pageSize))) {
-                    state.localPagination.hideOnSinglePage = true
+                const result = await props.data(parameter)
+                const meta = result.meta;
+                // 对接自己的通用数据接口需要修改下方代码中的 r.pageNo, r.totalCount, r.data
+                // eslint-disable-next-line
+                state.localPagination = props.showPagination && Object.assign({}, state.localPagination, {
+                    current: meta.page, // 返回结果中的当前分页数
+                    total: meta.count, // 返回结果中的总记录数
+                    showSizeChanger: props.showSizeChanger,
+                    pageSize: (pagination && pagination.pageSize) ||
+                        state.localPagination.pageSize
+                }) || false
+                // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
+                if (result.data.length === 0 && props.showPagination && props.localPagination.current > 1) {
+                    state.localPagination.current--
+                    loadData()
+                    return
                 }
-            } catch (e) {
-                state.localPagination = false
+
+                // 这里用于判断接口是否有返回 r.totalCount 且 this.showPagination = true 且 pageNo 和 pageSize 存在 且 totalCount 小于等于 pageNo * pageSize 的大小
+                // 当情况满足时，表示数据不满足分页大小，关闭 table 分页功能
+                try {
+                    if ((['auto', true].includes(props.showPagination) && meta.count <= (meta.page * state.localPagination.pageSize))) {
+                        state.localPagination.hideOnSinglePage = true
+                    }
+                } catch (e) {
+                    state.localPagination = false
+                }
+                state.localDataSource = result.data // 返回结果中的数组数据
+                state.localLoading = false
+
+            } catch (error) {
+                state.localLoading = false
+                console.log(error)
             }
-            state.localDataSource = result.data // 返回结果中的数组数据
-            state.localLoading = false
             // if ((typeof result === 'object' || typeof result === 'function') && typeof result.then === 'function') {
             // result.then(r => {
-            //     debugger
             //     state.localPagination = props.showPagination && Object.assign({}, state.localPagination, {
             //         current: r.pageNo, // 返回结果中的当前分页数
             //         total: r.totalCount, // 返回结果中的总记录数
@@ -487,6 +492,7 @@ export default defineComponent({
         Object.keys(T.props).forEach(k => {
             const localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(1)}`
             if (localKeys.includes(localKey)) {
+                console.log(this.state[localKey])
                 props[k] = this.state[localKey]
                 return props[k]
             }

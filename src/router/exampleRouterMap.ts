@@ -118,41 +118,46 @@ export const example: Router = {
         //     }
         //   ]
         // },
-        // 权限管理
         {
-            path: '/auth',
-            name: 'auth',
+            path: '/user',
+            name: 'user',
             component: RouteView,
-            meta: { title: 'menu.auth.title', icon: 'bx-analyse', keepAlive: true, permission: ['admin'] },
+            meta: { title: 'menu.auth.user-title', keepAlive: false, permission: ['admin'], hidden: false },
             children: [
                 {
-                    path: '/user',
-                    name: 'User',
-                    component: RouteView,
-                    meta: { title: 'menu.auth.user-title', keepAlive: false, permission: ['admin'], hidden: false },
-                    children: [
-                        {
-                            path: '/user-list',
-                            name: 'UserList',
-                            component: () => import('@/views/auth/user/index.vue'),
-                            meta: { title: 'menu.auth.user-list-title', keepAlive: false, permission: ['admin'], hidden: false },
-                        }
-                    ]
-                },
+                    path: '/user-list',
+                    name: 'UserList',
+                    component: () => import('@/views/auth/user/index.vue'),
+                    meta: { title: 'menu.auth.user-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                }
+            ]
+        },
+        {
+            path: '/role',
+            name: 'role',
+            component: RouteView,
+            meta: { title: 'menu.auth.role-title', keepAlive: false, permission: ['admin'], hidden: false },
+            children: [
                 {
-                    path: '/role',
-                    name: 'Role',
-                    component: RouteView,
-                    meta: { title: 'menu.auth.role-title', keepAlive: false, permission: ['admin'], hidden: false },
-                    children: [
-                        {
-                            path: '/resolveDirective -list',
-                            name: 'RoleList',
-                            component: () => import('@/views/auth/role/index.vue'),
-                            meta: { title: 'menu.auth.role-list-title', keepAlive: false, permission: ['admin'], hidden: false },
-                        }
-                    ]
-                },
+                    path: '/role-list',
+                    name: 'RoleList',
+                    component: () => import('@/views/auth/role/index.vue'),
+                    meta: { title: 'menu.auth.role-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                }
+            ]
+        },
+        {
+            path: '/menu',
+            name: 'menu',
+            component: RouteView,
+            meta: { title: 'menu.auth.menu-title', keepAlive: false, permission: ['admin'], hidden: false },
+            children: [
+                {
+                    path: '/menu-list',
+                    name: 'MenuList',
+                    component: () => import('@/views/auth/menu/index.vue'),
+                    meta: { title: 'menu.auth.menu-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                }
             ]
         },
         // forms

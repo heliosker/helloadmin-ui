@@ -261,7 +261,7 @@ export default defineComponent({
               const menu = [
                 {
                   name: 'dashboard',
-                  parentId: 0,
+                  parent_id: 0,
                   id: 1,
                   meta: {
                     icon: 'dashboard',
@@ -273,7 +273,7 @@ export default defineComponent({
                 },
                 {
                   name: 'workplace',
-                  parentId: 1,
+                  parent_id: 1,
                   id: 7,
                   meta: {
                     title: '工作台',
@@ -284,7 +284,7 @@ export default defineComponent({
                 {
                   name: 'monitor',
                   path: 'monitor',
-                  parentId: 1,
+                  parent_id: 1,
                   id: 3,
                   meta: {
                     title: '监控页（外部）',
@@ -295,7 +295,7 @@ export default defineComponent({
                 },
                 {
                   name: 'Analysis',
-                  parentId: 1,
+                  parent_id: 1,
                   id: 2,
                   meta: {
                     title: '分析页',
@@ -306,7 +306,7 @@ export default defineComponent({
                 },
                 {
                   name: 'tests',
-                  parentId: 1,
+                  parent_id: 1,
                   id: 8,
                   meta: {
                     title: '测试功能',
@@ -316,7 +316,7 @@ export default defineComponent({
                 },
                 {
                   name: 'form',
-                  parentId: 0,
+                  parent_id: 0,
                   id: 10,
                   meta: {
                     icon: 'form',
@@ -327,7 +327,7 @@ export default defineComponent({
                 },
                 {
                   name: 'basic-form',
-                  parentId: 10,
+                  parent_id: 10,
                   id: 6,
                   meta: {
                     title: '基础表单'
@@ -336,7 +336,7 @@ export default defineComponent({
                 },
                 {
                   name: 'step-form',
-                  parentId: 10,
+                  parent_id: 10,
                   id: 5,
                   meta: {
                     title: '分步表单'
@@ -345,7 +345,7 @@ export default defineComponent({
                 },
                 {
                   name: 'advanced-form',
-                  parentId: 10,
+                  parent_id: 10,
                   id: 4,
                   meta: {
                     title: '高级表单'
@@ -354,7 +354,7 @@ export default defineComponent({
                 },
                 {
                   name: 'list',
-                  parentId: 0,
+                  parent_id: 0,
                   id: 10010,
                   meta: {
                     icon: 'table',
@@ -366,7 +366,7 @@ export default defineComponent({
                 },
                 {
                   name: 'table-list',
-                  parentId: 10010,
+                  parent_id: 10010,
                   id: 10011,
                   path: '/list/table-list/:pageNo([1-9]\\d*)?',
                   meta: {
@@ -377,7 +377,7 @@ export default defineComponent({
                 },
                 {
                   name: 'basic-list',
-                  parentId: 10010,
+                  parent_id: 10010,
                   id: 10012,
                   meta: {
                     title: '标准列表',
@@ -387,7 +387,7 @@ export default defineComponent({
                 },
                 {
                   name: 'card',
-                  parentId: 10010,
+                  parent_id: 10010,
                   id: 10013,
                   meta: {
                     title: '卡片列表',
@@ -397,7 +397,7 @@ export default defineComponent({
                 },
                 {
                   name: 'search',
-                  parentId: 10010,
+                  parent_id: 10010,
                   id: 10014,
                   meta: {
                     title: '搜索列表',
@@ -408,7 +408,7 @@ export default defineComponent({
                 },
                 {
                   name: 'article',
-                  parentId: 10014,
+                  parent_id: 10014,
                   id: 10015,
                   meta: {
                     title: '搜索列表（文章）',
@@ -418,7 +418,7 @@ export default defineComponent({
                 },
                 {
                   name: 'project',
-                  parentId: 10014,
+                  parent_id: 10014,
                   id: 10016,
                   meta: {
                     title: '搜索列表（项目）',
@@ -428,7 +428,7 @@ export default defineComponent({
                 },
                 {
                   name: 'application',
-                  parentId: 10014,
+                  parent_id: 10014,
                   id: 10017,
                   meta: {
                     title: '搜索列表（应用）',
@@ -438,7 +438,7 @@ export default defineComponent({
                 },
                 {
                   name: 'profile',
-                  parentId: 0,
+                  parent_id: 0,
                   id: 10018,
                   meta: {
                     title: '详情页',
@@ -450,7 +450,7 @@ export default defineComponent({
                 },
                 {
                   name: 'basic',
-                  parentId: 10018,
+                  parent_id: 10018,
                   id: 10019,
                   meta: {
                     title: '基础详情页',
@@ -460,7 +460,7 @@ export default defineComponent({
                 },
                 {
                   name: 'advanced',
-                  parentId: 10018,
+                  parent_id: 10018,
                   id: 10020,
                   meta: {
                     title: '高级详情页',
@@ -470,7 +470,7 @@ export default defineComponent({
                 },
                 {
                   name: 'result',
-                  parentId: 0,
+                  parent_id: 0,
                   id: 10021,
                   meta: {
                     title: '结果页',
@@ -482,7 +482,7 @@ export default defineComponent({
                 },
                 {
                   name: 'success',
-                  parentId: 10021,
+                  parent_id: 10021,
                   id: 10022,
                   meta: {
                     title: '成功',
@@ -493,7 +493,7 @@ export default defineComponent({
                 },
                 {
                   name: 'fail',
-                  parentId: 10021,
+                  parent_id: 10021,
                   id: 10023,
                   meta: {
                     title: '失败',
@@ -504,7 +504,7 @@ export default defineComponent({
                 },
                 {
                   name: 'exception',
-                  parentId: 0,
+                  parent_id: 0,
                   id: 10024,
                   meta: {
                     title: '异常页',
@@ -516,7 +516,7 @@ export default defineComponent({
                 },
                 {
                   name: '403',
-                  parentId: 10024,
+                  parent_id: 10024,
                   id: 10025,
                   meta: {
                     title: '403',
@@ -526,7 +526,7 @@ export default defineComponent({
                 },
                 {
                   name: '404',
-                  parentId: 10024,
+                  parent_id: 10024,
                   id: 10026,
                   meta: {
                     title: '404',
@@ -536,7 +536,7 @@ export default defineComponent({
                 },
                 {
                   name: '500',
-                  parentId: 10024,
+                  parent_id: 10024,
                   id: 10027,
                   meta: {
                     title: '500',
@@ -546,7 +546,7 @@ export default defineComponent({
                 },
                 {
                   name: 'account',
-                  parentId: 0,
+                  parent_id: 0,
                   id: 10028,
                   meta: {
                     title: '个人页',
@@ -558,7 +558,7 @@ export default defineComponent({
                 },
                 {
                   name: 'center',
-                  parentId: 10028,
+                  parent_id: 10028,
                   id: 10029,
                   meta: {
                     title: '个人中心',
@@ -568,7 +568,7 @@ export default defineComponent({
                 },
                 {
                   name: 'settings',
-                  parentId: 10028,
+                  parent_id: 10028,
                   id: 10030,
                   meta: {
                     title: '个人设置',
@@ -582,7 +582,7 @@ export default defineComponent({
                 {
                   name: 'BaseSettings',
                   path: '/account/settings/base',
-                  parentId: 10030,
+                  parent_id: 10030,
                   id: 10031,
                   meta: {
                     title: '基本设置',
@@ -593,7 +593,7 @@ export default defineComponent({
                 {
                   name: 'SecuritySettings',
                   path: '/account/settings/security',
-                  parentId: 10030,
+                  parent_id: 10030,
                   id: 10032,
                   meta: {
                     title: '安全设置',
@@ -604,7 +604,7 @@ export default defineComponent({
                 {
                   name: 'CustomSettings',
                   path: '/account/settings/custom',
-                  parentId: 10030,
+                  parent_id: 10030,
                   id: 10033,
                   meta: {
                     title: '个性化设置',
@@ -615,7 +615,7 @@ export default defineComponent({
                 {
                   name: 'BindingSettings',
                   path: '/account/settings/binding',
-                  parentId: 10030,
+                  parent_id: 10030,
                   id: 10034,
                   meta: {
                     title: '账户绑定',
@@ -626,7 +626,7 @@ export default defineComponent({
                 {
                   name: 'NotificationSettings',
                   path: '/account/settings/notification',
-                  parentId: 10030,
+                  parent_id: 10030,
                   id: 10034,
                   meta: {
                     title: '新消息通知',
@@ -637,6 +637,7 @@ export default defineComponent({
               ]
               generateAsyncRoutes(router, menu)
             }
+            debugger
             loginSuccess(res.data, router)
             isLoginError.value = false
           } else {

@@ -1,0 +1,56 @@
+// @import 'ant-design-vue/es/style/themes/default.less';
+.menu-list {
+  display: flex;
+  justify-content: space-between;
+  .card {
+		width: calc(50% - 10px);
+		.chart-card-header {
+			height: 45px;
+			line-height: 45px;
+			border-bottom: 1px solid #D9D9D9;
+			font-weight: 600;
+		}
+  }
+  .menu-tree,
+  .form {
+    min-height: 100vh;
+    // background: #fff;
+    margin-right: 20px;
+  }
+  .form {
+    margin-right: 0px;
+  }
+  .menu-tree {
+    overflow: hidden;
+    &:deep(.ant-tree-child-tree) {
+      .ant-tree-node-content-wrapper {
+        display: flex;
+      }
+      .ant-tree-treenode-switcher-open {
+        display: flex;
+      }
+    }
+    &:deep(.ant-tree) {
+        li .ant-tree-node-content-wrapper {
+            background-color: #f5f5f5;
+        }
+    }
+    &:deep(.ant-tree-node-content-wrapper) {
+      width: 100%;
+    }
+    &:deep(.ant-tree-title) {
+      width: 100%;
+      display: inline-block;
+    }
+    .tree-node {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .but_operation {
+      .but_type {
+        margin-right: 5px;
+      }
+    }
+  }
+}

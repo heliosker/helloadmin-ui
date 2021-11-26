@@ -1,10 +1,10 @@
 /*!
- * 
+ *
  * ant-design-vue v2.0.0
- * 
+ *
  * Copyright 2017-present, ant-design-vue.
  * All rights reserved.
- *       
+ *
  */
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable no-duplicate-selectors */
@@ -344,6 +344,9 @@ mark {
 .clearfix::after {
   clear: both;
 }
+  .menu-tree .ant-tree li .ant-tree-node-content-wrapper  {
+    background-color: #000 !important;
+  }
 .anticon {
   display: inline-block;
   color: inherit;

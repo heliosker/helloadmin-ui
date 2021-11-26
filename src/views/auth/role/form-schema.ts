@@ -16,7 +16,7 @@ export const getFormSchema = (): FormSchema => ({
         {
             type: 'input',
             label: '角色',
-            field: 'email',
+            field: 'name',
             value: '',
             props: {
                 placeholder: '请输入角色'
@@ -31,17 +31,11 @@ export const getFormSchema = (): FormSchema => ({
         {
             type: 'input',
             label: '备注',
-            field: 'name',
+            field: 'describe',
             value: '',
             props: {
                 placeholder: '请输入备注'
-            },
-            rules: [
-                {
-                    required: false,
-                    message: ''
-                }
-            ]
+            }
         }
     ]
 })

@@ -39,6 +39,8 @@ export default {
     'auth.title': '权限管理',
     'auth.user-title': '用户管理',
     'auth.role-title': '角色管理',
+    'auth.menu-title': '菜单管理',
     'auth.user-list-title': '用户列表',
     'auth.role-list-title': '角色列表',
+    'auth.menu-list-title': '菜单列表'
 }

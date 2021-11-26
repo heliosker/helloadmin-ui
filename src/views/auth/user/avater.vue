@@ -7,12 +7,12 @@
       </div>
       <img :src="modelValue" error="@/assets/default.png" />
     </div>
-    <AvaterModal ref="Ref" />
+    <AvaterModal @ok="uploadSuccess" :value="modelValue" v-model="modelValue" ref="Ref" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, computed, ref } from 'vue'
-// import { FormItem } from '@/types/schema'
+import { FormItem } from '@/types/schema'
 import { Image } from 'ant-design-vue'
 import { CloudUploadOutlined, PlusOutlined } from '@ant-design/icons-vue'
 import AvaterModal from './avaterModal.vue'
@@ -43,10 +43,16 @@ export default defineComponent({
     const edit = () => {
       Ref.value.edit(1)
     }
+    const uploadSuccess = (v) => {
+      if (v.code === 0) {
+        modelValue.value = '' + v.data.url
+      }
+    }
     return {
       edit,
       Ref,
-      modelValue
+      modelValue,
+      uploadSuccess
     }
   }
 })

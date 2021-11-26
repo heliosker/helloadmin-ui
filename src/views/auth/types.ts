@@ -33,6 +33,13 @@ export interface UserList {
     details?: string[];
     meta: Pagination
 }
+export interface UserList {
+    code?: number
+    data: Array<Data>
+    message?: string
+    details?: string[];
+    meta: Pagination
+}
 export interface RoleList {
     code?: number
     data: Array<RoleData>
@@ -40,7 +47,49 @@ export interface RoleList {
     details?: string[];
     meta: Pagination
 }
-
+export interface UserInfo {
+    id: number
+    created_at: string
+    updated_at: string
+    email: string
+    username: string
+    avatar: string
+    status: number
+    password: string
+    role_id: number
+}
+export interface EditUser {
+    code?: number
+    data: UserInfo
+    message: string
+}
+export interface RoleInfo {
+    name: string
+}
+export interface EditRole {
+    code?: number
+    data: RoleInfo
+    message: string
+}
+export interface MenuInfo {
+    id: number
+    name: string
+    label: string
+    icon: string
+    parent_id: number
+    children: Array<any>
+    path: string
+    redirect: string
+    show: number
+    sort: number
+    updated_at: string
+    created_at: string
+}
+export interface MenuList {
+    code?: number
+    data: MenuInfo
+    message: string
+}
 export interface GetSmsCaptcha extends Response {
     result: { captcha: number }
 }
@@ -52,7 +101,9 @@ export interface Logout extends Response {
 export module API {
     export type _UserList = (data: any) => Promise<UserList>
     export type _RoleList = (data: any) => Promise<RoleList>
-    export type _Logout = () => Promise<Logout>
+    export type _editUser = (param: string, data: any) => Promise<EditUser>
+    export type _editRole = (param: string, data: any) => Promise<EditRole>
+    export type _menuList = (param: string, data: any) => Promise<MenuList>
 }
 
 export interface FormState {

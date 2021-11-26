@@ -1,11 +1,10 @@
 import axios, { AxiosResponse } from 'axios'
 import { message } from 'ant-design-vue'
 import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
-import { baseURL } from '@/utils/util'
+import { baseURL, clearUserInfo } from '@/utils/util'
 import ls from '@/utils/Storage'
-import { useRouter } from 'vue-router'
+import router from '@/router/index'
 import { globalLoading } from '@/store/reactiveState'
-
 const ContentType = {
     urlencoded: 'application/x-www-form-urlencoded;charset=UTF-8',
     json: 'application/json',
@@ -56,7 +55,7 @@ baseService.interceptors.response.use(
             return false
         } else if (res.status === 406) {
             message.error('登陆超时请重新登录!')
-            const router = useRouter()
+            clearUserInfo();
             router.push({ name: 'login' })
             return false
         } else {
@@ -70,11 +69,23 @@ baseService.interceptors.response.use(
         // return res
     },
     error => {
-        console.log(error)
         globalLoading.value = false
         const msg = error.message
         const result = error.response
-        if (result) {
+        // switch (result.status) {
+        //     case 401:
+        //         const router = useRouter()
+        //         router.push({ name: 'login' })
+        //         break;
+        //     default:
+        //         const { data } = result
+        //         message.error(data.msg || data.enMsg || data.message)
+        // }
+        if (result.status === 401) {
+            clearUserInfo();
+            router.push({ name: 'login' })
+        }
+        else if (result) {
             const { data } = result
             message.error(data.msg || data.enMsg || data.message)
         } else if (msg) {

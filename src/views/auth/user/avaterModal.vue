@@ -12,7 +12,7 @@
       <a-col :xs="24" :md="12" :style="{ height: '350px' }">
         <vue-cropper
           ref="cropper"
-          :img="options.img"
+          :img="newValue"
           :info="true"
           :autoCrop="options.autoCrop"
           :autoCropWidth="options.autoCropWidth"
@@ -85,6 +85,12 @@ export default {
     RedoOutlined,
     UndoOutlined
   },
+  props: {
+    value: {
+      default: '',
+      type: String
+    }
+  },
   data() {
     return {
       visible: false,
@@ -101,6 +107,16 @@ export default {
         fixedBox: true
       },
       previews: {}
+    }
+  },
+  computed: {
+    newValue: {
+      get() {
+        return this.value
+      },
+      set(val) {
+        this.$emit('update:value', val)
+      }
     }
   },
   methods: {
@@ -132,7 +148,7 @@ export default {
       // 转化为base64
       reader.readAsDataURL(file)
       reader.onload = () => {
-        this.options.img = reader.result
+        this.newValue = reader.result
       }
       // 转化为blob
       // reader.readAsArrayBuffer(file)
@@ -152,8 +168,8 @@ export default {
           const img = window.URL.createObjectURL(data)
           that.model = true
           that.modelSrc = img
-          formData.append('file', data, 'eee.png')
-          baseService.post(baseURL + '/v1/upload', formData).then((response) => {
+          formData.append('file', data, 'test.png')
+          baseService.post(baseURL + '/v1/upload/qiniu', formData).then((response) => {
             that.options.upLoadedAvatar = response
             that.$emit('ok', response)
             that.visible = false
