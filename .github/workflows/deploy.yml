@@ -32,5 +32,5 @@ jobs:
           accessKeySecret: ${{ secrets.OSS_KEY_SECRET }}
           bucket: ${{ secrets.OSS_HELLOADMIN_BUCKET }}
           # e.g. "oss-cn-shanghai.aliyuncs.com"
-          endpoint: oss-cn-hongkong.aliyuncs.com
+          endpoint: oss-cn-shanghai.aliyuncs.com
           folder: ./dist
