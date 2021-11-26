@@ -43,10 +43,7 @@
       :data="loadData"
       :expandedRowKeys="state.expandedRowKeys"
       @expand="handleExpand"
-<<<<<<< HEAD
-=======
       @add="add"
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     >
       <!-- <template #action="{ record }">
         <a>{{ record }}</a>
@@ -167,9 +164,7 @@ import { Form } from 'ant-design-vue'
 // import { PERMISSION_ENUM } from '@/core/permission/permission'
 import { defineComponent, reactive, ref, h } from 'vue'
 import { Icon } from '@/utils/icon.ts'
-<<<<<<< HEAD
 import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
-=======
 import { formDrawer } from '@/hooks/formDrawer'
 import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { ColumnProps } from 'ant-design-vue/es/table/interface'
@@ -340,19 +335,11 @@ export default defineComponent({
       //   )
     }
     const loadData = (parameter) => {
-<<<<<<< HEAD
-      return getRoleList().then((res) => {
-        console.log('getRoleList', res)
-        // 展开全部行
-        state.expandedRowKeys = res.result.data.map((item) => item.id)
-        return res.result
-=======
       const param = Object.assign(parameter, state.queryParam)
       return api.getUserList().then((res) => {
         // 展开全部行
         if (res.data) state.expandedRowKeys = res.data.map((item) => item.id)
         return res
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
       })
     }
     // const onChange = (selectedRowKeys, selectedRows) => {
@@ -367,8 +354,6 @@ export default defineComponent({
       //     state.expandedRowKeys = state.expandedRowKeys.filter((item) => record.id !== item)
       //   }
     }
-<<<<<<< HEAD
-=======
     const add = () => {
       formDrawer({
         title: '创建用户',
@@ -390,7 +375,6 @@ export default defineComponent({
         }
       })
     }
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     const toggleAdvanced = () => {
       state.advanced = !state.advanced
     }
@@ -404,7 +388,6 @@ export default defineComponent({
       handleDelete,
       columns,
       add,
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
       loadData
     }
   }
@@ -413,11 +396,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .permission-form {
-<<<<<<< HEAD
-  /deep/ .permission-group {
-=======
   &:deep(.permission-group) {
->>>>>>> 448872f46b2724e09b419b5826b6690fe7607cf7
     margin-top: 0;
     margin-bottom: 0;
   }
