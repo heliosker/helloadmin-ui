@@ -85,4 +85,4 @@ export const divisionStringToArray = (string, customSeparator) => {
 
 const sitUrl = 'xxxxx'
 export const isDev = import.meta.env.DEV
-export const baseURL = isDev ? '/api' : '生产地址'
+export const baseURL = isDev ? '/api' : 'http://47.103.204.136:9010/api'
