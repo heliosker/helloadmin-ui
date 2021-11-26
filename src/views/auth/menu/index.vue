@@ -51,7 +51,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, h } from 'vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import ValidateForm from '@/components/com-common/validateForm/validateForm.vue'
+import ValidateForm from '@/components/validateForm/validateForm.vue'
 import { FormOutlined, PlusSquareOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import * as api from '../service'
 import { getFormSchema } from './form-schema'
