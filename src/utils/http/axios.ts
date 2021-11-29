@@ -14,11 +14,7 @@ const ContentType = {
 // 创建 axios 实例   withCredentials: true,
 const baseService = axios.create({
     baseURL,
-    timeout: 60000,
-    responseType: 'json',
-    headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-    }
+    timeout: 60000
 })
 
 // request interceptor
@@ -26,13 +22,13 @@ baseService.interceptors.request.use(
     config => {
         globalLoading.value = true
         const token = ls.get(ACCESS_TOKEN)
-        const userinfo = ls.get(USER_INFO)
+        // const userinfo = ls.get(USER_INFO)
         if (token) {
             config.headers['Authorization'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
         }
-        if (userinfo) {
-            config.headers['username'] = userinfo.username // 让每个请求携带自定义 token 请根据实际情况自行修改
-        }
+        // if (userinfo) {
+        //     // config.headers['username'] = userinfo.username // 让每个请求携带自定义 token 请根据实际情况自行修改
+        // }
         config.headers['Content-Type'] = ContentType[config.data instanceof FormData ? 'formData' : 'json']
         return config
     },
