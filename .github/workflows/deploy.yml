@@ -21,16 +21,12 @@ jobs:
         run: |
           yarn install
           yarn run build
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Deploy to OSS
         uses: fangbinwei/aliyun-oss-website-action@v1
         with:
           accessKeyId: ${{ secrets.OSS_KEY_ID }}
           accessKeySecret: ${{ secrets.OSS_KEY_SECRET }}
-          bucket: ${{ secrets.OSS_BUCKET }}
+          bucket: ${{ secrets.OSS_HELLOADMIN_BUCKET }}
           # e.g. "oss-cn-shanghai.aliyuncs.com"
-          endpoint: oss-cn-hongkong.aliyuncs.com
+          endpoint: oss-cn-shanghai.aliyuncs.com
           folder: ./dist
