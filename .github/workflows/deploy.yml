@@ -30,12 +30,12 @@ jobs:
       #     # e.g. "oss-cn-shanghai.aliyuncs.com"
       #     endpoint: oss-cn-shanghai.aliyuncs.com
       #     folder: ./dist
-      - name: Deploy html
+      - name: Deploy HTML
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.DEV_USERNAME }}
           port: ${{ secrets.DEV_PORT }}
           key: ${{ secrets.DEV_KEY }}
-          source: "/dist/*"
+          source: "./dist/*"
           target: "/root/golang/helloadmin/frontend"
