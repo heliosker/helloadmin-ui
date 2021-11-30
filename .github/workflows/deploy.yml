@@ -21,12 +21,20 @@ jobs:
         run: |
           yarn install
           yarn run build
-      - name: Deploy to OSS
-        uses: fangbinwei/aliyun-oss-website-action@v1
-        with:
-          accessKeyId: ${{ secrets.OSS_KEY_ID }}
-          accessKeySecret: ${{ secrets.OSS_KEY_SECRET }}
-          bucket: ${{ secrets.OSS_HELLOADMIN_BUCKET }}
-          # e.g. "oss-cn-shanghai.aliyuncs.com"
-          endpoint: oss-cn-shanghai.aliyuncs.com
-          folder: ./dist
+      # - name: Deploy to OSS
+      #   uses: fangbinwei/aliyun-oss-website-action@v1
+      #   with:
+      #     accessKeyId: ${{ secrets.OSS_KEY_ID }}
+      #     accessKeySecret: ${{ secrets.OSS_KEY_SECRET }}
+      #     bucket: ${{ secrets.OSS_HELLOADMIN_BUCKET }}
+      #     # e.g. "oss-cn-shanghai.aliyuncs.com"
+      #     endpoint: oss-cn-shanghai.aliyuncs.com
+      #     folder: ./dist
+      - name: Deploy
+          uses: garygrossgarten/github-action-scp@release
+          with:
+            local: ./dist
+            remote: /root/golang/helloadmin/frontend
+            host: ${{ secrets.DEV_SSH_HOST }}
+            username: ${{ secrets.DEV_SSH_USERNAME }}
+            privateKey: ${{ secrets.DEV_SSH_KEY }}
