@@ -10,7 +10,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  Build-Deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,12 +21,22 @@ jobs:
         run: |
           yarn install
           yarn run build
-      - name: Deploy to OSS
-        uses: fangbinwei/aliyun-oss-website-action@v1
+      # - name: Deploy to OSS
+      #   uses: fangbinwei/aliyun-oss-website-action@v1
+      #   with:
+      #     accessKeyId: ${{ secrets.OSS_KEY_ID }}
+      #     accessKeySecret: ${{ secrets.OSS_KEY_SECRET }}
+      #     bucket: ${{ secrets.OSS_HELLOADMIN_BUCKET }}
+      #     # e.g. "oss-cn-shanghai.aliyuncs.com"
+      #     endpoint: oss-cn-shanghai.aliyuncs.com
+      #     folder: ./dist
+      - name: Deploy HTML
+        uses: appleboy/scp-action@master
         with:
-          accessKeyId: ${{ secrets.OSS_KEY_ID }}
-          accessKeySecret: ${{ secrets.OSS_KEY_SECRET }}
-          bucket: ${{ secrets.OSS_HELLOADMIN_BUCKET }}
-          # e.g. "oss-cn-shanghai.aliyuncs.com"
-          endpoint: oss-cn-shanghai.aliyuncs.com
-          folder: ./dist
+          host: ${{ secrets.DEV_HOST }}
+          username: ${{ secrets.DEV_USERNAME }}
+          port: ${{ secrets.DEV_PORT }}
+          key: ${{ secrets.DEV_KEY }}
+          source: "./dist/*"
+          target: "/usr/wwwroot/helloadmin/frontend"
+          strip_components: 1
