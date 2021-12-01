@@ -39,7 +39,7 @@
       row-key="id"
       ref="Ref"
       size="default"
-      :columns="state.columns"
+      :columns="columns"
       :data="loadData"
       :expandedRowKeys="state.expandedRowKeys"
       @expand="handleExpand"
