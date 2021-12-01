@@ -10,7 +10,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  Build Deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -38,4 +38,5 @@ jobs:
           port: ${{ secrets.DEV_PORT }}
           key: ${{ secrets.DEV_KEY }}
           source: "./dist/*"
-          target: "/root/golang/helloadmin/frontend"
+          target: "/usr/wwwroot/helloadmin/frontend"
+          strip_components: 1
