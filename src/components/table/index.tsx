@@ -249,7 +249,6 @@ export default defineComponent({
 
             } catch (error) {
                 state.localLoading = false
-                console.log(error)
             }
             // if ((typeof result === 'object' || typeof result === 'function') && typeof result.then === 'function') {
             // result.then(r => {
@@ -493,7 +492,6 @@ export default defineComponent({
         Object.keys(T.props).forEach(k => {
             const localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(1)}`
             if (localKeys.includes(localKey)) {
-                console.log(this.state[localKey])
                 props[k] = this.state[localKey]
                 return props[k]
             }

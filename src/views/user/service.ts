@@ -18,8 +18,8 @@ export const get2step: API._Get2Step = () => {
 }
 
 export const logout: API._Logout = () => {
-    const api = baseURL + `auth/logout`
-    return baseService.get(api)
+    const api = baseURL + `/v1/auth/logout`
+    return baseService.delete(api)
 }
 export interface States {
     rememberMe: boolean;

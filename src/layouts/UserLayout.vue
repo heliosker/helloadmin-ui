@@ -10,19 +10,20 @@
         <div class="more">了解更多</div>
         <div class="footer">Copyright &copy;&nbsp;2021 HelloAdmin 技术团队出品</div>
       </div>
-      <div class="user-layout-content">
-        <div class="top">
-          <div class="header">
-            <a href="/">
-              <!-- <img src="~@/assets/icons/logo.svg" class="logo" alt="logo" /> -->
-              <span class="title">HelloAdmin</span>
-            </a>
+      <a-card class="card" :bordered="false">
+        <div class="user-layout-content ant-card">
+          <div class="top">
+            <div class="header">
+              <a href="/">
+                <!-- <img src="~@/assets/icons/logo.svg" class="logo" alt="logo" /> -->
+                <span class="title">HelloAdmin</span>
+              </a>
+            </div>
+            <div class="desc"></div>
           </div>
-          <div class="desc"></div>
-        </div>
 
-        <router-view />
-        <!--
+          <router-view />
+          <!--
         <div class="footer">
           <div class="links">
             <a href="_self">帮助</a>
@@ -31,7 +32,8 @@
           </div>
           <div class="copyright">Copyright &copy;&nbsp;2021 Ones</div>
         </div> -->
-      </div>
+        </div>
+      </a-card>
     </div>
   </div>
 </template>
@@ -139,14 +141,20 @@ export default defineComponent({
         background-color: rgba(58, 98, 215, 0.5);
       }
     }
-    .user-layout-content {
-      padding: 32px 0 24px;
+    .card {
+      padding: 0px;
       display: inline-block;
       vertical-align: top;
       background: #fff;
       box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.2);
       width: 500px;
       height: 100%;
+      &:deep(.ant-card-body) {
+        padding: 0px;
+      }
+      .card-body {
+        height: 100%;
+      }
       .top {
         text-align: center;
         .header {

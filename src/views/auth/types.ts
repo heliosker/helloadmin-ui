@@ -72,20 +72,27 @@ export interface EditRole {
     message: string
 }
 export interface MenuInfo {
-    id: number
-    name: string
-    label: string
-    icon: string
-    parent_id: number
-    children: Array<any>
-    path: string
-    redirect: string
-    show: number
-    sort: number
-    updated_at: string
-    created_at: string
+    id?: number
+    name?: string
+    label?: string
+    icon?: string
+    parent_id?: number
+    children?: Array<any>
+    path?: string
+    redirect?: string
+    show?: number
+    sort?: number
+    key?: number
+    value?: string
+    updated_at?: string
+    created_at?: string
 }
 export interface MenuList {
+    code?: number
+    data: Array<MenuInfo>
+    message: string
+}
+export interface EditMenu {
     code?: number
     data: MenuInfo
     message: string
@@ -101,9 +108,10 @@ export interface Logout extends Response {
 export module API {
     export type _UserList = (data: any) => Promise<UserList>
     export type _RoleList = (data: any) => Promise<RoleList>
-    export type _editUser = (param: string, data: any) => Promise<EditUser>
-    export type _editRole = (param: string, data: any) => Promise<EditRole>
-    export type _menuList = (param: string, data: any) => Promise<MenuList>
+    export type _EitUser = (param: string, data: any) => Promise<EditUser>
+    export type _EditRole = (param: string, data: any) => Promise<EditRole>
+    export type _MenuList = (data?: any) => Promise<MenuList>
+    export type _EditMenu = (param: string, data?: any) => Promise<EditMenu>
 }
 
 export interface FormState {

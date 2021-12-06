@@ -66,7 +66,7 @@
     <a-card :bordered="false" :body-style="{ padding: '0' }">
       <div class="card_content">
         <div class="title">访问统计</div>
-        <Column :data="barData" :title="''" />
+        <Column :data="state.barData" :title="''" />
       </div>
     </a-card>
   </div>
@@ -135,7 +135,6 @@ export default defineComponent({
         y: Math.floor(Math.random() * 1000) + 200
       })
     }
-    console.log(state.barData)
     return {
       store,
       state

@@ -1,6 +1,7 @@
 import { FormSchema } from "@/../types/schema";
-// import team from '@/server/team';
-// import Avater from './avater.vue'
+import { createVNode } from 'vue';
+import FontPicker from './fontPicker.vue'
+import * as api from '../service'
 
 export const getFormSchema = (): FormSchema => ({
     style: {
@@ -49,15 +50,21 @@ export const getFormSchema = (): FormSchema => ({
             type: 'select',
             label: '父级菜单',
             field: 'parent_id',
-            value: '',
-            options: [{ key: 0, value: '根节点' }],
+            value: undefined,
+            options: [],
+            asyncOptions: async () => {
+                const data = await api.menuList({ options: 'true' })
+                if (data.code === 200200) {
+                    return [{ key: 0, value: '根节点' }, ...data.data]
+                }
+            },
             props: {
-                placeholder: '请输入账户'
+                placeholder: '请选择父级菜单'
             },
             rules: [
                 {
                     required: true,
-                    message: '账户不能为空'
+                    message: '父级菜单不能为空！'
                 }
             ]
         },
@@ -86,17 +93,17 @@ export const getFormSchema = (): FormSchema => ({
             }
         },
         {
-            type: 'select',
+            type: createVNode(FontPicker),
             label: '图标',
             field: 'icon',
             value: '',
             props: {
-                placeholder: '请输入邮箱'
+                placeholder: '请选择图标'
             },
             rules: [
                 {
                     required: false,
-                    message: '邮箱不能为空'
+                    message: '图标不能为空'
                 }
             ]
         },

@@ -4,11 +4,25 @@
   justify-content: space-between;
   .card {
 		width: calc(50% - 10px);
+        height: ;
 		.chart-card-header {
 			height: 45px;
 			line-height: 45px;
 			border-bottom: 1px solid #D9D9D9;
 			font-weight: 600;
+            button {
+                margin-right: 20px;
+                border-radius: 5px;
+                &:last-child {
+                    margin-right: 0px;
+                    background-color: #F79323;
+                    border-color: #F79323;
+                    &:hover {
+                        background-color: #efb97c;
+                        border-color: #efb97c;
+                    }
+                }
+            }
 		}
   }
   .menu-tree,
@@ -22,17 +36,19 @@
   }
   .menu-tree {
     overflow: hidden;
-    &:deep(.ant-tree-child-tree) {
-      .ant-tree-node-content-wrapper {
-        display: flex;
-      }
-      .ant-tree-treenode-switcher-open {
-        display: flex;
-      }
+    &:deep(ul) {
+        .ant-tree-switcher {
+            vertical-align: -webkit-baseline-middle;
+        }
+        .ant-tree-node-content-wrapper {
+            width: calc(100% - 24px);
+        }
     }
     &:deep(.ant-tree) {
         li .ant-tree-node-content-wrapper {
             background-color: #f5f5f5;
+            padding: 5px;
+            height: auto;
         }
     }
     &:deep(.ant-tree-node-content-wrapper) {
@@ -41,15 +57,43 @@
     &:deep(.ant-tree-title) {
       width: 100%;
       display: inline-block;
+      svg {
+        vertical-align: middle;
+        margin-right: 4px;
+      }
     }
-    .tree-node {
+    &:deep(.ant-tree-child-tree) {
+      li {
+        display: flex;
+      }
+      .ant-tree-treenode-switcher-open {
+        display: flex;
+      }
+      .ant-tree-title {
+          width: calc(100% - 24px);
+      }
+    }
+    .tree-node, .tree-parent {
       display: flex;
       justify-content: space-between;
       width: 100%;
+      .but_type {
+          color: @primary-color;
+          &:hover {
+              opacity: 0.6;
+          }
+          &:last-child {
+              color: @error-color;
+          }
+      }
     }
     .but_operation {
       .but_type {
         margin-right: 5px;
+        .anticon {
+            vertical-align: middle;
+            font-size: 16px;
+        }
       }
     }
   }

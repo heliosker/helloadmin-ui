@@ -1,28 +1,47 @@
 <template>
   <div class="menu-list">
-    <a-card
-      :loading="state.loading"
-      class="card"
-      :body-style="{ padding: '10px 14px' }"
-      :bordered="false"
-    >
+    <a-card class="card" :body-style="{ padding: '10px 14px' }" :bordered="false">
       <div class="menu-tree">
-        <p class="chart-card-header">使用 scoped slot</p>
+        <p class="chart-card-header">
+          <a-button type="primary" @click="() => toggleOpen()"><PlusOutlined />展开</a-button
+          ><a-button type="primary" danger @click="() => toggleClose()"
+            ><MinusOutlined />收起</a-button
+          ><a-button type="primary" @click="() => refresh()" :loading="state.refreshLoading">
+            <template #icon>
+              <SyncOutlined />
+            </template>
+            刷新</a-button
+          >
+        </p>
         <a-tree
+          v-model:expandedKeys="state.expandedKeys"
           :tree-data="state.treeData"
           default-expand-all
           show-icon
           :replaceFields="state.replaceFields"
         >
-          <!-- <template #label="item"><DeleteOutlined /> </template> -->
-          <template #icon="item"> <DeleteOutlined /></template>
+          <template #label="item">
+            <span class="tree-parent">
+              <span><SvgIcon :name="item.icon" />{{ item.label }}</span>
+              <span class="but_operation">
+                <span class="but_type" @click="() => add(item.id)"><PlusSquareOutlined /></span>
+                <span class="but_type" @click="() => edit(item)"><FormOutlined /></span>
+                <span class="but_type" style="right: 120px" @click="() => remove(item.id)"
+                  ><DeleteOutlined
+                /></span>
+              </span>
+            </span>
+          </template>
+          <template #icon="item"></template>
+          <template #n_icon="item">
+            <SvgIcon :name="item.icon" />
+          </template>
           <template #custom="item">
             <span class="tree-node">
               <span>{{ item.label }}</span>
               <span class="but_operation">
-                <span class="but_type" @click="(e) => add(item)"><PlusSquareOutlined /></span>
                 <span class="but_type" @click="() => edit(item)"><FormOutlined /></span>
-                <span class="but_type" style="right: 120px" @click="() => remove(item)"
+                <span class="but_type" style="right: 120px" @click="() => remove(item.id)"
                   ><DeleteOutlined
                 /></span>
               </span>
@@ -37,9 +56,14 @@
       :body-style="{ padding: '10px 14px' }"
       :bordered="false"
     >
-      <div class="chart-card-header">新增菜单</div>
+      <div class="chart-card-header">{{ state.isAdd ? '新增菜单' : '编辑菜单' }}</div>
       <div class="menu-form">
-        <validate-form ref="formRef" :fields="state.fields" :form-schema="state.formSchema" />
+        <validate-form
+          ref="formRef"
+          v-if="state.show"
+          :fields="state.fields"
+          :form-schema="state.formSchema"
+        />
         <div class="footer-btn">
           <a-button>重置</a-button>
           <a-button type="primary" @click="handleSave" :loading="confirmLoading">保存</a-button>
@@ -49,10 +73,19 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, h } from 'vue'
+import { defineComponent, reactive, createVNode, ref, h } from 'vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
+import { Modal, message } from 'ant-design-vue'
 import ValidateForm from '@/components/validateForm/validateForm.vue'
-import { FormOutlined, PlusSquareOutlined, DeleteOutlined } from '@ant-design/icons-vue'
+import {
+  FormOutlined,
+  PlusSquareOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+  MinusOutlined,
+  SyncOutlined,
+  ExclamationCircleOutlined
+} from '@ant-design/icons-vue'
 import * as api from '../service'
 import { getFormSchema } from './form-schema'
 
@@ -62,39 +95,36 @@ export default defineComponent({
     SvgIcon,
     PlusSquareOutlined,
     FormOutlined,
-    DeleteOutlined
+    DeleteOutlined,
+    SyncOutlined,
+    MinusOutlined,
+    PlusOutlined,
+    ExclamationCircleOutlined
   },
   setup(props) {
     const formRef = ref<any>(null)
-    const state = reactive({
-      loading: false,
-      confirmLoading: false,
-      formSchema: getFormSchema(),
-      fields: {
+    const getInitalState = () => {
+      return {
         label: '',
         parent_id: '',
         path: '',
         icon: '',
         show: 1
-      },
-      treeData: [
-        {
-          id: '3',
-          label: '23',
-          children: [
-            {
-              id: '111',
-              label: '1111',
-              slots: { icon: 'dashborad', title: 'custom' }
-            },
-            {
-              id: '1112',
-              label: '1121',
-              slots: { icon: 'dashborad', title: 'custom' }
-            }
-          ]
-        }
-      ],
+      }
+    }
+    const state = reactive({
+      loading: false,
+      refreshLoading: false,
+      expandedKeys: [],
+      confirmLoading: false,
+      allExpandedKeys: [],
+      formSchema: getFormSchema(),
+      menuOptions: [],
+      isAdd: true,
+      show: true,
+      id: '',
+      fields: getInitalState(),
+      treeData: [],
       selected: false,
       replaceFields: {
         key: 'id',
@@ -103,13 +133,13 @@ export default defineComponent({
       }
     })
     const newMenu = (data, a) => {
-      // let arr = [];
       data.forEach((v) => {
-        if (v.children.length > 0) {
+        if (v.children && v.children.length > 0) {
+          v.slots = { icon: 'icon', title: 'label' }
           newMenu(v.children, true)
         } else {
           if (a) {
-            v.slots = { icon: v.icon, title: 'custom' }
+            v.slots = { icon: 'n_icon', title: 'custom' }
           } else {
             v.slots = { icon: 'icon', title: 'label' }
           }
@@ -122,49 +152,137 @@ export default defineComponent({
         if (res.code === 200200) {
           const data = res.data
           let arr = []
+          let allExpandedKeys = []
           const newData = newMenu(data)
-          console.log(newData)
+          for (let i = 0; i <= data.length - 1; i++) {
+            const item = data[i]
+            allExpandedKeys.push(item.id)
+          }
+          state.allExpandedKeys = allExpandedKeys
           state.treeData = newData
         }
       })
     }
     menuData()
-    const add = (item) => {
-      console.log(item)
+    /**
+     * 重置数据
+     */
+    const resetState = () => {
+      Object.assign(state.fields, getInitalState())
+      state.show = false
+      setTimeout(() => {
+        state.show = true
+      }, 0)
     }
+    /**
+     * 添加菜单
+     * @param {number} id 节点id
+     */
+    const add = (id) => {
+      state.isAdd = true
+      state.show = true
+      const item = { ...state.fields }
+      item.parent_id = id
+      state.loading = true
+      setTimeout(() => {
+        state.loading = false
+      }, 0)
+      state.fields = item
+    }
+
+    /**
+     * 编辑菜单
+     * @param {object} item 节点信息
+     */
     const edit = (item) => {
-      console.log(123)
+      let obj = {}
+      state.isAdd = false
+      state.show = false
+      state.id = item.id
+      Object.keys(state.fields).forEach((v) => {
+        obj[v] = item[v]
+      })
+      state.loading = true
+      setTimeout(() => {
+        state.show = true
+        state.loading = false
+      }, 10)
+      state.fields = obj
     }
-    const del = (item) => {
-      console.log(123)
+
+    /**
+     * 删除菜单节点
+     * @param {number} id 菜单节点id
+     */
+    const remove = (id) => {
+      Modal.confirm({
+        title: '提示',
+        icon: createVNode(ExclamationCircleOutlined),
+        content: '确认要删除此节点吗？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: async () => {
+          const data = await api.deleteMenu(id)
+          if (data.code == 200200) {
+            message.success('删除成功！')
+            refresh()
+            Modal.destroyAll()
+          }
+        }
+      })
     }
+    /* 保存 */
     const handleSave = () => {
-      debugger
-      console.log(formRef.value)
       formRef.value
         .validate()
         .then(async () => {
           const param = formRef.value.modelRef
           state.confirmLoading = true
-          debugger
-          const data = api.addMenu(param)
-          debugger
-          if (data.code === 200200) {
+          if (state.isAdd) {
+            const { code } = await api.addMenu(param)
+            if (code === 200200) {
+              message.success('提交成功！')
+            }
+          } else {
+            const { code } = await api.editMenu(state.id, param)
+            if (code === 200200) {
+              message.success('更新成功！')
+            }
           }
+          resetState()
         })
         .catch((err) => {
           console.log('error', err)
         })
     }
+    /* 展开 */
+    const toggleOpen = () => {
+      state.expandedKeys = state.allExpandedKeys
+    }
+    /* 收起 */
+    const toggleClose = () => {
+      state.expandedKeys = []
+    }
+    /* 刷新 */
+    const refresh = async () => {
+      state.refreshLoading = true
+      const data = await menuData()
+      setTimeout(() => {
+        state.refreshLoading = false
+      }, 400)
+    }
     return {
       state,
       edit,
-      del,
+      remove,
       add,
       handleSave,
       newMenu,
       menuData,
-      formRef
+      formRef,
+      toggleClose,
+      toggleOpen,
+      refresh
     }
   }
 })

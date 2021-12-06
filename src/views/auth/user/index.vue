@@ -4,16 +4,16 @@
       <a-form layout="inline">
         <a-row :gutter="48">
           <a-col :md="8" :sm="24">
-            <a-form-item label="角色ID">
+            <a-form-item label="用户名称">
               <a-input placeholder="请输入" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item label="状态">
-              <a-select placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
+              <a-select placeholder="请选择">
+                <a-select-option v-for="(item, index) in state.status" :value="item.key">{{
+                  item.value
+                }}</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
@@ -42,7 +42,6 @@
       :columns="columns"
       :data="loadData"
       :expandedRowKeys="state.expandedRowKeys"
-      @expand="handleExpand"
       @add="add"
     >
       <!-- <template #action="{ record }">
@@ -234,6 +233,7 @@ export default defineComponent({
       }
     ]
     const state = reactive({
+      status: status,
       description:
         '列表使用场景：后台管理中的权限管理以及角色管理，可用于基于 RBAC 设计的角色权限控制，颗粒度细到每一个操作类型。',
       visible: false,
