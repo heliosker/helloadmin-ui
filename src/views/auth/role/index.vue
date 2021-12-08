@@ -69,6 +69,7 @@ import pick from 'lodash.pick'
 import STable from '@/components/table/index.tsx'
 import { Form } from 'ant-design-vue'
 import { defineComponent, reactive, ref, h, createVNode } from 'vue'
+import { useRouter } from 'vue-router'
 import { Icon } from '@/utils/icon.ts'
 import { useFormModal } from '@/hooks/formModal'
 import { DownOutlined, SettingOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
@@ -90,6 +91,7 @@ export default defineComponent({
   },
   setup(props) {
     const Ref = ref(null)
+    const router = useRouter()
     const state = reactive({
       visible: false,
       labelCol: {
@@ -219,7 +221,13 @@ export default defineComponent({
         }
       })
     }
-    const setAuth = () => {}
+    /**
+     * 授权设置
+     * @param {number} id id
+     */
+    const setAuth = (id: number) => {
+      router.push({ path: '/permissions' })
+    }
     // const onChange = (selectedRowKeys, selectedRows) => {
     //   state.selectedRowKeys = selectedRowKeys
     //   state.selectedRows = selectedRows
@@ -261,7 +269,9 @@ export default defineComponent({
       handleEdit,
       add,
       columns,
-      loadData
+      loadData,
+      router,
+      setAuth
     }
   }
 })

@@ -69,11 +69,3 @@ export module API {
     export type _GetSmsCaptcha = (data: { mobile: string }) => Promise<GetSmsCaptcha>
     export type _Logout = () => Promise<Logout>
 }
-
-export interface FormState {
-    rememberMe: boolean;
-    username: string;
-    password: string;
-    mobile: string;
-    captcha: string;
-}

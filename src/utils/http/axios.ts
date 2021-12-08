@@ -77,7 +77,7 @@ baseService.interceptors.response.use(
         //         const { data } = result
         //         message.error(data.msg || data.enMsg || data.message)
         // }
-        if (result.status === 401) {
+        if (result.status === 300200) {
             clearUserInfo();
             router.push({ name: 'login' })
         }

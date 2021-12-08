@@ -113,11 +113,3 @@ export module API {
     export type _MenuList = (data?: any) => Promise<MenuList>
     export type _EditMenu = (param: string, data?: any) => Promise<EditMenu>
 }
-
-export interface FormState {
-    rememberMe: boolean;
-    username: string;
-    password: string;
-    mobile: string;
-    captcha: string;
-}

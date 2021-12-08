@@ -40,4 +40,7 @@ export default {
     'auth.role-title': 'Role Management',
     'auth.user-list-title': 'User List',
     'auth.role-list-title': 'Role List',
+    'auth.permissions': 'Permissions',
+    'general.config-title': 'General',
+    'general.config-list-title': 'Config'
 }

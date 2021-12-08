@@ -119,6 +119,20 @@ export const example: Router = {
         //   ]
         // },
         {
+            path: '/general',
+            name: 'General',
+            component: RouteView,
+            meta: { title: 'menu.general.config-title', keepAlive: false, permission: ['admin'], hidden: false },
+            children: [
+                {
+                    path: '/config',
+                    name: 'Config',
+                    component: () => import('@/views/general/config.vue'),
+                    meta: { title: 'menu.general.config-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                }
+            ]
+        },
+        {
             path: '/user',
             name: 'administrators',
             component: RouteView,
@@ -143,6 +157,12 @@ export const example: Router = {
                     name: 'RoleList',
                     component: () => import('@/views/auth/role/index.vue'),
                     meta: { title: 'menu.auth.role-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                },
+                {
+                    path: '/permissions',
+                    name: 'Permissions',
+                    component: () => import('@/views/auth/role/permissions.vue'),
+                    meta: { title: 'menu.auth.permissions', keepAlive: false, permission: ['admin'], hidden: true },
                 }
             ]
         },

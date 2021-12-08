@@ -42,5 +42,8 @@ export default {
     'auth.menu-title': '菜单管理',
     'auth.user-list-title': '用户列表',
     'auth.role-list-title': '角色列表',
-    'auth.menu-list-title': '菜单列表'
+    'auth.permissions': '授权',
+    'auth.menu-list-title': '菜单列表',
+    'general.config-title': '常规配置',
+    'general.config-list-title': '系统配置'
 }
