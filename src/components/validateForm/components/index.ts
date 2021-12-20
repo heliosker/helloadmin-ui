@@ -1,6 +1,5 @@
 import path from 'path';
 
-// const file = require.context('./', true, /\.vue/)
 // const modulesFiles = require.context('./modules', true, /\.js$/) // webpack
 const files: any = import.meta.globEager("./*.vue") // vite
 const components = {}

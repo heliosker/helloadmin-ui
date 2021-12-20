@@ -1,14 +1,14 @@
 import { state } from './state';
 import app from './modules/app'
 import { createStore } from 'vuex';
-
+/* store */
 const store = createStore({
-  state,
-  mutations: {},
-  actions: {},
-  modules: {
-    app
-  },
+    state,
+    mutations: {},
+    actions: {},
+    modules: {
+        app
+    },
 });
 
 export default store

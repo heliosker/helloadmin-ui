@@ -11,7 +11,6 @@ const constantRouterComponents: { [x: string]: Function } = {
     BasicLayout,
     BlankLayout,
     RouteView,
-    // PageView,
     ...getRoutePages()
 }
 

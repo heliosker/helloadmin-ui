@@ -3,14 +3,15 @@
     <a-card class="card" :body-style="{ padding: '10px 14px' }" :bordered="false">
       <div class="menu-tree">
         <p class="chart-card-header">
-          <a-button type="primary" @click="() => toggleOpen()"><PlusOutlined />展开</a-button
+          <a-button type="primary" @click="() => toggleOpen()"
+            ><PlusOutlined />{{ $t('auth.menu.unfold') }}</a-button
           ><a-button type="primary" danger @click="() => toggleClose()"
-            ><MinusOutlined />收起</a-button
+            ><MinusOutlined />{{ $t('auth.menu.pickUp') }}</a-button
           ><a-button type="primary" @click="() => refresh()" :loading="state.refreshLoading">
             <template #icon>
               <SyncOutlined />
             </template>
-            刷新</a-button
+            {{ $t('common.refresh') }}</a-button
           >
         </p>
         <a-tree
@@ -56,7 +57,9 @@
       :body-style="{ padding: '10px 14px' }"
       :bordered="false"
     >
-      <div class="chart-card-header">{{ state.isAdd ? '新增菜单' : '编辑菜单' }}</div>
+      <div class="chart-card-header">
+        {{ state.isAdd ? $t('auth.menu.addMenu') : $t('auth.menu.editMenu') }}
+      </div>
       <div class="menu-form">
         <validate-form
           ref="formRef"
@@ -65,8 +68,10 @@
           :form-schema="state.formSchema"
         />
         <div class="footer-btn">
-          <a-button>重置</a-button>
-          <a-button type="primary" @click="handleSave" :loading="confirmLoading">保存</a-button>
+          <a-button>{{ $t('common.reset') }}</a-button>
+          <a-button type="primary" @click="handleSave" :loading="confirmLoading">{{
+            $t('common.save')
+          }}</a-button>
         </div>
       </div>
     </a-card>
@@ -75,8 +80,9 @@
 <script lang="ts">
 import { defineComponent, reactive, createVNode, ref, h } from 'vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import { Modal, message } from 'ant-design-vue'
+import { Modal } from 'ant-design-vue'
 import ValidateForm from '@/components/validateForm/validateForm.vue'
+import { openNotification } from '@/utils/util'
 import {
   FormOutlined,
   PlusSquareOutlined,
@@ -216,15 +222,15 @@ export default defineComponent({
      */
     const remove = (id) => {
       Modal.confirm({
-        title: '提示',
+        title: this.$t('common.tip'),
         icon: createVNode(ExclamationCircleOutlined),
-        content: '确认要删除此节点吗？',
-        okText: '确认',
-        cancelText: '取消',
+        content: this.$t('common.confirmDelete'),
+        okText: this.$t('common.confirm'),
+        cancelText: this.$t('common.cancel'),
         onOk: async () => {
           const data = await api.deleteMenu(id)
           if (data.code == 200200) {
-            message.success('删除成功！')
+            openNotification('success', this.$t('common.tip'), this.$t('common.deleteSuccess'))
             refresh()
             Modal.destroyAll()
           }
@@ -241,12 +247,12 @@ export default defineComponent({
           if (state.isAdd) {
             const { code } = await api.addMenu(param)
             if (code === 200200) {
-              message.success('提交成功！')
+              openNotification('success', this.$t('common.tip'), this.$t('common.submitSuccess'))
             }
           } else {
             const { code } = await api.editMenu(state.id, param)
             if (code === 200200) {
-              message.success('更新成功！')
+              openNotification('success', this.$t('common.tip'), this.$t('common.updatedSuccess'))
             }
           }
           resetState()

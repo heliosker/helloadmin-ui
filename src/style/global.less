@@ -4,7 +4,6 @@
 ::-webkit-scrollbar {
   width: 6px;
   border-radius: 10px;
-  // height: 6px;
 }
 
 ::-webkit-scrollbar-track-piece {
@@ -15,7 +14,6 @@
 
 ::-webkit-scrollbar-thumb {
   width: 6px;
-  // height: 6px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
@@ -81,7 +79,6 @@
       }
     }
 
-    // 浅色菜单,目前使用antv自动设置
     // &.ant-menu-light {
     //   .ant-menu-item-icon {
     //     color: #000 !important;
@@ -127,7 +124,25 @@
     }
   }
 }
-
+.ant-notification-notice {
+    &.success {
+        background: #f6ffed;
+    }
+    &.error {
+        background: #e74c3c;
+        color: #fff;
+        .anticon,.ant-notification-notice-message {
+            color: #fff;
+        }
+    }
+    &.warning {
+        background: #F79323;
+        color: #fff;
+        .anticon,.ant-notification-notice-message {
+            color: #fff;
+        }
+    }
+}
 // 内容区域宽度为固定时的样式
 .content-width-Fixed {
   &>main {

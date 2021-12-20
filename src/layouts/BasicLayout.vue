@@ -44,7 +44,7 @@
 
       <!-- layout content -->
       <a-layout-content
-        :style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }"
+        :style="{ height: '100%', margin: '24px', paddingTop: fixedHeader ? '64px' : '0' }"
       >
         <multi-tab v-if="multiTab"></multi-tab>
         <transition name="page-transition">
@@ -55,9 +55,9 @@
       </a-layout-content>
 
       <!-- layout footer -->
-      <a-layout-footer>
+      <!-- <a-layout-footer>
         <global-footer />
-      </a-layout-footer>
+      </a-layout-footer> -->
 
       <setting-drawer></setting-drawer>
     </a-layout>
@@ -71,7 +71,7 @@ import RouteView from './RouteView.vue'
 import MultiTab from '@/components/MultiTab/index.vue'
 import SideMenu from '@/components/Menu/SideMenu.vue'
 import GlobalHeader from '@/components/GlobalHeader/index.vue'
-import GlobalFooter from '@/components/GlobalFooter/index.vue'
+// import GlobalFooter from '@/components/GlobalFooter/index.vue'
 import SettingDrawer from '@/components/SettingDrawer/index.vue'
 import { convertRoutes } from '@/router/generateAsyncRoutes'
 import { filteRouterPermission } from '@/router/permission'
@@ -100,7 +100,7 @@ export default defineComponent({
     RouteView,
     SideMenu,
     GlobalHeader,
-    GlobalFooter,
+    // GlobalFooter,
     SettingDrawer
   },
   setup() {

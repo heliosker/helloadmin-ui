@@ -61,7 +61,6 @@ export default defineComponent({
   props: {
     mode: {
       type: String,
-      // sidemenu, topmenu
       default: 'sidemenu'
     },
     menus: {
@@ -123,17 +122,12 @@ export default defineComponent({
       document.body.removeEventListener('scroll', handleScroll, true)
     })
 
-    // const refreshPage = () => {
-    //   emit('refresh')
-    // }
-
     return {
       visible,
       fixedHeader,
       sidebarOpened,
       toggle,
       device
-      //   refreshPage
     }
   }
 })

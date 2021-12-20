@@ -38,8 +38,11 @@ export default {
     'account.logout': 'Logout',
     'auth.title': 'Auth Management',
     'auth.role-title': 'Role Management',
+    'auth.user-title': 'User Management',
+    'auth.menu-title': 'Menu Management',
     'auth.user-list-title': 'User List',
     'auth.role-list-title': 'Role List',
+    'auth.menu-list-title': 'Menu List',
     'auth.permissions': 'Permissions',
     'general.config-title': 'General',
     'general.config-list-title': 'Config'

@@ -12,6 +12,7 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 app.use(i18n)
+// app.config.globalProperties.$t = (key, value) => i18n.t(key, value);
 app.mount('#app');
 
 setupDefaultSetting()

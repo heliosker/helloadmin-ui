@@ -7,7 +7,7 @@ import { getSmsCaptcha } from './service'
 
 export const loginSuccess = (res, router: Router) => {
     // 延迟 1 秒显示欢迎信息
-    res.avatar = '/avatar2.jpg';
+    res.avatar = '/avatar.jpg';
     setTimeout(() => {
         notification.success({
             message: '欢迎',

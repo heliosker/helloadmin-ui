@@ -1,5 +1,6 @@
 import ls from '@/utils/Storage'
 import { ACCESS_TOKEN, PERMISSION, USER_INFO, MENU_NAV } from '@/store/mutation-types'
+import { notification } from 'ant-design-vue'
 
 export function clearUserInfo() {
     ls.remove(ACCESS_TOKEN)
@@ -47,7 +48,14 @@ export const getQueryParameters = (options) => {
 export const getBody = (options) => {
     return options.body && JSON.parse(options.body)
 }
-
+export const openNotification = (type: string, message: string, description: string, placement?: string) => {
+    notification[type]({
+        message,
+        description,
+        placement,
+        class: type
+    });
+};
 export function scorePassword(pass) {
     let score = 0
     if (!pass) {

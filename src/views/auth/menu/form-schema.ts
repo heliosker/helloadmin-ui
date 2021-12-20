@@ -2,7 +2,7 @@ import { FormSchema } from "@/../types/schema";
 import { createVNode } from 'vue';
 import FontPicker from './fontPicker.vue'
 import * as api from '../service'
-
+import { useI18n } from 'vue-i18n'
 export const getFormSchema = (): FormSchema => ({
     style: {
         width: "auto"
@@ -18,11 +18,11 @@ export const getFormSchema = (): FormSchema => ({
     formItem: [
         {
             type: 'input',
-            label: '菜单名称',
+            label: useI18n().t('auth.menu.menuName'),
             field: 'label',
             value: '',
             props: {
-                placeholder: '请输入菜单名称'
+                placeholder: useI18n().t('auth.menu.pleaseInput'),
             },
             rules: [
                 {

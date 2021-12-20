@@ -105,6 +105,11 @@ export interface Logout extends Response {
     result: {}
 }
 
+export interface langType {
+    [key: string]: string
+}
+
+
 export module API {
     export type _UserList = (data: any) => Promise<UserList>
     export type _RoleList = (data: any) => Promise<RoleList>

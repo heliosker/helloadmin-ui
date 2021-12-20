@@ -9,7 +9,7 @@ const router = createRouter({
     routes: routes as unknown as RouteRecordRaw[],
 });
 
-// 路由守卫,鉴权
+// 鉴权
 setupBeforeEach(router)
 
 setupAfterEach(router)

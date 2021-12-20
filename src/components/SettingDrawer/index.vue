@@ -83,7 +83,6 @@ export default defineComponent({
       commit(SET_SETTING_DRAWER, false)
     }
     const doCopy = () => {
-      // get current settings from mixin or this.$store.state.app, pay attention to the property name
       const text = `export default {
   primaryColor: '${state.app.primaryColor}', // primary color of ant design
   navTheme: '${state.app.navTheme}', // theme for nav menu

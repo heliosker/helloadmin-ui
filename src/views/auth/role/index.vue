@@ -20,46 +20,6 @@
       </a-form>
     </div>
     <s-table row-key="id" ref="Ref" size="default" :columns="columns" :data="loadData" @add="add">
-      <!-- <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
-        <a-row :gutter="24" :style="{ marginBottom: '12px' }">
-          <a-col
-            :span="12"
-            v-for="(role, index) in record.permissions"
-            :key="index"
-            :style="{ marginBottom: '12px', height: '23px' }"
-          >
-            <a-col :lg="4" :md="24">
-              <span>{{ role.permissionName }}：</span>
-            </a-col>
-            <a-col :lg="20" :md="24" v-if="role.actionList && role.actionList.length > 0">
-              <a-tag color="cyan" v-for="action in role.actionList" :key="action">{{
-                action | permissionFilter
-              }}</a-tag>
-            </a-col>
-            <a-col :span="20" v-else>-</a-col>
-          </a-col>
-        </a-row>
-      </div> -->
-      <!-- <a-tag color="blue" slot="status" slot-scope="text">{{ text | statusFilter }}</a-tag> -->
-      <!-- <span slot="createTime" slot-scope="text">{{ text | moment }}</span> -->
-      <span slot="action" slot-scope="text, record">
-        <a @click="handleEdit(record)">编辑</a>
-        <a-divider type="vertical" />
-        <a-dropdown>
-          <a class="ant-dropdown-link"> 更多 <DownOutlined /> </a>
-          <a-menu slot="overlay">
-            <a-menu-item>
-              <a href="javascript:;">详情</a>
-            </a-menu-item>
-            <a-menu-item>
-              <a href="javascript:;">禁用</a>
-            </a-menu-item>
-            <a-menu-item>
-              <a href="javascript:;">删除</a>
-            </a-menu-item>
-          </a-menu>
-        </a-dropdown>
-      </span>
     </s-table>
   </a-card>
 </template>
@@ -74,9 +34,10 @@ import { Icon } from '@/utils/icon.ts'
 import { useFormModal } from '@/hooks/formModal'
 import { DownOutlined, SettingOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { getFormSchema } from './form-schema'
-import { Divider, Menu, Dropdown, message, Modal } from 'ant-design-vue'
+import { Divider, Menu, Dropdown, Modal } from 'ant-design-vue'
 import { ColumnProps } from 'ant-design-vue/es/table/interface'
 import * as api from '../service'
+import { openNotification } from '@/utils/util'
 
 const useForm = Form.useForm
 
@@ -132,16 +93,17 @@ export default defineComponent({
       },
       {
         title: '操作',
-        width: '150px',
+        width: '180px',
         dataIndex: 'action',
         customRender: (row) => {
           return h(
             'span',
             {},
-            h('a', { onClick: () => setAuth(row.record) }, '设置权限'),
             h('a', { onClick: () => handleEdit(row.record) }, '编辑'),
             h(Divider, { type: 'vertical' }),
-            h('a', { onClick: () => handleDelete(row.record) }, '删除')
+            h('a', { onClick: () => handleDelete(row.record) }, '删除'),
+            h(Divider, { type: 'vertical' }),
+            h('a', { onClick: () => setAuth(row.record) }, '设置权限')
           )
         }
       }
@@ -193,7 +155,7 @@ export default defineComponent({
           }
           const { code } = await api.editRole(fields.id, params)
           if (code === 200200) {
-            message.success('编辑成功！')
+            openNotification('success', '提示', '编辑成功！')
             Ref.value.refresh()
           }
         }
@@ -211,7 +173,7 @@ export default defineComponent({
         onOk: async () => {
           const { code } = await api.deleteRole(row.id)
           if (code === 200200) {
-            message.success('删除成功！')
+            openNotification('success', '提示', '删除成功！')
             Ref.value.refresh()
           }
           Modal.destroyAll()
@@ -253,7 +215,7 @@ export default defineComponent({
           const { code } = await api.addRole(params)
           if (code === 200200) {
             Ref.value.refresh()
-            message.success('创建成功！')
+            openNotification('success', '提示', '创建成功！')
           }
         }
       })

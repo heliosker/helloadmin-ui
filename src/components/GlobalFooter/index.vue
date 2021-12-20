@@ -1,18 +1,17 @@
 <template>
   <div class="footer">
-    <div :class="['links',isMobile?'lessMargin':'']">
+    <div :class="['links', isMobile ? 'lessMargin' : '']">
       <a
         href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md"
         target="_blank"
-      >Pro 首页</a>
+        >Hello Admin 首页</a
+      >
       <a
         href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md"
         target="_blank"
       >
         <GithubOutlined />
       </a>
-      <a href="https://ant.design/">Ant Design</a>
-      <a href="https://2x.antdv.com/">Vue Antd</a>
     </div>
     <div class="copyright">
       Copyright

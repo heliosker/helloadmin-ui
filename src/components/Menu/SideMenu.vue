@@ -1,17 +1,28 @@
 <template>
   <a-layout-sider
-    :class="['sider', isDesktop ? null : 'shadow', theme, fixSiderbar ? 'ant-fixed-sidemenu' : null ]"
+    :class="[
+      'sider',
+      isDesktop ? null : 'shadow',
+      theme,
+      fixSiderbar ? 'ant-fixed-sidemenu' : null
+    ]"
     width="256px"
     :collapsible="collapsible"
     v-model:collapsed="collapsed"
     :trigger="null"
   >
     <logo />
-    <Menu :collapsed="collapsed" :menu="menus" :theme="theme" :mode="mode" @select="onSelect"></Menu>
+    <Menu
+      :collapsed="collapsed"
+      :menu="menus"
+      :theme="theme"
+      :mode="mode"
+      @select="onSelect"
+    ></Menu>
   </a-layout-sider>
 </template>
-
 <script lang="ts">
+/* sideMenu */
 import { defineComponent } from 'vue'
 import Logo from '@/components/tools/Logo.vue'
 import Menu from './Menu.vue'

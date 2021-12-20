@@ -9,7 +9,6 @@ const ContentType = {
     formData: 'multipart/form-data'
 }
 
-// 创建 axios 实例   withCredentials: true,
 const baseService = axios.create({
     baseURL,
     timeout: 60000,

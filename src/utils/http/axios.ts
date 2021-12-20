@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { message } from 'ant-design-vue'
 import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
-import { baseURL, clearUserInfo } from '@/utils/util'
+import { baseURL, clearUserInfo, openNotification } from '@/utils/util'
 import ls from '@/utils/Storage'
 import router from '@/router/index'
 import { globalLoading } from '@/store/reactiveState'
@@ -77,13 +77,13 @@ baseService.interceptors.response.use(
         //         const { data } = result
         //         message.error(data.msg || data.enMsg || data.message)
         // }
-        if (result.status === 300200) {
+        if (result.status === 401) {
             clearUserInfo();
             router.push({ name: 'login' })
         }
         else if (result) {
             const { data } = result
-            message.error(data.msg || data.enMsg || data.message)
+            openNotification('error', '提示', data.msg || data.enMsg || data.message)
         } else if (msg) {
             if (msg === 'Network Error') {
                 message.error('网络错误,请检查网络!')

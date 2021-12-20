@@ -1,14 +1,11 @@
 <template>
-  <!--placement="bottomRight"
-    :autoAdjustOverflow="false"
-  :arrowPointAtCenter="true"-->
   <a-popover
     v-model:visible="visible"
     trigger="click"
-    :placement="isMobile?'bottom':'bottomRight'"
+    :placement="isMobile ? 'bottom' : 'bottomRight'"
     overlayClassName="header-notice-wrapper"
     :getPopupContainer="getPopupContainer"
-    :overlayStyle="{ width: isMobile?'250px':'300px', top: '50px' }"
+    :overlayStyle="{ width: isMobile ? '250px' : '300px', top: '50px' }"
   >
     <template #content>
       <a-spin :spinning="loading">
@@ -44,7 +41,7 @@
               </a-list-item>
             </a-list>
           </a-tab-pane>
-          <a-tab-pane tab="消息" key="2">123</a-tab-pane>
+          <a-tab-pane tab="消息" key="2">1231</a-tab-pane>
           <a-tab-pane tab="待办" key="3">123</a-tab-pane>
         </a-tabs>
       </a-spin>

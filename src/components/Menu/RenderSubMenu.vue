@@ -1,5 +1,6 @@
 <template>
   <a-sub-menu
+    class="smenu"
     v-if="menu.children && !menu.hideChildrenInMenu"
     :key="menu.path"
     popupClassName="popupSubMenu"
@@ -7,7 +8,7 @@
     <template #icon>
       <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
     </template>
-    <template #title>{{$t(menu.meta.title)}}</template>
+    <template #title>{{ $t(menu.meta.title) }}</template>
     <template v-if="!menu.hideChildrenInMenu">
       <template v-for="sub in menu.children">
         <!-- 递归组件 -->
@@ -15,7 +16,6 @@
       </template>
     </template>
   </a-sub-menu>
-  <!-- renderMenuItem -->
   <a-menu-item :key="menu.path" v-else-if="!menu.meta.hidden">
     <template #icon>
       <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
@@ -24,13 +24,13 @@
     <a
       v-if="menu.meta.target"
       :href="menu.meta.target"
-      :target="menu.meta.blank===false?'':'_blank'"
+      :target="menu.meta.blank === false ? '' : '_blank'"
     >
       <!-- span重复了吧?这就是template的弊端,jsx才是王道 -->
-      <span>{{$t(menu.meta.title)}}</span>
+      <span>{{ $t(menu.meta.title) }}</span>
     </a>
     <router-link :to="filterParams(menu.path)" v-else>
-      <span>{{$t(menu.meta.title)}}</span>
+      <span>{{ $t(menu.meta.title) }}</span>
     </router-link>
   </a-menu-item>
 </template>
@@ -66,6 +66,62 @@ export default defineComponent({
 })
 </script>
 <style lang="less" scoped>
+@import '../../style/index.less';
+.smenu {
+  &.ant-menu-submenu-open,
+  &.ant-menu-submenu-open .ant-menu-item-selected {
+    svg {
+      &:last-of-type {
+        fill: @primary-color;
+      }
+    }
+  }
+}
+.ant-menu-submenu {
+  svg {
+    &:last-of-type {
+      fill: rgba(255, 255, 255, 0.65);
+    }
+  }
+
+  &.ant-menu-submenu-active,
+  &.ant-menu-submenu-selected {
+    svg {
+      &:last-of-type {
+        fill: #fff;
+      }
+    }
+  }
+}
+.ant-menu-dark {
+  .smenu {
+    &.ant-menu-submenu-open,
+    &.ant-menu-submenu-open .ant-menu-item-selected,
+    &.ant-menu-submenu-open {
+      svg {
+        &:last-of-type {
+          fill: #fff;
+        }
+      }
+      .ant-menu-sub {
+        svg {
+          &:last-of-type {
+            fill: rgba(255, 255, 255, 0.65);
+          }
+        }
+      }
+      .ant-menu-item-active,
+      .ant-menu-item-selected {
+        svg {
+          &:last-of-type {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
 .menuName {
   svg,
   span {
@@ -73,6 +129,9 @@ export default defineComponent({
   }
   svg {
     margin-right: 10px;
+    &:last-of-type {
+      fill: rgba(255, 255, 255, 0.65);
+    }
   }
 }
 </style>

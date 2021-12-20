@@ -15,7 +15,6 @@
                 }
               "
             >
-              <!-- <a-icon :type="link.icon" /> -->
               <span>{{ link.title }}</span>
             </a>
           </template>

@@ -5,7 +5,7 @@
         hideAdd
         type="editable-card"
         v-model:activeKey="activeKey"
-        :tabBarStyle="{margin: 0, paddingLeft: '16px', paddingTop: '1px' }"
+        :tabBarStyle="{ margin: 0, paddingLeft: '16px', paddingTop: '1px' }"
         @edit="onEdit"
       >
         <a-tab-pane
@@ -16,17 +16,21 @@
         >
           <template #tab>
             <a-dropdown :trigger="['contextmenu']">
-              <span :style="{ userSelect: 'none' }">{{page.meta.customTitle || $t(page.meta.title)}}</span>
+              <span :style="{ userSelect: 'none' }">{{
+                page.meta.customTitle || $t(page.meta.title)
+              }}</span>
               <template #overlay>
                 <a-menu
-                  @click="({ key, item, domEvent }) => {
-                this.closeMenuClick(key, page.fullPath);
-              }"
+                  @click="
+                    ({ key, item, domEvent }) => {
+                      this.closeMenuClick(key, page.fullPath)
+                    }
+                  "
                 >
-                  <a-menu-item key="closeSelf">{{$t('multiTab.closeCurrent')}}</a-menu-item>
-                  <a-menu-item key="closeRight">{{$t('multiTab.closeRight')}}</a-menu-item>
-                  <a-menu-item key="closeLeft">{{$t('multiTab.closeLeft')}}</a-menu-item>
-                  <a-menu-item key="closeAll">{{$t('multiTab.closeAll')}}</a-menu-item>
+                  <a-menu-item key="closeSelf">{{ $t('multiTab.closeCurrent') }}</a-menu-item>
+                  <a-menu-item key="closeRight">{{ $t('multiTab.closeRight') }}</a-menu-item>
+                  <a-menu-item key="closeLeft">{{ $t('multiTab.closeLeft') }}</a-menu-item>
+                  <a-menu-item key="closeAll">{{ $t('multiTab.closeAll') }}</a-menu-item>
                 </a-menu>
               </template>
             </a-dropdown>
@@ -60,7 +64,6 @@ export default defineComponent({
 
     ;(function created() {
       // 全局的事件绑定用于页面内控制tab标签,暂时用不上
-      // #region
       events.once('multiTab.open', (val) => {
         if (!val) {
           throw new Error(`multi-tab: open tab ${val} err`)

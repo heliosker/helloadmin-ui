@@ -42,12 +42,6 @@ export default defineComponent({
         xField: 'month',
         yField: 'sales',
         maxColumnWidth: 40
-        // columnBackground: {
-        //   style: {
-        //     fill: '#08d7ff',
-        //     fillOpacity: 0.25
-        //   }
-        // }
       })
       bar.render()
     })

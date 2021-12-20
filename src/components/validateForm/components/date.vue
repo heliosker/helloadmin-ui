@@ -23,7 +23,7 @@ export default defineComponent({
       type: Object as PropType<FormItem>,
       default: () => ({})
     },
-    value: undefined as any // 表单项值
+    value: undefined as any //表单项值
   },
   // eslint-disable-next-line
   setup(props, { attrs, emit }) {

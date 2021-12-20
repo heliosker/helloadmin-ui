@@ -122,61 +122,45 @@ export const example: Router = {
             path: '/general',
             name: 'General',
             component: RouteView,
-            meta: { title: 'menu.general.config-title', keepAlive: false, permission: ['admin'], hidden: false },
+            meta: { title: 'menu.general.config-title', icon: 'config', keepAlive: false, permission: ['admin'], hidden: false },
             children: [
                 {
                     path: '/config',
                     name: 'Config',
                     component: () => import('@/views/general/config.vue'),
-                    meta: { title: 'menu.general.config-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                    meta: { title: 'menu.general.config-list-title', icon: 'set', keepAlive: false, permission: ['admin'], hidden: false },
                 }
             ]
         },
         {
-            path: '/user',
-            name: 'administrators',
+            path: '/auth',
+            name: 'Auth',
             component: RouteView,
-            meta: { title: 'menu.auth.user-title', keepAlive: false, permission: ['admin'], hidden: false },
+            meta: { title: 'menu.auth.title', icon: 'auth', keepAlive: false, permission: ['admin'], hidden: false },
             children: [
                 {
                     path: '/user-list',
                     name: 'UserList',
                     component: () => import('@/views/auth/user/index.vue'),
-                    meta: { title: 'menu.auth.user-list-title', keepAlive: false, permission: ['admin'], hidden: false },
-                }
-            ]
-        },
-        {
-            path: '/role',
-            name: 'Role',
-            component: RouteView,
-            meta: { title: 'menu.auth.role-title', keepAlive: false, permission: ['admin'], hidden: false },
-            children: [
+                    meta: { title: 'menu.auth.user-list-title', icon: 'user1', keepAlive: false, permission: ['admin'], hidden: false },
+                },
                 {
                     path: '/role-list',
                     name: 'RoleList',
                     component: () => import('@/views/auth/role/index.vue'),
-                    meta: { title: 'menu.auth.role-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                    meta: { title: 'menu.auth.role-list-title', icon: 'role', keepAlive: false, permission: ['admin'], hidden: false },
                 },
                 {
                     path: '/permissions',
                     name: 'Permissions',
                     component: () => import('@/views/auth/role/permissions.vue'),
                     meta: { title: 'menu.auth.permissions', keepAlive: false, permission: ['admin'], hidden: true },
-                }
-            ]
-        },
-        {
-            path: '/menu',
-            name: 'Menu',
-            component: RouteView,
-            meta: { title: 'menu.auth.menu-title', keepAlive: false, permission: ['admin'], hidden: false },
-            children: [
+                },
                 {
                     path: '/menu-list',
                     name: 'MenuList',
                     component: () => import('@/views/auth/menu/index.vue'),
-                    meta: { title: 'menu.auth.menu-list-title', keepAlive: false, permission: ['admin'], hidden: false },
+                    meta: { title: 'menu.auth.menu-list-title', icon: 'menu', keepAlive: false, permission: ['admin'], hidden: false },
                 }
             ]
         },

@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import store from '@/store'
 const state = store.state
-
+/* 设置 */
 export const layoutMode = computed(() => state.app.layout)
 export const navTheme = computed(() => state.app.theme)
 export const primaryColor = computed(() => state.app.color)

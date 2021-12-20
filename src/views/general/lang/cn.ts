@@ -1,4 +1,5 @@
 export default {
-    'general.config.title': '变量标题',
-    'general.config.value': '变量值'
+    'config.title': '变量标题',
+    'config.value': '变量值',
+    'config.page.title': '系统配置'
 }

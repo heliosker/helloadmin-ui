@@ -44,115 +44,7 @@
       :expandedRowKeys="state.expandedRowKeys"
       @add="add"
     >
-      <!-- <template #action="{ record }">
-        <a>{{ record }}</a>
-      </template> -->
-      <!-- <div slot="expandedRowRender" slot-scope="record" style="margin: 0">
-        <a-row :gutter="24" :style="{ marginBottom: '12px' }">
-          <a-col
-            :span="12"
-            v-for="(role, index) in record.permissions"
-            :key="index"
-            :style="{ marginBottom: '12px', height: '23px' }"
-          >
-            <a-col :lg="4" :md="24">
-              <span>{{ role.permissionName }}：</span>
-            </a-col>
-            <a-col :lg="20" :md="24" v-if="role.actionList && role.actionList.length > 0">
-              <a-tag color="cyan" v-for="action in role.actionList" :key="action">{{
-                action | permissionFilter
-              }}</a-tag>
-            </a-col>
-            <a-col :span="20" v-else>-</a-col>
-          </a-col>
-        </a-row>
-      </div>
-      <a-tag color="blue" slot="status" slot-scope="text">{{ text | statusFilter }}</a-tag>
-      <span slot="createTime" slot-scope="text">{{ text | moment }}</span>
-      <span slot="action" slot-scope="text, record">
-        <a @click="handleEdit(record)">编辑</a>
-        <a-divider type="vertical" />
-        <a-dropdown>
-          <a class="ant-dropdown-link"> 更多 <DownOutlined /> </a>
-          <a-menu slot="overlay">
-            <a-menu-item>
-              <a href="javascript:;">详情</a>
-            </a-menu-item>
-            <a-menu-item>
-              <a href="javascript:;">禁用</a>
-            </a-menu-item>
-            <a-menu-item>
-              <a href="javascript:;">删除</a>
-            </a-menu-item>
-          </a-menu>
-        </a-dropdown>
-      </span> -->
     </s-table>
-    <!-- <a-modal title="操作" style="top: 20px" :width="800" v-model="state.visible" @ok="handleOk">
-      <a-form class="permission-form">
-        <a-form-item
-          :labelCol="state.labelCol"
-          :wrapperCol="state.wrapperCol"
-          v-bind="validateInfos.id"
-          label="唯一识别码"
-          hasFeedback
-          validateStatus="success"
-        >
-          <a-input placeholder="唯一识别码" disabled="disabled" />
-        </a-form-item>
-
-        <a-form-item
-          :labelCol="state.labelCol"
-          :wrapperCol="state.wrapperCol"
-          label="角色名称"
-          hasFeedback
-          v-bind="validateInfos.name"
-          validateStatus="success"
-        >
-          <a-input placeholder="起一个名字" />
-        </a-form-item>
-
-        <a-form-item
-          :labelCol="statelabelCol"
-          :wrapperCol="state.wrapperCol"
-          label="状态"
-          hasFeedback
-          v-bind="validateInfos.status"
-          validateStatus="warning"
-        >
-          <a-select>
-            <a-select-option :value="1">正常</a-select-option>
-            <a-select-option :value="2">禁用</a-select-option>
-          </a-select>
-        </a-form-item>
-
-        <a-form-item
-          :labelCol="state.labelCol"
-          :wrapperCol="wrapperCol"
-          label="描述"
-          v-bind="validateInfos.describe"
-          hasFeedback
-        >
-          <a-textarea :rows="5" placeholder="..." id="describe" />
-        </a-form-item>
-
-        <a-divider>拥有权限</a-divider>
-        <template v-for="permission in state.permissions">
-          <a-form-item
-            class="permission-group"
-            v-if="permission.actionsOptions && permission.actionsOptions.length > 0"
-            :labelCol="state.labelCol"
-            :wrapperCol="state.wrapperCol"
-            :key="permission.permissionId"
-            :label="permission.permissionName"
-            v-bind="[`validateInfos.permissions${permission.permissionId}`]"
-          >
-            <a-checkbox>全选</a-checkbox>
-            <a-checkbox-group :options="permission.actionsOptions" />
-          </a-form-item>
-        </template>
-      </a-form>
-    </a-modal> -->
   </a-card>
 </template>
 
@@ -160,7 +52,6 @@
 import pick from 'lodash.pick'
 import STable from '@/components/table/index.tsx'
 import { Form } from 'ant-design-vue'
-// import { PERMISSION_ENUM } from '@/core/permission/permission'
 import { defineComponent, reactive, ref, h } from 'vue'
 import { Icon } from '@/utils/icon.ts'
 import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
@@ -185,7 +76,6 @@ export default defineComponent({
     Divider,
     Menu,
     Dropdown,
-    // UpOutlined,
     SettingOutlined,
     Icon
   },
@@ -316,7 +206,11 @@ export default defineComponent({
       Modal.warning({
         title: () => '提示',
         content: () => '确认执行删除此操作？',
-        okText: '确认',
+        okText: () => '确认',
+        cancelText: () => '取消',
+        onCancel: () => {
+          Modal.destroyAll()
+        },
         onOk: async () => {
           const { code } = await api.deleteUser(row.id)
           if (code === 200200) {

@@ -524,10 +524,6 @@ export default defineComponent({
         };
         const table = (
             <Table {...props} onChange={this.loadData} size={this.topState.selectedSize} onExpand={(expanded, record) => this.expand(expanded, record)}>
-                {/* {this.slots.default?.()} */}
-                {/* <template v-for="(value, key) in $slots" #[key]="slotProps">
-                <slot :name="key" v-bind="slotProps"></slot>
-                </template > */}
             </Table>
         )
         const sizeMenu = (

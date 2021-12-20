@@ -106,22 +106,6 @@
           >{{ $t('user.login.login') }}</a-button
         >
       </a-form-item>
-
-      <!-- <div class="user-login-other">
-        <span>{{ $t('user.login.sign-in-with') }}</span>
-        <a>
-          <AlipayCircleOutlined />
-        </a>
-        <a>
-          <TaobaoCircleOutlined />
-        </a>
-        <a>
-          <WeiboCircleOutlined />
-        </a>
-        <router-link class="register" :to="{ name: 'register' }">
-          {{ $t('user.login.signup') }}
-        </router-link>
-      </div> -->
     </a-form>
 
     <!-- <two-step-captcha

@@ -25,9 +25,9 @@
             <a-progress
               :percent="state.percent"
               :showInfo="false"
-              :strokeColor=" passwordLevelColor "
+              :strokeColor="passwordLevelColor"
             />
-            <div style="margin-top: 10px;">
+            <div style="margin-top: 10px">
               <span>{{ $t('user.register.password.popover-message') }}</span>
             </div>
           </div>
@@ -62,13 +62,6 @@
           </a-select>
         </a-input>
       </a-form-item>
-      <!--<a-input-group size="large" compact>
-            <a-select style="width: 20%" size="large" defaultValue="+86">
-              <a-select-option value="+86">+86</a-select-option>
-              <a-select-option value="+87">+87</a-select-option>
-            </a-select>
-            <a-input style="width: 80%" size="large" placeholder="11 位手机号"></a-input>
-      </a-input-group>-->
 
       <a-row :gutter="16">
         <a-col class="gutter-row" :span="16">
@@ -89,7 +82,10 @@
             size="large"
             :disabled="state.smsSendBtn"
             @click.stop.prevent="getCaptcha"
-          >{{!state.smsSendBtn && $t('user.register.get-verification-code')||(state.time+' s')}}</a-button>
+            >{{
+              (!state.smsSendBtn && $t('user.register.get-verification-code')) || state.time + ' s'
+            }}</a-button
+          >
         </a-col>
       </a-row>
 
@@ -102,8 +98,11 @@
           :loading="registerBtn"
           @click.stop.prevent="handleSubmit"
           :disabled="registerBtn"
-        >{{ $t('user.register.register') }}</a-button>
-        <router-link class="login" :to="{ name: 'login' }">{{ $t('user.register.sign-in') }}</router-link>
+          >{{ $t('user.register.register') }}</a-button
+        >
+        <router-link class="login" :to="{ name: 'login' }">{{
+          $t('user.register.sign-in')
+        }}</router-link>
       </a-form-item>
     </a-form>
   </div>
