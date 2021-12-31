@@ -35,9 +35,10 @@ import { useFormModal } from '@/hooks/formModal'
 import { DownOutlined, SettingOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue'
 import { getFormSchema } from './form-schema'
 import { Divider, Menu, Dropdown, Modal } from 'ant-design-vue'
-import { ColumnProps } from 'ant-design-vue/es/table/interface'
-import * as api from '../service'
 import { openNotification } from '@/utils/util'
+
+import * as api from '../service'
+import { useI18n } from 'vue-i18n'
 
 const useForm = Form.useForm
 
@@ -53,6 +54,7 @@ export default defineComponent({
   setup(props) {
     const Ref = ref(null)
     const router = useRouter()
+    const { t } = useI18n()
     const state = reactive({
       visible: false,
       labelCol: {
@@ -103,7 +105,7 @@ export default defineComponent({
             h(Divider, { type: 'vertical' }),
             h('a', { onClick: () => handleDelete(row.record) }, '删除'),
             h(Divider, { type: 'vertical' }),
-            h('a', { onClick: () => setAuth(row.record) }, '设置权限')
+            h('a', { onClick: () => setAuth(row.record.id) }, '设置权限')
           )
         }
       }
@@ -173,7 +175,7 @@ export default defineComponent({
         onOk: async () => {
           const { code } = await api.deleteRole(row.id)
           if (code === 200200) {
-            openNotification('success', '提示', '删除成功！')
+            openNotification('success', t('common.tip'), t('common.submitSuccess'))
             Ref.value.refresh()
           }
           Modal.destroyAll()
@@ -188,12 +190,8 @@ export default defineComponent({
      * @param {number} id id
      */
     const setAuth = (id: number) => {
-      router.push({ path: '/permissions' })
+      router.push({ path: 'permissions', query: { id } })
     }
-    // const onChange = (selectedRowKeys, selectedRows) => {
-    //   state.selectedRowKeys = selectedRowKeys
-    //   state.selectedRows = selectedRows
-    // }
     const handleExpand = (expanded, record) => {
       //   console.log('expanded', expanded, record)
       //   if (expanded) {

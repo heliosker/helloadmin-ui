@@ -83,6 +83,7 @@ import SvgIcon from '@/components/SvgIcon/index.vue'
 import { Modal } from 'ant-design-vue'
 import ValidateForm from '@/components/validateForm/validateForm.vue'
 import { openNotification } from '@/utils/util'
+import { useI18n } from 'vue-i18n'
 import {
   FormOutlined,
   PlusSquareOutlined,
@@ -109,6 +110,7 @@ export default defineComponent({
   },
   setup(props) {
     const formRef = ref<any>(null)
+    const { t } = useI18n()
     const getInitalState = () => {
       return {
         label: '',
@@ -222,15 +224,15 @@ export default defineComponent({
      */
     const remove = (id) => {
       Modal.confirm({
-        title: this.$t('common.tip'),
+        title: t('common.tip'),
         icon: createVNode(ExclamationCircleOutlined),
-        content: this.$t('common.confirmDelete'),
-        okText: this.$t('common.confirm'),
-        cancelText: this.$t('common.cancel'),
+        content: t('common.confirmDelete'),
+        okText: t('common.confirm'),
+        cancelText: t('common.cancel'),
         onOk: async () => {
           const data = await api.deleteMenu(id)
           if (data.code == 200200) {
-            openNotification('success', this.$t('common.tip'), this.$t('common.deleteSuccess'))
+            openNotification('success', t('common.tip'), t('common.deleteSuccess'))
             refresh()
             Modal.destroyAll()
           }
@@ -247,12 +249,12 @@ export default defineComponent({
           if (state.isAdd) {
             const { code } = await api.addMenu(param)
             if (code === 200200) {
-              openNotification('success', this.$t('common.tip'), this.$t('common.submitSuccess'))
+              openNotification('success', t('common.tip'), t('common.submitSuccess'))
             }
           } else {
             const { code } = await api.editMenu(state.id, param)
             if (code === 200200) {
-              openNotification('success', this.$t('common.tip'), this.$t('common.updatedSuccess'))
+              openNotification('success', t('common.tip'), t('common.updatedSuccess'))
             }
           }
           resetState()

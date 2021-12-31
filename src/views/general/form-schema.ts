@@ -93,13 +93,6 @@ export const getFormSchema = (): FormSchema => ({
                     required: false
                 }
             ]
-        },
-        {
-            type: 'radio',
-            label: '状态',
-            field: 'status',
-            value: 0,
-            options: [{ key: 0, value: '正常' }, { key: 1, value: '锁定' }]
         }
     ]
 })

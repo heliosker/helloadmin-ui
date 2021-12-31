@@ -97,6 +97,11 @@ export interface EditMenu {
     data: MenuInfo
     message: string
 }
+export interface AditMenu {
+    code?: number
+    data: object
+    message: string
+}
 export interface GetSmsCaptcha extends Response {
     result: { captcha: number }
 }
@@ -113,8 +118,9 @@ export interface langType {
 export module API {
     export type _UserList = (data: any) => Promise<UserList>
     export type _RoleList = (data: any) => Promise<RoleList>
-    export type _EitUser = (param: string, data: any) => Promise<EditUser>
+    export type _EditUser = (param: string, data: any) => Promise<EditUser>
     export type _EditRole = (param: string, data: any) => Promise<EditRole>
     export type _MenuList = (data?: any) => Promise<MenuList>
     export type _EditMenu = (param: string, data?: any) => Promise<EditMenu>
+    export type _AuthMenu = (id: string, data?: any) => Promise<AditMenu>
 }

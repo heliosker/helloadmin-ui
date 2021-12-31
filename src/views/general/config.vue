@@ -119,11 +119,12 @@ export default defineComponent({
           title: () => '提示',
           content: () => '确认执行删除此操作？',
           okText: '确认',
+          cancel: '取消',
           onOk: async () => {
             const ob = new FormData()
             ob.append('id', targetKey)
-            const data = api.delModule(ob)
-            if (data.code === 200200) {
+            const res = await api.delModule(ob)
+            if (res.code === 200200) {
               openNotification('success', '提示', '删除成功！')
               getConfigData()
             }
@@ -138,13 +139,12 @@ export default defineComponent({
         title: '添加配置',
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
-          const { tip, value, key, module_id, status, title } = modelRef
+          const { tip, value, key, module_id, title } = modelRef
           const params = {
             tip,
             value,
             key,
             module_id,
-            status,
             title
           }
           const obj = new FormData()
@@ -163,7 +163,6 @@ export default defineComponent({
      * 提交配置
      */
     const submit = async () => {
-      console.log(state.editableData)
       let arr = []
       Object.keys(state.editableData).forEach((v) => {
         let obj = {}

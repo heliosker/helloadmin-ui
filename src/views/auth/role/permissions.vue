@@ -2,7 +2,7 @@
   <div class="permissions">
     <div class="title">
       <ArrowLeftOutlined @click="cancel" class="arrow" />
-      权限配置
+      {{ $t('auth.role.permissionConfiguration') }}
     </div>
     <a-divider />
     <div class="p-content">
@@ -14,26 +14,27 @@
       >
         <a-tab-pane key="1">
           <template #tab>
-            <span class="label"><SvgIcon name="menu" />菜单权限</span>
+            <span class="label"><SvgIcon name="menu" />{{ $t('auth.role.menuPermission') }}</span>
           </template>
           <a-tree
             checkable
             :tree-data="state.treeData"
             :replaceFields="state.replaceFields"
-            v-model:selectedKeys="state.selectedKeys"
             v-model:checkedKeys="state.checkedKeys"
           >
           </a-tree>
         </a-tab-pane>
         <a-tab-pane key="2" force-render>
           <template #tab>
-            <span class="label"><SvgIcon name="interface" />接口权限</span>
+            <span class="label"
+              ><SvgIcon name="interface" />{{ $t('auth.role.interfacePermission') }}</span
+            >
           </template>
         </a-tab-pane>
       </a-tabs>
       <div class="action">
-        <a-button @click="cancel()">取消</a-button>
-        <a-button type="primary" @click="submit()">提交</a-button>
+        <a-button @click="cancel()">{{ $t('common.cancel') }}</a-button>
+        <a-button type="primary" @click="submit()">{{ $t('common.submit') }}</a-button>
       </div>
     </div>
   </div>
@@ -43,18 +44,21 @@ import { defineComponent, reactive, ref, h, createVNode } from 'vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 import * as api from '../service'
 import { ArrowLeftOutlined } from '@ant-design/icons-vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { openNotification } from '@/utils/util'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'permissions',
   components: { SvgIcon, ArrowLeftOutlined },
   setup(props) {
+    const { t } = useI18n()
     const router = useRouter()
+    const route = useRoute()
     const state = reactive({
       activeKey: ref('1'),
       treeData: [],
       checkedKeys: ref<number[]>([]),
-      selectedKeys: ref<number[]>([]),
       replaceFields: {
         key: 'id',
         title: 'label',
@@ -79,13 +83,23 @@ export default defineComponent({
         }
       })
     }
-
+    /**
+     * 菜单授权
+     */
+    const submit = async () => {
+      const obj = new FormData()
+      obj.append('menu_id', state.checkedKeys.join(','))
+      const data = await api.authMenu(Number(route.query.id), obj)
+      if (data.code === 200200)
+        openNotification('success', t('common.tip'), t('common.submitSuccess'))
+    }
     getMenuList()
     return {
       state,
       router,
       getMenuList,
-      cancel
+      cancel,
+      submit
     }
   }
 })

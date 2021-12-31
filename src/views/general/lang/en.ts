@@ -1,5 +1,5 @@
 export default {
-    'config.general.title': 'Title',
-    'config.general.value': 'Value',
-    'config.general.page.title': 'Config'
+    'config.title': 'Title',
+    'config.value': 'Value',
+    'config.page.title': 'Config'
 }

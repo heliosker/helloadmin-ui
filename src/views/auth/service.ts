@@ -7,12 +7,12 @@ export const getUserList: API._UserList = params => {
     return baseService.get(api, { params })
 }
 // 添加用户
-export const addUser: API._editUser = data => {
+export const addUser: API._EditUser = data => {
     const api = baseURL + `/v1/administrators`
     return baseService.post(api, data)
 }
 // 编辑用户
-export const editUser: API._editUser = (param, data) => {
+export const editUser: API._EditUser = (param, data) => {
     const api = baseURL + `/v1/administrators/` + param
     return baseService.put(api, data)
 }
@@ -52,6 +52,15 @@ export const menuList: API._MenuList = params => {
  */
 export const addMenu: API._EditMenu = data => {
     const api = baseURL + `/v1/menus`
+    return baseService.post(api, data)
+}
+/**
+ * 菜单授权
+ * @param {id, data} 菜单id，授权的菜单id
+ * @returns {Promise}
+ */
+export const authMenu: API._AuthMenu = (id, data) => {
+    const api = baseURL + `/v1/roles/${id}/menus`
     return baseService.post(api, data)
 }
 /**
