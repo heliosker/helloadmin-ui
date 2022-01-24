@@ -8,7 +8,14 @@
         <img src="~@/assets/logo.png" alt="" />
         <div class="desc">{{ $t('user.login.system') }}</div>
         <div class="more">了解更多</div>
-        <div class="footer">Copyright &copy;&nbsp;2021 HelloAdmin 技术团队出品</div>
+        <div class="footer">
+          Copyright &copy;&nbsp;2021 HelloAdmin 技术团队出品&copy;&nbsp;
+          <a
+            href="http://wap.scjgj.sh.gov.cn/businessCheck/verifKey.do?showType=extShow&serial=9031000020200902114821000006279656-SAIC_SHOW_310000-2022012010190859555&signData=MEYCIQCDgFCs3Blerh8irYwUBhOwI8nqTOfaZ7t230fCaCW5bQIhAOL7Aq7Hz57312KJUnsChCgQWI8YZ/XBJpf41CugHwHj"
+            target="_blank"
+            ><img src="~@/assets/record.png" alt=""
+          /></a>
+        </div>
       </div>
       <a-card class="card" :bordered="false">
         <div class="user-layout-content ant-card">
@@ -114,6 +121,9 @@ export default defineComponent({
         bottom: 18px;
         text-align: center;
         color: #fff;
+        img {
+          width: 20px;
+        }
       }
       .more {
         background: #fff;
