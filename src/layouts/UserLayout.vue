@@ -1,28 +1,17 @@
 <template>
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
-      <!-- <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger" />
-      </div> -->
       <div class="user-layout-right">
         <img src="~@/assets/logo.png" alt="" />
         <div class="desc">{{ $t('user.login.system') }}</div>
         <div class="more">了解更多</div>
-        <div class="footer">
-          Copyright &copy;&nbsp;2021 HelloAdmin 技术团队出品&copy;&nbsp;
-          <a
-            href="http://wap.scjgj.sh.gov.cn/businessCheck/verifKey.do?showType=extShow&serial=9031000020200902114821000006279656-SAIC_SHOW_310000-2022012010190859555&signData=MEYCIQCDgFCs3Blerh8irYwUBhOwI8nqTOfaZ7t230fCaCW5bQIhAOL7Aq7Hz57312KJUnsChCgQWI8YZ/XBJpf41CugHwHj"
-            target="_blank"
-            ><img src="~@/assets/record.png" alt=""
-          /></a>
-        </div>
+        <div class="footer">Copyright &copy;&nbsp;2021 HelloAdmin 技术团队出品&copy;&nbsp;</div>
       </div>
       <a-card class="card" :bordered="false">
         <div class="user-layout-content ant-card">
           <div class="top">
             <div class="header">
               <a href="/">
-                <!-- <img src="~@/assets/icons/logo.svg" class="logo" alt="logo" /> -->
                 <span class="title">HelloAdmin</span>
               </a>
             </div>
@@ -169,7 +158,7 @@ export default defineComponent({
         .header {
           height: 44px;
           line-height: 44px;
-
+          padding-top: 20px;
           .badge {
             position: absolute;
             display: inline-block;
@@ -201,7 +190,7 @@ export default defineComponent({
           font-size: 14px;
           color: rgba(0, 0, 0, 0.45);
           margin-top: 12px;
-          margin-bottom: 40px;
+          margin-bottom: 20px;
         }
       }
 
