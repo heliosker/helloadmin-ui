@@ -12,8 +12,9 @@ export default {
     submit: 'Submit',
     delete: 'Delete',
     pleaseInput: 'please input',
-    deleteSuccess: 'Delete succeeded！',
-    submitSuccess: 'Submit succeeded！',
-    updatedSuccess: 'Submit succeeded！',
+    deleteSuccess: 'Delete Succeeded！',
+    submitSuccess: 'Submit Succeeded！',
+    updatedSuccess: 'Submit Succeeded！',
+    createdSuccess: 'Created Succeeded',
     confirmDeletion: 'Are you sure to delete this operation'
 }

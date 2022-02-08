@@ -5,14 +5,6 @@
         <FullscreenExitOutlined v-if="state.fullscreen" @click="handleFullScreen" />
         <FullscreenOutlined v-else @click="handleFullScreen" />
       </span>
-      <!-- <a
-        href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md"
-        target="_blank"
-      >
-        <span class="action">
-          <QuestionCircleOutlined />
-        </span>
-      </a> -->
       <notice-icon class="action" />
       <a-dropdown>
         <span class="action ant-dropdown-link user-dropdown-menu">

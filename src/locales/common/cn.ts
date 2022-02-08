@@ -15,5 +15,6 @@ export default {
     deleteSuccess: '删除成功！',
     submitSuccess: '提交成功！',
     updatedSuccess: '更新成功！',
+    createdSuccess: '创建成功！',
     confirmDeletion: '确认执行删除此操作吗？'
 }

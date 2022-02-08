@@ -58,6 +58,7 @@ import { useFormModal } from '@/hooks/formModal'
 import { getFormSchema } from './form-schema'
 import { getModuleFormSchema } from './module-schema'
 import * as api from './service'
+import { useI18n } from 'vue-i18n'
 import { openNotification } from '@/utils/util'
 import { Modal } from 'ant-design-vue'
 
@@ -65,21 +66,22 @@ export default defineComponent({
   name: 'Config',
   components: { QuestionCircleOutlined, PlusOutlined },
   setup(props) {
+    const { t } = useI18n()
     const state = reactive({
       moduleList: [],
       columns: [
         {
-          title: '标题',
+          title: t('general.config.title'),
           dataIndex: 'title',
           width: 120
         },
         {
-          title: '变量值',
+          title: t('general.config.value'),
           dataIndex: 'value',
           slots: { customRender: 'value' }
         },
         {
-          title: '变量名',
+          title: t('general.config.name'),
           dataIndex: 'key',
           width: 180
         }
@@ -95,7 +97,7 @@ export default defineComponent({
     const onEdit = (targetKey: string | MouseEvent, action: string) => {
       if (action === 'add') {
         useFormModal({
-          title: '添加组',
+          title: t('general.add.module'),
           formSchema: getModuleFormSchema(),
           handleOk: async (modelRef) => {
             const { module } = modelRef
@@ -110,23 +112,24 @@ export default defineComponent({
             if (data.code === 200200) {
               getConfigData()
               getModuleList()
-              openNotification('success', '提示', '创建成功！')
+              openNotification('success', t('common.tip'), t('common.createdSuccess'))
             }
           }
         })
       } else {
         Modal.warning({
-          title: () => '提示',
-          content: () => '确认执行删除此操作？',
-          okText: '确认',
-          cancel: '取消',
+          title: () => t('common.tip'),
+          content: () => t('common.confirmDeletion'),
+          okText: t('common.confirm'),
+          cancel: t('common.cancel'),
           onOk: async () => {
             const ob = new FormData()
             ob.append('id', targetKey)
             const res = await api.delModule(ob)
             if (res.code === 200200) {
-              openNotification('success', '提示', '删除成功！')
+              openNotification('success', t('common.tip'), t('common.deleteSuccess'))
               getConfigData()
+              getModuleList()
             }
             Modal.destroyAll()
           }
@@ -136,7 +139,7 @@ export default defineComponent({
     const cancel = () => {}
     const addConfig = () => {
       formDrawer({
-        title: '添加配置',
+        title: t('general.add.config'),
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
           const { tip, value, key, module_id, title } = modelRef
@@ -154,7 +157,7 @@ export default defineComponent({
           const data = await api.addConfig(obj)
           if (data.code === 200200) {
             getConfigData()
-            openNotification('success', '提示', '创建成功！')
+            openNotification('success', t('common.tip'), t('common.createdSuccess'))
           }
         }
       })
@@ -171,7 +174,7 @@ export default defineComponent({
       })
       const data = await api.editConfig(arr)
       if (data.code === 200200) {
-        openNotification('success', '提示', '修改成功！')
+        openNotification('success', t('common.tip'), t('common.updatedSuccess'))
       }
     }
     /**
