@@ -69,6 +69,7 @@ export default defineComponent({
       state.fontSearchValue = null
       state.showJson = fontJson
     }
+    // 搜索
     const fontSearch = (value) => {
       if (value) {
         this.showJson = fontJson.filter((item) => {
@@ -78,6 +79,7 @@ export default defineComponent({
         this.showJson = fontJson
       }
     }
+    // 点击事件
     const fontClick = (item) => {
       modelValue.value = item
       state.fontVisible = false

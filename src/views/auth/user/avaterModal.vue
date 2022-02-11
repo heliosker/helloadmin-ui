@@ -34,7 +34,7 @@
         <a-upload name="file" :beforeUpload="beforeUpload" :showUploadList="false">
           <a-button>
             <template #icon><UploadOutlined /></template>
-            选择图片</a-button
+            {{ $t('user.select.picture') }}</a-button
           >
         </a-upload>
       </a-col>
@@ -59,7 +59,7 @@
         </a-button>
       </a-col>
       <a-col :lg="{ span: 2, offset: 6 }" :md="2">
-        <a-button type="primary" @click="finish('blob')">保存</a-button>
+        <a-button type="primary" @click="finish('blob')">{{ $t('common.save') }}</a-button>
       </a-col>
     </a-row>
   </a-modal>
@@ -69,6 +69,7 @@ import 'vue-cropper/dist/index.css'
 import { VueCropper } from 'vue-cropper'
 import { baseURL } from '@/utils/util'
 import baseService from '@/utils/http/axios.ts'
+import { useI18n } from 'vue-i18n'
 import {
   PlusOutlined,
   MinusOutlined,
@@ -184,12 +185,12 @@ export default {
     },
     okHandel() {
       const vm = this
-
+      const { t } = useI18n()
       vm.confirmLoading = true
       setTimeout(() => {
         vm.confirmLoading = false
         vm.close()
-        vm.$message.success('上传头像成功')
+        vm.$message.success(t('user.upload.acatar.success'))
       }, 2000)
     },
 

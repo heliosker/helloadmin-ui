@@ -1,5 +1,6 @@
 import { FormSchema } from "@/../types/schema";
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 export const getFormSchema = (): FormSchema => ({
     style: {
         width: "auto"
@@ -15,26 +16,26 @@ export const getFormSchema = (): FormSchema => ({
     formItem: [
         {
             type: 'input',
-            label: '角色',
+            label: t('role.name'),
             field: 'name',
             value: '',
             props: {
-                placeholder: '请输入角色'
+                placeholder: t('role.pleaseEnter') + t('role.name')
             },
             rules: [
                 {
                     required: true,
-                    message: '角色不能为空'
+                    message: t('role.name') + t('role.noEmpty')
                 }
             ]
         },
         {
             type: 'input',
-            label: '备注',
+            label: t('role.describe'),
             field: 'describe',
             value: '',
             props: {
-                placeholder: '请输入备注'
+                placeholder: t('role.pleaseEnter') + t('role.describe')
             }
         }
     ]

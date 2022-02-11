@@ -20,5 +20,6 @@ export default {
     submitSuccess: 'Submit Succeeded！',
     updatedSuccess: 'Submit Succeeded！',
     createdSuccess: 'Created Succeeded',
-    confirmDeletion: 'Are you sure to delete this operation'
+    confirmDeletion: 'Are you sure to delete this operation',
+    noEmpty: 'cannot be empty！'
 }

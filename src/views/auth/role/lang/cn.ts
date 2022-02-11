@@ -9,5 +9,5 @@ export default {
     'created.role': '创建角色',
     'permission.configuration': '权限配置',
     'menu.permission': '菜单权限',
-    'interface.permission': '接口权限'
+    'interface.permission': '接口权限',
 }

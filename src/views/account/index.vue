@@ -2,10 +2,7 @@
   <a-spin :spinning="loading">
     <div class="page-header-index-wide page-header-wrapper-grid-content-main">
       <a-row :gutter="24">
-        <a-col
-          :md="24"
-          :lg="7"
-        >
+        <a-col :md="24" :lg="7">
           <a-card :bordered="false">
             <div class="account-center-avatarHolder">
               <!-- 上传头像 -->
@@ -14,83 +11,53 @@
                 :defaultAvatar="userInfo.avatar"
                 v-if="showBaseSetting"
               />
-              <div class="username">{{userInfo.adAccount}}</div>
-              <div class="bio">{{userInfo.bio}}</div>
+              <div class="username">{{ userInfo.adAccount }}</div>
+              <div class="bio">{{ userInfo.bio }}</div>
             </div>
 
             <!-- 详情 -->
             <div class="account-center-detail">
-              <p>
-                <UserAddOutlined />{{userInfo.chineseName}}
-              </p>
-              <p>
-                <SmileOutlined />{{userInfo.nickname}}
-              </p>
-              <p>
-                <IdcardOutlined />{{userInfo.empPosition}}
-              </p>
+              <p><UserAddOutlined />{{ userInfo.chineseName }}</p>
+              <p><SmileOutlined />{{ userInfo.nickname }}</p>
+              <p><IdcardOutlined />{{ userInfo.empPosition }}</p>
             </div>
             <a-divider />
 
             <!-- 技能 -->
             <div class="account-center-tags">
-              <div class="tagsTitle">{{$t('account.skills')}}</div>
+              <div class="tagsTitle">{{ $t('account.skills') }}</div>
               <div>
-                <a-tag
-                  v-for="tag in userInfo.skills"
-                  :key="tag"
-                >{{ tag }}</a-tag>
-                <a-tag
-                  v-for="tag in userInfo.mySkills"
-                  :key="tag"
-                >{{ tag }}</a-tag>
+                <a-tag v-for="tag in userInfo.skills" :key="tag">{{ tag }}</a-tag>
+                <a-tag v-for="tag in userInfo.mySkills" :key="tag">{{ tag }}</a-tag>
               </div>
-              <div
-                class="tagsTitle"
-                style="margin-top:10px"
-              >{{$t('account.interest')}}</div>
+              <div class="tagsTitle" style="margin-top: 10px">{{ $t('account.interest') }}</div>
               <div>
-                <a-tag
-                  v-for="tag in userInfo.interest"
-                  :key="tag"
-                >{{ tag }}</a-tag>
-                <a-tag
-                  v-for="tag in userInfo.myInterest"
-                  :key="tag"
-                >{{ tag }}</a-tag>
+                <a-tag v-for="tag in userInfo.interest" :key="tag">{{ tag }}</a-tag>
+                <a-tag v-for="tag in userInfo.myInterest" :key="tag">{{ tag }}</a-tag>
               </div>
             </div>
             <a-divider :dashed="true" />
 
             <!-- 团队 -->
             <div class="account-center-team">
-              <div class="teamTitle">{{$t('account.team')}}</div>
+              <div class="teamTitle">{{ $t('account.team') }}</div>
               <div class="members">
                 <a-row>
                   <a-col :span="12">
                     <a>
-                      <a-avatar
-                        size="small"
-                        src="/account/levelOneDept.png"
-                      />
+                      <a-avatar size="small" src="/account/levelOneDept.png" />
                       <span class="member">{{ userInfo.levelOneDept }}</span>
                     </a>
                   </a-col>
                   <a-col :span="12">
                     <a>
-                      <a-avatar
-                        size="small"
-                        src="/account/levelTwoDept.png"
-                      />
+                      <a-avatar size="small" src="/account/levelTwoDept.png" />
                       <span class="member">{{ userInfo.levelTwoDept }}</span>
                     </a>
                   </a-col>
                   <a-col :span="24">
                     <a>
-                      <a-avatar
-                        size="small"
-                        src="/account/levelThreeDept.png"
-                      />
+                      <a-avatar size="small" src="/account/levelThreeDept.png" />
                       <span class="member">{{ userInfo.levelThreeDept }}</span>
                     </a>
                   </a-col>
@@ -99,16 +66,13 @@
             </div>
           </a-card>
         </a-col>
-        <a-col
-          :md="24"
-          :lg="17"
-        >
+        <a-col :md="24" :lg="17">
           <a-card
-            style="width:100%"
+            style="width: 100%"
             :bordered="false"
             :tabList="tabListNoTitle"
             :activeTabKey="noTitleKey"
-            @tabChange="key => handleTabChange(key, 'noTitleKey')"
+            @tabChange="(key) => handleTabChange(key, 'noTitleKey')"
           >
             <BaseSetting
               :userInfo="userInfo"
@@ -133,7 +97,7 @@ import UploadAvatar from './components/UploadAvatar.vue'
 import { divisionStringToArray, separator } from '@/utils/util'
 import { getPersonDetail } from './hooks'
 import { UpdateUserLabel, UserInfo } from './types'
-import { UserAddOutlined ,SmileOutlined,IdcardOutlined} from '@ant-design/icons-vue'
+import { UserAddOutlined, SmileOutlined, IdcardOutlined } from '@ant-design/icons-vue'
 import { useI18n } from 'vue-i18n'
 
 export default {
@@ -163,7 +127,7 @@ export default {
 
     const showBaseSetting = ref<Boolean>(false)
 
-    const getInitData: (param: Boolean) => void = async needAllAlbel => {
+    const getInitData: (param: Boolean) => void = async (needAllAlbel) => {
       loading.value = true
       const res = await getPersonDetail(needAllAlbel)
       if (needAllAlbel) {
@@ -179,7 +143,7 @@ export default {
       getInitData(true)
     })
 
-    const setavatar = async url => {
+    const setavatar = async (url) => {
       userInfo.value.avatar = url
       loading.value = true
       const res = await api.updatePersonDetail({ id: userInfo.value.id, avatar: url })
@@ -190,7 +154,7 @@ export default {
     }
 
     const { createMessage } = useMessage()
-    const onSaveBaseSetting = async data => {
+    const onSaveBaseSetting = async (data) => {
       if (!data.skills.length) {
         createMessage.error(t('account.needSkills'))
         return
@@ -207,7 +171,7 @@ export default {
         bio: data.bio
       })
       if (res) {
-        createMessage.success('保存成功')
+        createMessage.success(t('account.saveSuccess'))
         getInitData(false)
       }
       loading.value = false

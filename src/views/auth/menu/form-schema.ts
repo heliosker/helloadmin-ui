@@ -22,94 +22,94 @@ export const getFormSchema = (): FormSchema => ({
             field: 'label',
             value: '',
             props: {
-                placeholder: useI18n().t('auth.menu.pleaseInput'),
+                placeholder: useI18n().t('common.pleaseInput'),
             },
             rules: [
                 {
                     required: true,
-                    message: '菜单名称不能为空'
+                    message: useI18n().t('auth.menu.menuValidate')
                 }
             ]
         },
         {
             type: 'input',
-            label: '组件名称',
+            label: useI18n().t('auth.menu.componentName'),
             field: 'name',
             value: '',
             props: {
-                placeholder: '请输入组件名称'
+                placeholder: useI18n().t('common.pleaseInput') + useI18n().t('auth.menu.componentName')
             },
             rules: [
                 {
                     required: true,
-                    message: '组件名称不能为空'
+                    message: useI18n().t('auth.menu.componentNameValidate')
                 }
             ]
         },
         {
             type: 'select',
-            label: '父级菜单',
+            label: useI18n().t('auth.menu.parentMenu'),
             field: 'parent_id',
             value: undefined,
             options: [],
             asyncOptions: async () => {
                 const data = await api.menuList({ options: 'true' })
                 if (data.code === 200200) {
-                    return [{ key: 0, value: '根节点' }, ...data.data]
+                    return [{ key: 0, value: useI18n().t('auth.menu.rootNode') }, ...data.data]
                 }
             },
             props: {
-                placeholder: '请选择父级菜单'
+                placeholder: useI18n().t('auth.menu.pleaseSelectMenu')
             },
             rules: [
                 {
                     required: true,
-                    message: '父级菜单不能为空！'
+                    message: useI18n().t('auth.menu.parentMenuValidate')
                 }
             ]
         },
         {
             type: 'input',
-            label: '路由',
+            label: useI18n().t('auth.menu.route'),
             field: 'path',
             value: '',
             props: {
-                placeholder: '请输入路由'
+                placeholder: useI18n().t('auth.menu.pleaseEnterRoute')
             },
             rules: [
                 {
                     required: true,
-                    message: '路由不能为空'
+                    message: useI18n().t('auth.menu.route') + useI18n().t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'input',
-            label: '重定向',
+            label: useI18n().t('auth.menu.redirect'),
             field: 'redirect',
             value: '',
             props: {
-                placeholder: '请输入重定向路径'
+                placeholder: useI18n().t('common.pleaseInput') + useI18n().t('auth.menu.redirectUrl')
             }
         },
         {
             type: createVNode(FontPicker),
-            label: '图标',
+            label: useI18n().t('auth.menu.icon'),
             field: 'icon',
             value: '',
             props: {
-                placeholder: '请选择图标'
+                placeholder: useI18n().t('auth.menu.pleaseSelect') + useI18n().t('auth.menu.icon')
             },
             rules: [
                 {
                     required: false,
-                    message: '图标不能为空'
+                    message: useI18n().t('auth.menu.icon') + useI18n().t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'radio',
-            label: '展示',
+            label: useI18n().t('auth.menu.display'),
             field: 'show',
             value: 1,
             options: [{ key: 1, value: '是' }, { key: 0, value: '否' }]

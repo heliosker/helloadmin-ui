@@ -1,5 +1,7 @@
 import { FormSchema } from "@/../types/schema";
 import * as api from './service'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 export const getFormSchema = (): FormSchema => ({
     style: {
@@ -16,7 +18,7 @@ export const getFormSchema = (): FormSchema => ({
     formItem: [
         {
             type: 'select',
-            label: '分组',
+            label: t('general.module'),
             field: 'module_id',
             value: '',
             asyncOptions: async () => {
@@ -26,67 +28,67 @@ export const getFormSchema = (): FormSchema => ({
                 }
             },
             props: {
-                placeholder: '请选择分组'
+                placeholder: t('common.pleaseSelect') + t('general.module')
             },
             rules: [
                 {
                     required: true,
-                    message: '分组不能为空'
+                    message: t('general.module') + t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'input',
-            label: '变量名',
+            label: t('general.config.name'),
             field: 'key',
             value: '',
             props: {
-                placeholder: '请输入变量名'
+                placeholder: t('common.pleaseInput') + t('general.config.name')
             },
             rules: [
                 {
                     required: true,
-                    message: '变量名不能为空'
+                    message: t('general.config.name') + t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'input',
-            label: '变量值',
+            label: t('general.config.value'),
             field: 'value',
             value: '',
             props: {
-                placeholder: '请输入变量值'
+                placeholder: t('common.pleaseInput') + t('general.config.value')
             },
             rules: [
                 {
                     required: true,
-                    message: '变量值不能为空'
+                    message: t('general.config.value') + t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'input',
-            label: '标题',
+            label: t('general.title'),
             field: 'title',
             value: '',
             props: {
-                placeholder: '请输入变量值'
+                placeholder: t('common.pleaseInput') + t('general.title')
             },
             rules: [
                 {
                     required: false,
-                    message: '变量名不能为空'
+                    message: t('general.title') + t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'input',
-            label: '提示信息',
+            label: t('general.tip'),
             field: 'tip',
             value: '',
             props: {
-                placeholder: '请输入提示信息'
+                placeholder: t('common.pleaseInput') + t('general.tip')
             },
             rules: [
                 {

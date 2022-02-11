@@ -9,5 +9,5 @@ export default {
     'created.role': 'Create Role',
     'permission.configuration': 'Permission configuration',
     'menu.permission': 'Menu Permission',
-    'interface.permission': 'Interface Permission'
+    'interface.permission': 'Interface Permission',
 }

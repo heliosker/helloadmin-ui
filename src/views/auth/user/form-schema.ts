@@ -3,6 +3,8 @@ import { FormSchema } from "@/../types/schema";
 import { createVNode } from 'vue'
 import * as api from '../service'
 import Avater from './avater.vue'
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 export const getFormSchema = (): FormSchema => ({
     style: {
@@ -25,37 +27,37 @@ export const getFormSchema = (): FormSchema => ({
         },
         {
             type: 'input',
-            label: '账户',
+            label: t('user.account'),
             field: 'username',
             value: '',
             props: {
-                placeholder: '请输入账户'
+                placeholder: t('common.pleaseInput') + t('user.account')
             },
             rules: [
                 {
                     required: true,
-                    message: '账户不能为空'
+                    message: t('user.account') + t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'input',
-            label: '邮箱',
+            label: t('user.email'),
             field: 'email',
             value: '',
             props: {
-                placeholder: '请输入邮箱'
+                placeholder: t('common.pleaseInput') + t('user.email')
             },
             rules: [
                 {
                     required: false,
-                    message: '邮箱不能为空'
+                    message: t('user.email') + t('common.noEmpty')
                 }
             ]
         },
         {
             type: 'select',
-            label: '角色',
+            label: t('user.role'),
             field: 'role_id',
             value: undefined,
             options: [],
@@ -66,15 +68,15 @@ export const getFormSchema = (): FormSchema => ({
                 }
             },
             props: {
-                placeholder: '请选择员角色'
+                placeholder: t('common.pleaseSelect') + t('user.role')
             },
         },
         {
             type: 'radio',
-            label: '状态',
+            label: t('user.status'),
             field: 'status',
             value: 0,
-            options: [{ key: 0, value: '正常' }, { key: 1, value: '锁定' }]
+            options: [{ key: 0, value: t('user.normal') }, { key: 1, value: t('user.lock') }]
         }
     ]
 })

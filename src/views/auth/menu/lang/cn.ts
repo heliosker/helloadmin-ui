@@ -11,11 +11,15 @@ const lang: langType = {
     route: '路由',
     redirect: '重定向',
     redirectUrl: '重定向路径',
+    rootNode: '根节点',
     icon: '图标',
     display: '展示',
     yes: '是',
     no: '否',
-    pleaseInput: '请输入',
+    pleaseSelect: '请选择',
+    componentNameValidate: '请输入组件名称！',
+    pleaseSelectMenu: '请选择父级菜单',
+    pleaseEnterRoute: '请输入路由'
 }
 
 export default lang
