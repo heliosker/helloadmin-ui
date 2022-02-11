@@ -6,5 +6,8 @@ export default {
     'config.page.title': 'Config',
     'add.module': 'Add Module',
     'add.config': 'Add Config',
-    'config.name': 'Name'
+    'config.name': 'Name',
+    'module': 'Module',
+    'variable': 'Variable',
+    'tip': 'Tips'
 }

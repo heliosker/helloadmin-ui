@@ -4,16 +4,18 @@
       <a-form layout="inline">
         <a-row :gutter="48">
           <a-col :md="12" :sm="24">
-            <a-form-item label="角色ID">
-              <a-input placeholder="请输入" />
+            <a-form-item :label="$t('user.role.id')">
+              <a-input :placeholder="$t('pleaseInput')" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
             <span class="table-page-search-submitButtons">
-              <a-button type="primary" @click="Ref.table.refresh(true)">查询</a-button>
-              <a-button style="margin-left: 8px" @click="() => (state.queryParam = {})"
-                >重置</a-button
-              >
+              <a-button type="primary" @click="Ref.table.refresh(true)">{{
+                $t('common.search')
+              }}</a-button>
+              <a-button style="margin-left: 8px" @click="() => (state.queryParam = {})">{{
+                $t('common.reset')
+              }}</a-button>
             </span>
           </a-col>
         </a-row>
@@ -65,7 +67,7 @@ export default defineComponent({
         xs: { span: 24 },
         sm: { span: 16 }
       },
-      data: [{ id: 0, name: 'test', status: 1, createTime: '2021-01-09' }],
+      data: [],
       //   form: this.$form.createForm(this),
       permissions: [],
 
@@ -78,34 +80,34 @@ export default defineComponent({
     // 表头
     const columns: ColumnProps[] = [
       {
-        title: '唯一识别码',
+        title: t('role.id'),
         dataIndex: 'id'
       },
       {
-        title: '角色名称',
+        title: t('role.name'),
         dataIndex: 'name'
       },
       {
-        title: '备注',
+        title: t('role.describe'),
         dataIndex: 'describe'
       },
       {
-        title: '创建时间',
+        title: t('role.created'),
         dataIndex: 'created_at'
       },
       {
-        title: '操作',
+        title: t('common.action'),
         width: '180px',
         dataIndex: 'action',
         customRender: (row) => {
           return h(
             'span',
             {},
-            h('a', { onClick: () => handleEdit(row.record) }, '编辑'),
+            h('a', { onClick: () => handleEdit(row.record) }, t('common.edit')),
             h(Divider, { type: 'vertical' }),
-            h('a', { onClick: () => handleDelete(row.record) }, '删除'),
+            h('a', { onClick: () => handleDelete(row.record) }, t('common.delete')),
             h(Divider, { type: 'vertical' }),
-            h('a', { onClick: () => setAuth(row.record.id) }, '设置权限')
+            h('a', { onClick: () => setAuth(row.record.id) }, t('role.set.auth'))
           )
         }
       }
@@ -146,7 +148,7 @@ export default defineComponent({
     const handleEdit = (record) => {
       const fields = record
       useFormModal({
-        title: '编辑角色',
+        title: t('role.edit.role'),
         fields,
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
@@ -157,7 +159,7 @@ export default defineComponent({
           }
           const { code } = await api.editRole(fields.id, params)
           if (code === 200200) {
-            openNotification('success', '提示', '编辑成功！')
+            openNotification('success', t('common.tip'), t('common.updatedSuccess'))
             Ref.value.refresh()
           }
         }
@@ -166,12 +168,12 @@ export default defineComponent({
     // 删除
     const handleDelete = (row) => {
       Modal.confirm({
-        title: () => '提示',
-        content: () => '确认执行删除此操作？',
+        title: () => t('common.tip'),
+        content: () => t('common.confirmDeletion'),
         icon: () => createVNode(ExclamationCircleOutlined),
-        okText: () => '确认',
+        okText: () => t('common.confirm'),
         closable: true,
-        cancelText: () => '取消',
+        cancelText: () => t('cancel'),
         onOk: async () => {
           const { code } = await api.deleteRole(row.id)
           if (code === 200200) {
@@ -202,7 +204,7 @@ export default defineComponent({
     }
     const add = () => {
       useFormModal({
-        title: '创建角色',
+        title: t('role.created.role'),
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
           const { name, describe } = modelRef
@@ -213,7 +215,7 @@ export default defineComponent({
           const { code } = await api.addRole(params)
           if (code === 200200) {
             Ref.value.refresh()
-            openNotification('success', '提示', '创建成功！')
+            openNotification('success', t('common.tip'), t('common.createdSuccess'))
           }
         }
       })

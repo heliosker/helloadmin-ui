@@ -4,13 +4,13 @@
       <a-form layout="inline">
         <a-row :gutter="48">
           <a-col :md="8" :sm="24">
-            <a-form-item label="用户名称">
-              <a-input placeholder="请输入" />
+            <a-form-item :label="$t('user.username')">
+              <a-input :placeholder="$t('common.pleaseInput')" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
-            <a-form-item label="状态">
-              <a-select placeholder="请选择">
+            <a-form-item :label="$t('user.status')">
+              <a-select :placeholder="$t('common.pleaseInput')">
                 <a-select-option v-for="(item, index) in state.status" :value="item.key">{{
                   item.value
                 }}</a-select-option>
@@ -22,12 +22,14 @@
               class="table-page-search-submitButtons"
               :style="(state.advanced && { float: 'right', overflow: 'hidden' }) || {}"
             >
-              <a-button type="primary" @click="Ref.table.refresh(true)">查询</a-button>
-              <a-button style="margin-left: 8px" @click="() => (state.queryParam = {})"
-                >重置</a-button
-              >
+              <a-button type="primary" @click="Ref.table.refresh(true)">{{
+                $t('common.search')
+              }}</a-button>
+              <a-button style="margin-left: 8px" @click="() => (state.queryParam = {})">{{
+                $t('common.reset')
+              }}</a-button>
               <a @click="toggleAdvanced" style="margin-left: 8px">
-                {{ state.advanced ? '收起' : '展开' }}
+                {{ state.advanced ? $t('common.fold') : $t('common.open') }}
                 <Icon :icon="state.advanced ? 'UpOutlined' : 'DownOutlined'" />
               </a>
             </span>
@@ -59,12 +61,14 @@ import { formDrawer } from '@/hooks/formDrawer'
 import { DownOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import { ColumnProps } from 'ant-design-vue/es/table/interface'
 import { getFormSchema } from './form-schema'
+import { useI18n } from 'vue-i18n'
+import { openNotification } from '@/utils/util'
 import { Divider, Menu, Dropdown, message, Modal } from 'ant-design-vue'
 import * as api from '../service'
 const MenuItem = Menu.Item
 const status = [
-  { key: 0, value: '正常' },
-  { key: 1, value: '锁定' }
+  { key: 0, value: useI18n.t('user.normal') },
+  { key: 1, value: useI18n.t('user.lock') }
 ]
 const useForm = Form.useForm
 
@@ -81,43 +85,44 @@ export default defineComponent({
   },
   setup(props) {
     const Ref = ref(null)
+    const { t } = useI18n()
     const columns: ColumnProps[] = [
       {
-        title: '唯一识别码',
+        title: t('user.id'),
         dataIndex: 'id'
       },
       {
-        title: '用户名称',
+        title: t('user.username'),
         dataIndex: 'username'
       },
       {
-        title: '头像',
+        title: t('user.avatar'),
         dataIndex: 'avatar'
       },
       {
-        title: '状态',
+        title: t('user.status'),
         dataIndex: 'status',
         customRender: ({ text }) => {
           return status.filter((v) => v.key === text)[0].value
         }
       },
       {
-        title: '创建时间',
+        title: t('user.createdAt'),
         dataIndex: 'created_at',
         slots: { customRender: 'created_at' },
         sorter: true
       },
       {
-        title: '操作',
+        title: t('common.action'),
         width: '150px',
         dataIndex: 'action',
         customRender: (row) => {
           return h(
             'span',
             {},
-            h('a', { onClick: () => handleEdit(row.record) }, '编辑'),
+            h('a', { onClick: () => handleEdit(row.record) }, t('common.edit')),
             h(Divider, { type: 'vertical' }),
-            h('a', { onClick: () => handleDelete(row.record) }, '删除')
+            h('a', { onClick: () => handleDelete(row.record) }, t('common.delete'))
           )
         }
       }
@@ -135,7 +140,7 @@ export default defineComponent({
         xs: { span: 24 },
         sm: { span: 16 }
       },
-      data: [{ id: 0, name: 'test', status: 1, createTime: '2021-01-09' }],
+      data: [],
       permissions: [],
       // 高级搜索 展开/关闭
       advanced: false,
@@ -181,7 +186,7 @@ export default defineComponent({
     const handleEdit = (record) => {
       const fields = record
       formDrawer({
-        title: '编辑用户',
+        title: t('user.edit.user'),
         fields,
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
@@ -195,7 +200,7 @@ export default defineComponent({
           }
           const { code } = await api.editUser(fields.id, params)
           if (code === 200200) {
-            message.success('编辑成功！')
+            openNotification('success', t('common.tip'), t('common.updatedSuccess'))
             Ref.value.refresh()
           }
         }
@@ -204,17 +209,17 @@ export default defineComponent({
     // 删除
     const handleDelete = (row) => {
       Modal.warning({
-        title: () => '提示',
-        content: () => '确认执行删除此操作？',
-        okText: () => '确认',
-        cancelText: () => '取消',
+        title: () => t('common.tip'),
+        content: () => t('common.confirmDeletion'),
+        okText: () => t('common.confirm'),
+        cancelText: () => t('common.cancel'),
         onCancel: () => {
           Modal.destroyAll()
         },
         onOk: async () => {
           const { code } = await api.deleteUser(row.id)
           if (code === 200200) {
-            message.success('删除成功！')
+            openNotification('success', t('common.tip'), t('common.deleteSuccess'))
             Ref.value.refresh()
           }
           Modal.destroyAll()
@@ -223,10 +228,6 @@ export default defineComponent({
     }
     const handleOk = (e) => {
       e.preventDefault()
-      //   validate().then(() => {
-      //     consol.log('da')
-      //   }
-      //   )
     }
     const loadData = (parameter) => {
       const param = Object.assign(parameter, state.queryParam)
@@ -250,7 +251,7 @@ export default defineComponent({
     }
     const add = () => {
       formDrawer({
-        title: '创建用户',
+        title: t('user.created.user'),
         formSchema: getFormSchema(),
         handleOk: async (modelRef) => {
           const { avater, username, email, role_id, status } = modelRef
@@ -264,7 +265,7 @@ export default defineComponent({
           const data = await api.addUser(params)
           if (data.code === 200200) {
             Ref.value.refresh()
-            message.success('创建成功！')
+            openNotification('success', t('common.tip'), t('common.createdSuccess'))
           }
         }
       })

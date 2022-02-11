@@ -1,9 +1,12 @@
 export default {
     refresh: '刷新',
+    search: '查询',
     reset: '重置',
     save: '保存',
     tip: '提示',
     add: '新增',
+    open: '展开',
+    fold: '收起',
     pleaseInput: '请输入',
     confirmDelete: '确认要删除此节点吗？',
     confirm: '确认',
